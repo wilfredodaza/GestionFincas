@@ -1,0 +1,1536 @@
+.red { background-color: #f44336 !important; }
+.text-red { color: #f44336 !important; }
+.select2-results__option.red{ background-color: #f44336 !important; color: #fff !important; }
+.card.card-border-shadow-red::after { border-bottom-color: #f44336; }
+.card.card-border-shadow-red:hover::after { border-bottom-color: #f44336; }
+.bg-label-red { background-color: #ffebee !important; color: #f44336 !important; }
+.red.lighten-5 { background-color: #ffebee !important; }
+.text-red.text-lighten-5 { color: #ffebee !important; }
+.select2-results__option.red.lighten-5{ background-color: #ffebee !important; color: #fff !important; }
+.card.card-border-shadow-red-lighten-5::after { border-bottom-color: #ffebee; }
+.card.card-border-shadow-red-lighten-5:hover::after { border-bottom-color: #ffebee; }
+.bg-label-red-lighten-5 { background-color: #ffebee !important; color: #f44336 !important; }
+.red.lighten-4 { background-color: #ffcdd2 !important; }
+.text-red.text-lighten-4 { color: #ffcdd2 !important; }
+.select2-results__option.red.lighten-4{ background-color: #ffcdd2 !important; color: #fff !important; }
+.card.card-border-shadow-red-lighten-4::after { border-bottom-color: #ffcdd2; }
+.card.card-border-shadow-red-lighten-4:hover::after { border-bottom-color: #ffcdd2; }
+.bg-label-red-lighten-4 { background-color: #ffcdd2 !important; color: #f44336 !important; }
+.red.lighten-3 { background-color: #ef9a9a !important; }
+.text-red.text-lighten-3 { color: #ef9a9a !important; }
+.select2-results__option.red.lighten-3{ background-color: #ef9a9a !important; color: #fff !important; }
+.card.card-border-shadow-red-lighten-3::after { border-bottom-color: #ef9a9a; }
+.card.card-border-shadow-red-lighten-3:hover::after { border-bottom-color: #ef9a9a; }
+.bg-label-red-lighten-3 { background-color: #ef9a9a !important; color: #f44336 !important; }
+.red.lighten-2 { background-color: #e57373 !important; }
+.text-red.text-lighten-2 { color: #e57373 !important; }
+.select2-results__option.red.lighten-2{ background-color: #e57373 !important; color: #fff !important; }
+.card.card-border-shadow-red-lighten-2::after { border-bottom-color: #e57373; }
+.card.card-border-shadow-red-lighten-2:hover::after { border-bottom-color: #e57373; }
+.bg-label-red-lighten-2 { background-color: #e57373 !important; color: #f44336 !important; }
+.red.lighten-1 { background-color: #ef5350 !important; }
+.text-red.text-lighten-1 { color: #ef5350 !important; }
+.select2-results__option.red.lighten-1{ background-color: #ef5350 !important; color: #fff !important; }
+.card.card-border-shadow-red-lighten-1::after { border-bottom-color: #ef5350; }
+.card.card-border-shadow-red-lighten-1:hover::after { border-bottom-color: #ef5350; }
+.bg-label-red-lighten-1 { background-color: #ef5350 !important; color: #f44336 !important; }
+.red.darken-1 { background-color: #e53935 !important; }
+.text-red.text-darken-1 { color: #e53935 !important; }
+.select2-results__option.red.darken-1{ background-color: #e53935 !important; color: #fff !important; }
+.card.card-border-shadow-red-darken-1::after { border-bottom-color: #e53935; }
+.card.card-border-shadow-red-darken-1:hover::after { border-bottom-color: #e53935; }
+.bg-label-red-darken-1 { background-color: #e53935 !important; color: #f44336 !important; }
+.red.darken-2 { background-color: #d32f2f !important; }
+.text-red.text-darken-2 { color: #d32f2f !important; }
+.select2-results__option.red.darken-2{ background-color: #d32f2f !important; color: #fff !important; }
+.card.card-border-shadow-red-darken-2::after { border-bottom-color: #d32f2f; }
+.card.card-border-shadow-red-darken-2:hover::after { border-bottom-color: #d32f2f; }
+.bg-label-red-darken-2 { background-color: #d32f2f !important; color: #f44336 !important; }
+.red.darken-3 { background-color: #c62828 !important; }
+.text-red.text-darken-3 { color: #c62828 !important; }
+.select2-results__option.red.darken-3{ background-color: #c62828 !important; color: #fff !important; }
+.card.card-border-shadow-red-darken-3::after { border-bottom-color: #c62828; }
+.card.card-border-shadow-red-darken-3:hover::after { border-bottom-color: #c62828; }
+.bg-label-red-darken-3 { background-color: #c62828 !important; color: #f44336 !important; }
+.red.darken-4 { background-color: #b71c1c !important; }
+.text-red.text-darken-4 { color: #b71c1c !important; }
+.select2-results__option.red.darken-4{ background-color: #b71c1c !important; color: #fff !important; }
+.card.card-border-shadow-red-darken-4::after { border-bottom-color: #b71c1c; }
+.card.card-border-shadow-red-darken-4:hover::after { border-bottom-color: #b71c1c; }
+.bg-label-red-darken-4 { background-color: #b71c1c !important; color: #f44336 !important; }
+.red.accent-1 { background-color: #ff8a80 !important; }
+.text-red.text-accent-1 { color: #ff8a80 !important; }
+.select2-results__option.red.accent-1{ background-color: #ff8a80 !important; color: #fff !important; }
+.card.card-border-shadow-red-accent-1::after { border-bottom-color: #ff8a80; }
+.card.card-border-shadow-red-accent-1:hover::after { border-bottom-color: #ff8a80; }
+.bg-label-red-accent-1 { background-color: #ff8a80 !important; color: #f44336 !important; }
+.red.accent-2 { background-color: #ff5252 !important; }
+.text-red.text-accent-2 { color: #ff5252 !important; }
+.select2-results__option.red.accent-2{ background-color: #ff5252 !important; color: #fff !important; }
+.card.card-border-shadow-red-accent-2::after { border-bottom-color: #ff5252; }
+.card.card-border-shadow-red-accent-2:hover::after { border-bottom-color: #ff5252; }
+.bg-label-red-accent-2 { background-color: #ff5252 !important; color: #f44336 !important; }
+.red.accent-3 { background-color: #ff1744 !important; }
+.text-red.text-accent-3 { color: #ff1744 !important; }
+.select2-results__option.red.accent-3{ background-color: #ff1744 !important; color: #fff !important; }
+.card.card-border-shadow-red-accent-3::after { border-bottom-color: #ff1744; }
+.card.card-border-shadow-red-accent-3:hover::after { border-bottom-color: #ff1744; }
+.bg-label-red-accent-3 { background-color: #ff1744 !important; color: #f44336 !important; }
+.red.accent-4 { background-color: #d50000 !important; }
+.text-red.text-accent-4 { color: #d50000 !important; }
+.select2-results__option.red.accent-4{ background-color: #d50000 !important; color: #fff !important; }
+.card.card-border-shadow-red-accent-4::after { border-bottom-color: #d50000; }
+.card.card-border-shadow-red-accent-4:hover::after { border-bottom-color: #d50000; }
+.bg-label-red-accent-4 { background-color: #d50000 !important; color: #f44336 !important; }
+.pink { background-color: #e91e63 !important; }
+.text-pink { color: #e91e63 !important; }
+.select2-results__option.pink{ background-color: #e91e63 !important; color: #fff !important; }
+.card.card-border-shadow-pink::after { border-bottom-color: #e91e63; }
+.card.card-border-shadow-pink:hover::after { border-bottom-color: #e91e63; }
+.bg-label-pink { background-color: #fce4ec !important; color: #e91e63 !important; }
+.pink.lighten-5 { background-color: #fce4ec !important; }
+.text-pink.text-lighten-5 { color: #fce4ec !important; }
+.select2-results__option.pink.lighten-5{ background-color: #fce4ec !important; color: #fff !important; }
+.card.card-border-shadow-pink-lighten-5::after { border-bottom-color: #fce4ec; }
+.card.card-border-shadow-pink-lighten-5:hover::after { border-bottom-color: #fce4ec; }
+.bg-label-pink-lighten-5 { background-color: #fce4ec !important; color: #e91e63 !important; }
+.pink.lighten-4 { background-color: #f8bbd0 !important; }
+.text-pink.text-lighten-4 { color: #f8bbd0 !important; }
+.select2-results__option.pink.lighten-4{ background-color: #f8bbd0 !important; color: #fff !important; }
+.card.card-border-shadow-pink-lighten-4::after { border-bottom-color: #f8bbd0; }
+.card.card-border-shadow-pink-lighten-4:hover::after { border-bottom-color: #f8bbd0; }
+.bg-label-pink-lighten-4 { background-color: #f8bbd0 !important; color: #e91e63 !important; }
+.pink.lighten-3 { background-color: #f48fb1 !important; }
+.text-pink.text-lighten-3 { color: #f48fb1 !important; }
+.select2-results__option.pink.lighten-3{ background-color: #f48fb1 !important; color: #fff !important; }
+.card.card-border-shadow-pink-lighten-3::after { border-bottom-color: #f48fb1; }
+.card.card-border-shadow-pink-lighten-3:hover::after { border-bottom-color: #f48fb1; }
+.bg-label-pink-lighten-3 { background-color: #f48fb1 !important; color: #e91e63 !important; }
+.pink.lighten-2 { background-color: #f06292 !important; }
+.text-pink.text-lighten-2 { color: #f06292 !important; }
+.select2-results__option.pink.lighten-2{ background-color: #f06292 !important; color: #fff !important; }
+.card.card-border-shadow-pink-lighten-2::after { border-bottom-color: #f06292; }
+.card.card-border-shadow-pink-lighten-2:hover::after { border-bottom-color: #f06292; }
+.bg-label-pink-lighten-2 { background-color: #f06292 !important; color: #e91e63 !important; }
+.pink.lighten-1 { background-color: #ec407a !important; }
+.text-pink.text-lighten-1 { color: #ec407a !important; }
+.select2-results__option.pink.lighten-1{ background-color: #ec407a !important; color: #fff !important; }
+.card.card-border-shadow-pink-lighten-1::after { border-bottom-color: #ec407a; }
+.card.card-border-shadow-pink-lighten-1:hover::after { border-bottom-color: #ec407a; }
+.bg-label-pink-lighten-1 { background-color: #ec407a !important; color: #e91e63 !important; }
+.pink.darken-1 { background-color: #d81b60 !important; }
+.text-pink.text-darken-1 { color: #d81b60 !important; }
+.select2-results__option.pink.darken-1{ background-color: #d81b60 !important; color: #fff !important; }
+.card.card-border-shadow-pink-darken-1::after { border-bottom-color: #d81b60; }
+.card.card-border-shadow-pink-darken-1:hover::after { border-bottom-color: #d81b60; }
+.bg-label-pink-darken-1 { background-color: #d81b60 !important; color: #e91e63 !important; }
+.pink.darken-2 { background-color: #c2185b !important; }
+.text-pink.text-darken-2 { color: #c2185b !important; }
+.select2-results__option.pink.darken-2{ background-color: #c2185b !important; color: #fff !important; }
+.card.card-border-shadow-pink-darken-2::after { border-bottom-color: #c2185b; }
+.card.card-border-shadow-pink-darken-2:hover::after { border-bottom-color: #c2185b; }
+.bg-label-pink-darken-2 { background-color: #c2185b !important; color: #e91e63 !important; }
+.pink.darken-3 { background-color: #ad1457 !important; }
+.text-pink.text-darken-3 { color: #ad1457 !important; }
+.select2-results__option.pink.darken-3{ background-color: #ad1457 !important; color: #fff !important; }
+.card.card-border-shadow-pink-darken-3::after { border-bottom-color: #ad1457; }
+.card.card-border-shadow-pink-darken-3:hover::after { border-bottom-color: #ad1457; }
+.bg-label-pink-darken-3 { background-color: #ad1457 !important; color: #e91e63 !important; }
+.pink.darken-4 { background-color: #880e4f !important; }
+.text-pink.text-darken-4 { color: #880e4f !important; }
+.select2-results__option.pink.darken-4{ background-color: #880e4f !important; color: #fff !important; }
+.card.card-border-shadow-pink-darken-4::after { border-bottom-color: #880e4f; }
+.card.card-border-shadow-pink-darken-4:hover::after { border-bottom-color: #880e4f; }
+.bg-label-pink-darken-4 { background-color: #880e4f !important; color: #e91e63 !important; }
+.pink.accent-1 { background-color: #ff80ab !important; }
+.text-pink.text-accent-1 { color: #ff80ab !important; }
+.select2-results__option.pink.accent-1{ background-color: #ff80ab !important; color: #fff !important; }
+.card.card-border-shadow-pink-accent-1::after { border-bottom-color: #ff80ab; }
+.card.card-border-shadow-pink-accent-1:hover::after { border-bottom-color: #ff80ab; }
+.bg-label-pink-accent-1 { background-color: #ff80ab !important; color: #e91e63 !important; }
+.pink.accent-2 { background-color: #ff4081 !important; }
+.text-pink.text-accent-2 { color: #ff4081 !important; }
+.select2-results__option.pink.accent-2{ background-color: #ff4081 !important; color: #fff !important; }
+.card.card-border-shadow-pink-accent-2::after { border-bottom-color: #ff4081; }
+.card.card-border-shadow-pink-accent-2:hover::after { border-bottom-color: #ff4081; }
+.bg-label-pink-accent-2 { background-color: #ff4081 !important; color: #e91e63 !important; }
+.pink.accent-3 { background-color: #f50057 !important; }
+.text-pink.text-accent-3 { color: #f50057 !important; }
+.select2-results__option.pink.accent-3{ background-color: #f50057 !important; color: #fff !important; }
+.card.card-border-shadow-pink-accent-3::after { border-bottom-color: #f50057; }
+.card.card-border-shadow-pink-accent-3:hover::after { border-bottom-color: #f50057; }
+.bg-label-pink-accent-3 { background-color: #f50057 !important; color: #e91e63 !important; }
+.pink.accent-4 { background-color: #c51162 !important; }
+.text-pink.text-accent-4 { color: #c51162 !important; }
+.select2-results__option.pink.accent-4{ background-color: #c51162 !important; color: #fff !important; }
+.card.card-border-shadow-pink-accent-4::after { border-bottom-color: #c51162; }
+.card.card-border-shadow-pink-accent-4:hover::after { border-bottom-color: #c51162; }
+.bg-label-pink-accent-4 { background-color: #c51162 !important; color: #e91e63 !important; }
+.purple { background-color: #9c27b0 !important; }
+.text-purple { color: #9c27b0 !important; }
+.select2-results__option.purple{ background-color: #9c27b0 !important; color: #fff !important; }
+.card.card-border-shadow-purple::after { border-bottom-color: #9c27b0; }
+.card.card-border-shadow-purple:hover::after { border-bottom-color: #9c27b0; }
+.bg-label-purple { background-color: #f3e5f5 !important; color: #9c27b0 !important; }
+.purple.lighten-5 { background-color: #f3e5f5 !important; }
+.text-purple.text-lighten-5 { color: #f3e5f5 !important; }
+.select2-results__option.purple.lighten-5{ background-color: #f3e5f5 !important; color: #fff !important; }
+.card.card-border-shadow-purple-lighten-5::after { border-bottom-color: #f3e5f5; }
+.card.card-border-shadow-purple-lighten-5:hover::after { border-bottom-color: #f3e5f5; }
+.bg-label-purple-lighten-5 { background-color: #f3e5f5 !important; color: #9c27b0 !important; }
+.purple.lighten-4 { background-color: #e1bee7 !important; }
+.text-purple.text-lighten-4 { color: #e1bee7 !important; }
+.select2-results__option.purple.lighten-4{ background-color: #e1bee7 !important; color: #fff !important; }
+.card.card-border-shadow-purple-lighten-4::after { border-bottom-color: #e1bee7; }
+.card.card-border-shadow-purple-lighten-4:hover::after { border-bottom-color: #e1bee7; }
+.bg-label-purple-lighten-4 { background-color: #e1bee7 !important; color: #9c27b0 !important; }
+.purple.lighten-3 { background-color: #ce93d8 !important; }
+.text-purple.text-lighten-3 { color: #ce93d8 !important; }
+.select2-results__option.purple.lighten-3{ background-color: #ce93d8 !important; color: #fff !important; }
+.card.card-border-shadow-purple-lighten-3::after { border-bottom-color: #ce93d8; }
+.card.card-border-shadow-purple-lighten-3:hover::after { border-bottom-color: #ce93d8; }
+.bg-label-purple-lighten-3 { background-color: #ce93d8 !important; color: #9c27b0 !important; }
+.purple.lighten-2 { background-color: #ba68c8 !important; }
+.text-purple.text-lighten-2 { color: #ba68c8 !important; }
+.select2-results__option.purple.lighten-2{ background-color: #ba68c8 !important; color: #fff !important; }
+.card.card-border-shadow-purple-lighten-2::after { border-bottom-color: #ba68c8; }
+.card.card-border-shadow-purple-lighten-2:hover::after { border-bottom-color: #ba68c8; }
+.bg-label-purple-lighten-2 { background-color: #ba68c8 !important; color: #9c27b0 !important; }
+.purple.lighten-1 { background-color: #ab47bc !important; }
+.text-purple.text-lighten-1 { color: #ab47bc !important; }
+.select2-results__option.purple.lighten-1{ background-color: #ab47bc !important; color: #fff !important; }
+.card.card-border-shadow-purple-lighten-1::after { border-bottom-color: #ab47bc; }
+.card.card-border-shadow-purple-lighten-1:hover::after { border-bottom-color: #ab47bc; }
+.bg-label-purple-lighten-1 { background-color: #ab47bc !important; color: #9c27b0 !important; }
+.purple.darken-1 { background-color: #8e24aa !important; }
+.text-purple.text-darken-1 { color: #8e24aa !important; }
+.select2-results__option.purple.darken-1{ background-color: #8e24aa !important; color: #fff !important; }
+.card.card-border-shadow-purple-darken-1::after { border-bottom-color: #8e24aa; }
+.card.card-border-shadow-purple-darken-1:hover::after { border-bottom-color: #8e24aa; }
+.bg-label-purple-darken-1 { background-color: #8e24aa !important; color: #9c27b0 !important; }
+.purple.darken-2 { background-color: #7b1fa2 !important; }
+.text-purple.text-darken-2 { color: #7b1fa2 !important; }
+.select2-results__option.purple.darken-2{ background-color: #7b1fa2 !important; color: #fff !important; }
+.card.card-border-shadow-purple-darken-2::after { border-bottom-color: #7b1fa2; }
+.card.card-border-shadow-purple-darken-2:hover::after { border-bottom-color: #7b1fa2; }
+.bg-label-purple-darken-2 { background-color: #7b1fa2 !important; color: #9c27b0 !important; }
+.purple.darken-3 { background-color: #6a1b9a !important; }
+.text-purple.text-darken-3 { color: #6a1b9a !important; }
+.select2-results__option.purple.darken-3{ background-color: #6a1b9a !important; color: #fff !important; }
+.card.card-border-shadow-purple-darken-3::after { border-bottom-color: #6a1b9a; }
+.card.card-border-shadow-purple-darken-3:hover::after { border-bottom-color: #6a1b9a; }
+.bg-label-purple-darken-3 { background-color: #6a1b9a !important; color: #9c27b0 !important; }
+.purple.darken-4 { background-color: #4a148c !important; }
+.text-purple.text-darken-4 { color: #4a148c !important; }
+.select2-results__option.purple.darken-4{ background-color: #4a148c !important; color: #fff !important; }
+.card.card-border-shadow-purple-darken-4::after { border-bottom-color: #4a148c; }
+.card.card-border-shadow-purple-darken-4:hover::after { border-bottom-color: #4a148c; }
+.bg-label-purple-darken-4 { background-color: #4a148c !important; color: #9c27b0 !important; }
+.purple.accent-1 { background-color: #ea80fc !important; }
+.text-purple.text-accent-1 { color: #ea80fc !important; }
+.select2-results__option.purple.accent-1{ background-color: #ea80fc !important; color: #fff !important; }
+.card.card-border-shadow-purple-accent-1::after { border-bottom-color: #ea80fc; }
+.card.card-border-shadow-purple-accent-1:hover::after { border-bottom-color: #ea80fc; }
+.bg-label-purple-accent-1 { background-color: #ea80fc !important; color: #9c27b0 !important; }
+.purple.accent-2 { background-color: #e040fb !important; }
+.text-purple.text-accent-2 { color: #e040fb !important; }
+.select2-results__option.purple.accent-2{ background-color: #e040fb !important; color: #fff !important; }
+.card.card-border-shadow-purple-accent-2::after { border-bottom-color: #e040fb; }
+.card.card-border-shadow-purple-accent-2:hover::after { border-bottom-color: #e040fb; }
+.bg-label-purple-accent-2 { background-color: #e040fb !important; color: #9c27b0 !important; }
+.purple.accent-3 { background-color: #d500f9 !important; }
+.text-purple.text-accent-3 { color: #d500f9 !important; }
+.select2-results__option.purple.accent-3{ background-color: #d500f9 !important; color: #fff !important; }
+.card.card-border-shadow-purple-accent-3::after { border-bottom-color: #d500f9; }
+.card.card-border-shadow-purple-accent-3:hover::after { border-bottom-color: #d500f9; }
+.bg-label-purple-accent-3 { background-color: #d500f9 !important; color: #9c27b0 !important; }
+.purple.accent-4 { background-color: #aa00ff !important; }
+.text-purple.text-accent-4 { color: #aa00ff !important; }
+.select2-results__option.purple.accent-4{ background-color: #aa00ff !important; color: #fff !important; }
+.card.card-border-shadow-purple-accent-4::after { border-bottom-color: #aa00ff; }
+.card.card-border-shadow-purple-accent-4:hover::after { border-bottom-color: #aa00ff; }
+.bg-label-purple-accent-4 { background-color: #aa00ff !important; color: #9c27b0 !important; }
+.deep-purple { background-color: #673ab7 !important; }
+.text-deep-purple { color: #673ab7 !important; }
+.select2-results__option.deep-purple{ background-color: #673ab7 !important; color: #fff !important; }
+.card.card-border-shadow-deep-purple::after { border-bottom-color: #673ab7; }
+.card.card-border-shadow-deep-purple:hover::after { border-bottom-color: #673ab7; }
+.bg-label-deep-purple { background-color: #ede7f6 !important; color: #673ab7 !important; }
+.deep-purple.lighten-5 { background-color: #ede7f6 !important; }
+.text-deep-purple.text-lighten-5 { color: #ede7f6 !important; }
+.select2-results__option.deep-purple.lighten-5{ background-color: #ede7f6 !important; color: #fff !important; }
+.card.card-border-shadow-deep-purple-lighten-5::after { border-bottom-color: #ede7f6; }
+.card.card-border-shadow-deep-purple-lighten-5:hover::after { border-bottom-color: #ede7f6; }
+.bg-label-deep-purple-lighten-5 { background-color: #ede7f6 !important; color: #673ab7 !important; }
+.deep-purple.lighten-4 { background-color: #d1c4e9 !important; }
+.text-deep-purple.text-lighten-4 { color: #d1c4e9 !important; }
+.select2-results__option.deep-purple.lighten-4{ background-color: #d1c4e9 !important; color: #fff !important; }
+.card.card-border-shadow-deep-purple-lighten-4::after { border-bottom-color: #d1c4e9; }
+.card.card-border-shadow-deep-purple-lighten-4:hover::after { border-bottom-color: #d1c4e9; }
+.bg-label-deep-purple-lighten-4 { background-color: #d1c4e9 !important; color: #673ab7 !important; }
+.deep-purple.lighten-3 { background-color: #b39ddb !important; }
+.text-deep-purple.text-lighten-3 { color: #b39ddb !important; }
+.select2-results__option.deep-purple.lighten-3{ background-color: #b39ddb !important; color: #fff !important; }
+.card.card-border-shadow-deep-purple-lighten-3::after { border-bottom-color: #b39ddb; }
+.card.card-border-shadow-deep-purple-lighten-3:hover::after { border-bottom-color: #b39ddb; }
+.bg-label-deep-purple-lighten-3 { background-color: #b39ddb !important; color: #673ab7 !important; }
+.deep-purple.lighten-2 { background-color: #9575cd !important; }
+.text-deep-purple.text-lighten-2 { color: #9575cd !important; }
+.select2-results__option.deep-purple.lighten-2{ background-color: #9575cd !important; color: #fff !important; }
+.card.card-border-shadow-deep-purple-lighten-2::after { border-bottom-color: #9575cd; }
+.card.card-border-shadow-deep-purple-lighten-2:hover::after { border-bottom-color: #9575cd; }
+.bg-label-deep-purple-lighten-2 { background-color: #9575cd !important; color: #673ab7 !important; }
+.deep-purple.lighten-1 { background-color: #7e57c2 !important; }
+.text-deep-purple.text-lighten-1 { color: #7e57c2 !important; }
+.select2-results__option.deep-purple.lighten-1{ background-color: #7e57c2 !important; color: #fff !important; }
+.card.card-border-shadow-deep-purple-lighten-1::after { border-bottom-color: #7e57c2; }
+.card.card-border-shadow-deep-purple-lighten-1:hover::after { border-bottom-color: #7e57c2; }
+.bg-label-deep-purple-lighten-1 { background-color: #7e57c2 !important; color: #673ab7 !important; }
+.deep-purple.darken-1 { background-color: #5e35b1 !important; }
+.text-deep-purple.text-darken-1 { color: #5e35b1 !important; }
+.select2-results__option.deep-purple.darken-1{ background-color: #5e35b1 !important; color: #fff !important; }
+.card.card-border-shadow-deep-purple-darken-1::after { border-bottom-color: #5e35b1; }
+.card.card-border-shadow-deep-purple-darken-1:hover::after { border-bottom-color: #5e35b1; }
+.bg-label-deep-purple-darken-1 { background-color: #5e35b1 !important; color: #673ab7 !important; }
+.deep-purple.darken-2 { background-color: #512da8 !important; }
+.text-deep-purple.text-darken-2 { color: #512da8 !important; }
+.select2-results__option.deep-purple.darken-2{ background-color: #512da8 !important; color: #fff !important; }
+.card.card-border-shadow-deep-purple-darken-2::after { border-bottom-color: #512da8; }
+.card.card-border-shadow-deep-purple-darken-2:hover::after { border-bottom-color: #512da8; }
+.bg-label-deep-purple-darken-2 { background-color: #512da8 !important; color: #673ab7 !important; }
+.deep-purple.darken-3 { background-color: #4527a0 !important; }
+.text-deep-purple.text-darken-3 { color: #4527a0 !important; }
+.select2-results__option.deep-purple.darken-3{ background-color: #4527a0 !important; color: #fff !important; }
+.card.card-border-shadow-deep-purple-darken-3::after { border-bottom-color: #4527a0; }
+.card.card-border-shadow-deep-purple-darken-3:hover::after { border-bottom-color: #4527a0; }
+.bg-label-deep-purple-darken-3 { background-color: #4527a0 !important; color: #673ab7 !important; }
+.deep-purple.darken-4 { background-color: #311b92 !important; }
+.text-deep-purple.text-darken-4 { color: #311b92 !important; }
+.select2-results__option.deep-purple.darken-4{ background-color: #311b92 !important; color: #fff !important; }
+.card.card-border-shadow-deep-purple-darken-4::after { border-bottom-color: #311b92; }
+.card.card-border-shadow-deep-purple-darken-4:hover::after { border-bottom-color: #311b92; }
+.bg-label-deep-purple-darken-4 { background-color: #311b92 !important; color: #673ab7 !important; }
+.deep-purple.accent-1 { background-color: #b388ff !important; }
+.text-deep-purple.text-accent-1 { color: #b388ff !important; }
+.select2-results__option.deep-purple.accent-1{ background-color: #b388ff !important; color: #fff !important; }
+.card.card-border-shadow-deep-purple-accent-1::after { border-bottom-color: #b388ff; }
+.card.card-border-shadow-deep-purple-accent-1:hover::after { border-bottom-color: #b388ff; }
+.bg-label-deep-purple-accent-1 { background-color: #b388ff !important; color: #673ab7 !important; }
+.deep-purple.accent-2 { background-color: #7c4dff !important; }
+.text-deep-purple.text-accent-2 { color: #7c4dff !important; }
+.select2-results__option.deep-purple.accent-2{ background-color: #7c4dff !important; color: #fff !important; }
+.card.card-border-shadow-deep-purple-accent-2::after { border-bottom-color: #7c4dff; }
+.card.card-border-shadow-deep-purple-accent-2:hover::after { border-bottom-color: #7c4dff; }
+.bg-label-deep-purple-accent-2 { background-color: #7c4dff !important; color: #673ab7 !important; }
+.deep-purple.accent-3 { background-color: #651fff !important; }
+.text-deep-purple.text-accent-3 { color: #651fff !important; }
+.select2-results__option.deep-purple.accent-3{ background-color: #651fff !important; color: #fff !important; }
+.card.card-border-shadow-deep-purple-accent-3::after { border-bottom-color: #651fff; }
+.card.card-border-shadow-deep-purple-accent-3:hover::after { border-bottom-color: #651fff; }
+.bg-label-deep-purple-accent-3 { background-color: #651fff !important; color: #673ab7 !important; }
+.deep-purple.accent-4 { background-color: #6200ea !important; }
+.text-deep-purple.text-accent-4 { color: #6200ea !important; }
+.select2-results__option.deep-purple.accent-4{ background-color: #6200ea !important; color: #fff !important; }
+.card.card-border-shadow-deep-purple-accent-4::after { border-bottom-color: #6200ea; }
+.card.card-border-shadow-deep-purple-accent-4:hover::after { border-bottom-color: #6200ea; }
+.bg-label-deep-purple-accent-4 { background-color: #6200ea !important; color: #673ab7 !important; }
+.indigo { background-color: #3f51b5 !important; }
+.text-indigo { color: #3f51b5 !important; }
+.select2-results__option.indigo{ background-color: #3f51b5 !important; color: #fff !important; }
+.card.card-border-shadow-indigo::after { border-bottom-color: #3f51b5; }
+.card.card-border-shadow-indigo:hover::after { border-bottom-color: #3f51b5; }
+.bg-label-indigo { background-color: #e8eaf6 !important; color: #3f51b5 !important; }
+.indigo.lighten-5 { background-color: #e8eaf6 !important; }
+.text-indigo.text-lighten-5 { color: #e8eaf6 !important; }
+.select2-results__option.indigo.lighten-5{ background-color: #e8eaf6 !important; color: #fff !important; }
+.card.card-border-shadow-indigo-lighten-5::after { border-bottom-color: #e8eaf6; }
+.card.card-border-shadow-indigo-lighten-5:hover::after { border-bottom-color: #e8eaf6; }
+.bg-label-indigo-lighten-5 { background-color: #e8eaf6 !important; color: #3f51b5 !important; }
+.indigo.lighten-4 { background-color: #c5cae9 !important; }
+.text-indigo.text-lighten-4 { color: #c5cae9 !important; }
+.select2-results__option.indigo.lighten-4{ background-color: #c5cae9 !important; color: #fff !important; }
+.card.card-border-shadow-indigo-lighten-4::after { border-bottom-color: #c5cae9; }
+.card.card-border-shadow-indigo-lighten-4:hover::after { border-bottom-color: #c5cae9; }
+.bg-label-indigo-lighten-4 { background-color: #c5cae9 !important; color: #3f51b5 !important; }
+.indigo.lighten-3 { background-color: #9fa8da !important; }
+.text-indigo.text-lighten-3 { color: #9fa8da !important; }
+.select2-results__option.indigo.lighten-3{ background-color: #9fa8da !important; color: #fff !important; }
+.card.card-border-shadow-indigo-lighten-3::after { border-bottom-color: #9fa8da; }
+.card.card-border-shadow-indigo-lighten-3:hover::after { border-bottom-color: #9fa8da; }
+.bg-label-indigo-lighten-3 { background-color: #9fa8da !important; color: #3f51b5 !important; }
+.indigo.lighten-2 { background-color: #7986cb !important; }
+.text-indigo.text-lighten-2 { color: #7986cb !important; }
+.select2-results__option.indigo.lighten-2{ background-color: #7986cb !important; color: #fff !important; }
+.card.card-border-shadow-indigo-lighten-2::after { border-bottom-color: #7986cb; }
+.card.card-border-shadow-indigo-lighten-2:hover::after { border-bottom-color: #7986cb; }
+.bg-label-indigo-lighten-2 { background-color: #7986cb !important; color: #3f51b5 !important; }
+.indigo.lighten-1 { background-color: #5c6bc0 !important; }
+.text-indigo.text-lighten-1 { color: #5c6bc0 !important; }
+.select2-results__option.indigo.lighten-1{ background-color: #5c6bc0 !important; color: #fff !important; }
+.card.card-border-shadow-indigo-lighten-1::after { border-bottom-color: #5c6bc0; }
+.card.card-border-shadow-indigo-lighten-1:hover::after { border-bottom-color: #5c6bc0; }
+.bg-label-indigo-lighten-1 { background-color: #5c6bc0 !important; color: #3f51b5 !important; }
+.indigo.darken-1 { background-color: #3949ab !important; }
+.text-indigo.text-darken-1 { color: #3949ab !important; }
+.select2-results__option.indigo.darken-1{ background-color: #3949ab !important; color: #fff !important; }
+.card.card-border-shadow-indigo-darken-1::after { border-bottom-color: #3949ab; }
+.card.card-border-shadow-indigo-darken-1:hover::after { border-bottom-color: #3949ab; }
+.bg-label-indigo-darken-1 { background-color: #3949ab !important; color: #3f51b5 !important; }
+.indigo.darken-2 { background-color: #303f9f !important; }
+.text-indigo.text-darken-2 { color: #303f9f !important; }
+.select2-results__option.indigo.darken-2{ background-color: #303f9f !important; color: #fff !important; }
+.card.card-border-shadow-indigo-darken-2::after { border-bottom-color: #303f9f; }
+.card.card-border-shadow-indigo-darken-2:hover::after { border-bottom-color: #303f9f; }
+.bg-label-indigo-darken-2 { background-color: #303f9f !important; color: #3f51b5 !important; }
+.indigo.darken-3 { background-color: #283593 !important; }
+.text-indigo.text-darken-3 { color: #283593 !important; }
+.select2-results__option.indigo.darken-3{ background-color: #283593 !important; color: #fff !important; }
+.card.card-border-shadow-indigo-darken-3::after { border-bottom-color: #283593; }
+.card.card-border-shadow-indigo-darken-3:hover::after { border-bottom-color: #283593; }
+.bg-label-indigo-darken-3 { background-color: #283593 !important; color: #3f51b5 !important; }
+.indigo.darken-4 { background-color: #1a237e !important; }
+.text-indigo.text-darken-4 { color: #1a237e !important; }
+.select2-results__option.indigo.darken-4{ background-color: #1a237e !important; color: #fff !important; }
+.card.card-border-shadow-indigo-darken-4::after { border-bottom-color: #1a237e; }
+.card.card-border-shadow-indigo-darken-4:hover::after { border-bottom-color: #1a237e; }
+.bg-label-indigo-darken-4 { background-color: #1a237e !important; color: #3f51b5 !important; }
+.indigo.accent-1 { background-color: #8c9eff !important; }
+.text-indigo.text-accent-1 { color: #8c9eff !important; }
+.select2-results__option.indigo.accent-1{ background-color: #8c9eff !important; color: #fff !important; }
+.card.card-border-shadow-indigo-accent-1::after { border-bottom-color: #8c9eff; }
+.card.card-border-shadow-indigo-accent-1:hover::after { border-bottom-color: #8c9eff; }
+.bg-label-indigo-accent-1 { background-color: #8c9eff !important; color: #3f51b5 !important; }
+.indigo.accent-2 { background-color: #536dfe !important; }
+.text-indigo.text-accent-2 { color: #536dfe !important; }
+.select2-results__option.indigo.accent-2{ background-color: #536dfe !important; color: #fff !important; }
+.card.card-border-shadow-indigo-accent-2::after { border-bottom-color: #536dfe; }
+.card.card-border-shadow-indigo-accent-2:hover::after { border-bottom-color: #536dfe; }
+.bg-label-indigo-accent-2 { background-color: #536dfe !important; color: #3f51b5 !important; }
+.indigo.accent-3 { background-color: #3d5afe !important; }
+.text-indigo.text-accent-3 { color: #3d5afe !important; }
+.select2-results__option.indigo.accent-3{ background-color: #3d5afe !important; color: #fff !important; }
+.card.card-border-shadow-indigo-accent-3::after { border-bottom-color: #3d5afe; }
+.card.card-border-shadow-indigo-accent-3:hover::after { border-bottom-color: #3d5afe; }
+.bg-label-indigo-accent-3 { background-color: #3d5afe !important; color: #3f51b5 !important; }
+.indigo.accent-4 { background-color: #304ffe !important; }
+.text-indigo.text-accent-4 { color: #304ffe !important; }
+.select2-results__option.indigo.accent-4{ background-color: #304ffe !important; color: #fff !important; }
+.card.card-border-shadow-indigo-accent-4::after { border-bottom-color: #304ffe; }
+.card.card-border-shadow-indigo-accent-4:hover::after { border-bottom-color: #304ffe; }
+.bg-label-indigo-accent-4 { background-color: #304ffe !important; color: #3f51b5 !important; }
+.blue { background-color: #2196f3 !important; }
+.text-blue { color: #2196f3 !important; }
+.select2-results__option.blue{ background-color: #2196f3 !important; color: #fff !important; }
+.card.card-border-shadow-blue::after { border-bottom-color: #2196f3; }
+.card.card-border-shadow-blue:hover::after { border-bottom-color: #2196f3; }
+.bg-label-blue { background-color: #e3f2fd !important; color: #2196f3 !important; }
+.blue.lighten-5 { background-color: #e3f2fd !important; }
+.text-blue.text-lighten-5 { color: #e3f2fd !important; }
+.select2-results__option.blue.lighten-5{ background-color: #e3f2fd !important; color: #fff !important; }
+.card.card-border-shadow-blue-lighten-5::after { border-bottom-color: #e3f2fd; }
+.card.card-border-shadow-blue-lighten-5:hover::after { border-bottom-color: #e3f2fd; }
+.bg-label-blue-lighten-5 { background-color: #e3f2fd !important; color: #2196f3 !important; }
+.blue.lighten-4 { background-color: #bbdefb !important; }
+.text-blue.text-lighten-4 { color: #bbdefb !important; }
+.select2-results__option.blue.lighten-4{ background-color: #bbdefb !important; color: #fff !important; }
+.card.card-border-shadow-blue-lighten-4::after { border-bottom-color: #bbdefb; }
+.card.card-border-shadow-blue-lighten-4:hover::after { border-bottom-color: #bbdefb; }
+.bg-label-blue-lighten-4 { background-color: #bbdefb !important; color: #2196f3 !important; }
+.blue.lighten-3 { background-color: #90caf9 !important; }
+.text-blue.text-lighten-3 { color: #90caf9 !important; }
+.select2-results__option.blue.lighten-3{ background-color: #90caf9 !important; color: #fff !important; }
+.card.card-border-shadow-blue-lighten-3::after { border-bottom-color: #90caf9; }
+.card.card-border-shadow-blue-lighten-3:hover::after { border-bottom-color: #90caf9; }
+.bg-label-blue-lighten-3 { background-color: #90caf9 !important; color: #2196f3 !important; }
+.blue.lighten-2 { background-color: #64b5f6 !important; }
+.text-blue.text-lighten-2 { color: #64b5f6 !important; }
+.select2-results__option.blue.lighten-2{ background-color: #64b5f6 !important; color: #fff !important; }
+.card.card-border-shadow-blue-lighten-2::after { border-bottom-color: #64b5f6; }
+.card.card-border-shadow-blue-lighten-2:hover::after { border-bottom-color: #64b5f6; }
+.bg-label-blue-lighten-2 { background-color: #64b5f6 !important; color: #2196f3 !important; }
+.blue.lighten-1 { background-color: #42a5f5 !important; }
+.text-blue.text-lighten-1 { color: #42a5f5 !important; }
+.select2-results__option.blue.lighten-1{ background-color: #42a5f5 !important; color: #fff !important; }
+.card.card-border-shadow-blue-lighten-1::after { border-bottom-color: #42a5f5; }
+.card.card-border-shadow-blue-lighten-1:hover::after { border-bottom-color: #42a5f5; }
+.bg-label-blue-lighten-1 { background-color: #42a5f5 !important; color: #2196f3 !important; }
+.blue.darken-1 { background-color: #1e88e5 !important; }
+.text-blue.text-darken-1 { color: #1e88e5 !important; }
+.select2-results__option.blue.darken-1{ background-color: #1e88e5 !important; color: #fff !important; }
+.card.card-border-shadow-blue-darken-1::after { border-bottom-color: #1e88e5; }
+.card.card-border-shadow-blue-darken-1:hover::after { border-bottom-color: #1e88e5; }
+.bg-label-blue-darken-1 { background-color: #1e88e5 !important; color: #2196f3 !important; }
+.blue.darken-2 { background-color: #1976d2 !important; }
+.text-blue.text-darken-2 { color: #1976d2 !important; }
+.select2-results__option.blue.darken-2{ background-color: #1976d2 !important; color: #fff !important; }
+.card.card-border-shadow-blue-darken-2::after { border-bottom-color: #1976d2; }
+.card.card-border-shadow-blue-darken-2:hover::after { border-bottom-color: #1976d2; }
+.bg-label-blue-darken-2 { background-color: #1976d2 !important; color: #2196f3 !important; }
+.blue.darken-3 { background-color: #1565c0 !important; }
+.text-blue.text-darken-3 { color: #1565c0 !important; }
+.select2-results__option.blue.darken-3{ background-color: #1565c0 !important; color: #fff !important; }
+.card.card-border-shadow-blue-darken-3::after { border-bottom-color: #1565c0; }
+.card.card-border-shadow-blue-darken-3:hover::after { border-bottom-color: #1565c0; }
+.bg-label-blue-darken-3 { background-color: #1565c0 !important; color: #2196f3 !important; }
+.blue.darken-4 { background-color: #0d47a1 !important; }
+.text-blue.text-darken-4 { color: #0d47a1 !important; }
+.select2-results__option.blue.darken-4{ background-color: #0d47a1 !important; color: #fff !important; }
+.card.card-border-shadow-blue-darken-4::after { border-bottom-color: #0d47a1; }
+.card.card-border-shadow-blue-darken-4:hover::after { border-bottom-color: #0d47a1; }
+.bg-label-blue-darken-4 { background-color: #0d47a1 !important; color: #2196f3 !important; }
+.blue.accent-1 { background-color: #82b1ff !important; }
+.text-blue.text-accent-1 { color: #82b1ff !important; }
+.select2-results__option.blue.accent-1{ background-color: #82b1ff !important; color: #fff !important; }
+.card.card-border-shadow-blue-accent-1::after { border-bottom-color: #82b1ff; }
+.card.card-border-shadow-blue-accent-1:hover::after { border-bottom-color: #82b1ff; }
+.bg-label-blue-accent-1 { background-color: #82b1ff !important; color: #2196f3 !important; }
+.blue.accent-2 { background-color: #448aff !important; }
+.text-blue.text-accent-2 { color: #448aff !important; }
+.select2-results__option.blue.accent-2{ background-color: #448aff !important; color: #fff !important; }
+.card.card-border-shadow-blue-accent-2::after { border-bottom-color: #448aff; }
+.card.card-border-shadow-blue-accent-2:hover::after { border-bottom-color: #448aff; }
+.bg-label-blue-accent-2 { background-color: #448aff !important; color: #2196f3 !important; }
+.blue.accent-3 { background-color: #2979ff !important; }
+.text-blue.text-accent-3 { color: #2979ff !important; }
+.select2-results__option.blue.accent-3{ background-color: #2979ff !important; color: #fff !important; }
+.card.card-border-shadow-blue-accent-3::after { border-bottom-color: #2979ff; }
+.card.card-border-shadow-blue-accent-3:hover::after { border-bottom-color: #2979ff; }
+.bg-label-blue-accent-3 { background-color: #2979ff !important; color: #2196f3 !important; }
+.blue.accent-4 { background-color: #2962ff !important; }
+.text-blue.text-accent-4 { color: #2962ff !important; }
+.select2-results__option.blue.accent-4{ background-color: #2962ff !important; color: #fff !important; }
+.card.card-border-shadow-blue-accent-4::after { border-bottom-color: #2962ff; }
+.card.card-border-shadow-blue-accent-4:hover::after { border-bottom-color: #2962ff; }
+.bg-label-blue-accent-4 { background-color: #2962ff !important; color: #2196f3 !important; }
+.light-blue { background-color: #03a9f4 !important; }
+.text-light-blue { color: #03a9f4 !important; }
+.select2-results__option.light-blue{ background-color: #03a9f4 !important; color: #fff !important; }
+.card.card-border-shadow-light-blue::after { border-bottom-color: #03a9f4; }
+.card.card-border-shadow-light-blue:hover::after { border-bottom-color: #03a9f4; }
+.bg-label-light-blue { background-color: #e1f5fe !important; color: #03a9f4 !important; }
+.light-blue.lighten-5 { background-color: #e1f5fe !important; }
+.text-light-blue.text-lighten-5 { color: #e1f5fe !important; }
+.select2-results__option.light-blue.lighten-5{ background-color: #e1f5fe !important; color: #fff !important; }
+.card.card-border-shadow-light-blue-lighten-5::after { border-bottom-color: #e1f5fe; }
+.card.card-border-shadow-light-blue-lighten-5:hover::after { border-bottom-color: #e1f5fe; }
+.bg-label-light-blue-lighten-5 { background-color: #e1f5fe !important; color: #03a9f4 !important; }
+.light-blue.lighten-4 { background-color: #b3e5fc !important; }
+.text-light-blue.text-lighten-4 { color: #b3e5fc !important; }
+.select2-results__option.light-blue.lighten-4{ background-color: #b3e5fc !important; color: #fff !important; }
+.card.card-border-shadow-light-blue-lighten-4::after { border-bottom-color: #b3e5fc; }
+.card.card-border-shadow-light-blue-lighten-4:hover::after { border-bottom-color: #b3e5fc; }
+.bg-label-light-blue-lighten-4 { background-color: #b3e5fc !important; color: #03a9f4 !important; }
+.light-blue.lighten-3 { background-color: #81d4fa !important; }
+.text-light-blue.text-lighten-3 { color: #81d4fa !important; }
+.select2-results__option.light-blue.lighten-3{ background-color: #81d4fa !important; color: #fff !important; }
+.card.card-border-shadow-light-blue-lighten-3::after { border-bottom-color: #81d4fa; }
+.card.card-border-shadow-light-blue-lighten-3:hover::after { border-bottom-color: #81d4fa; }
+.bg-label-light-blue-lighten-3 { background-color: #81d4fa !important; color: #03a9f4 !important; }
+.light-blue.lighten-2 { background-color: #4fc3f7 !important; }
+.text-light-blue.text-lighten-2 { color: #4fc3f7 !important; }
+.select2-results__option.light-blue.lighten-2{ background-color: #4fc3f7 !important; color: #fff !important; }
+.card.card-border-shadow-light-blue-lighten-2::after { border-bottom-color: #4fc3f7; }
+.card.card-border-shadow-light-blue-lighten-2:hover::after { border-bottom-color: #4fc3f7; }
+.bg-label-light-blue-lighten-2 { background-color: #4fc3f7 !important; color: #03a9f4 !important; }
+.light-blue.lighten-1 { background-color: #29b6f6 !important; }
+.text-light-blue.text-lighten-1 { color: #29b6f6 !important; }
+.select2-results__option.light-blue.lighten-1{ background-color: #29b6f6 !important; color: #fff !important; }
+.card.card-border-shadow-light-blue-lighten-1::after { border-bottom-color: #29b6f6; }
+.card.card-border-shadow-light-blue-lighten-1:hover::after { border-bottom-color: #29b6f6; }
+.bg-label-light-blue-lighten-1 { background-color: #29b6f6 !important; color: #03a9f4 !important; }
+.light-blue.darken-1 { background-color: #039be5 !important; }
+.text-light-blue.text-darken-1 { color: #039be5 !important; }
+.select2-results__option.light-blue.darken-1{ background-color: #039be5 !important; color: #fff !important; }
+.card.card-border-shadow-light-blue-darken-1::after { border-bottom-color: #039be5; }
+.card.card-border-shadow-light-blue-darken-1:hover::after { border-bottom-color: #039be5; }
+.bg-label-light-blue-darken-1 { background-color: #039be5 !important; color: #03a9f4 !important; }
+.light-blue.darken-2 { background-color: #0288d1 !important; }
+.text-light-blue.text-darken-2 { color: #0288d1 !important; }
+.select2-results__option.light-blue.darken-2{ background-color: #0288d1 !important; color: #fff !important; }
+.card.card-border-shadow-light-blue-darken-2::after { border-bottom-color: #0288d1; }
+.card.card-border-shadow-light-blue-darken-2:hover::after { border-bottom-color: #0288d1; }
+.bg-label-light-blue-darken-2 { background-color: #0288d1 !important; color: #03a9f4 !important; }
+.light-blue.darken-3 { background-color: #0277bd !important; }
+.text-light-blue.text-darken-3 { color: #0277bd !important; }
+.select2-results__option.light-blue.darken-3{ background-color: #0277bd !important; color: #fff !important; }
+.card.card-border-shadow-light-blue-darken-3::after { border-bottom-color: #0277bd; }
+.card.card-border-shadow-light-blue-darken-3:hover::after { border-bottom-color: #0277bd; }
+.bg-label-light-blue-darken-3 { background-color: #0277bd !important; color: #03a9f4 !important; }
+.light-blue.darken-4 { background-color: #01579b !important; }
+.text-light-blue.text-darken-4 { color: #01579b !important; }
+.select2-results__option.light-blue.darken-4{ background-color: #01579b !important; color: #fff !important; }
+.card.card-border-shadow-light-blue-darken-4::after { border-bottom-color: #01579b; }
+.card.card-border-shadow-light-blue-darken-4:hover::after { border-bottom-color: #01579b; }
+.bg-label-light-blue-darken-4 { background-color: #01579b !important; color: #03a9f4 !important; }
+.light-blue.accent-1 { background-color: #80d8ff !important; }
+.text-light-blue.text-accent-1 { color: #80d8ff !important; }
+.select2-results__option.light-blue.accent-1{ background-color: #80d8ff !important; color: #fff !important; }
+.card.card-border-shadow-light-blue-accent-1::after { border-bottom-color: #80d8ff; }
+.card.card-border-shadow-light-blue-accent-1:hover::after { border-bottom-color: #80d8ff; }
+.bg-label-light-blue-accent-1 { background-color: #80d8ff !important; color: #03a9f4 !important; }
+.light-blue.accent-2 { background-color: #40c4ff !important; }
+.text-light-blue.text-accent-2 { color: #40c4ff !important; }
+.select2-results__option.light-blue.accent-2{ background-color: #40c4ff !important; color: #fff !important; }
+.card.card-border-shadow-light-blue-accent-2::after { border-bottom-color: #40c4ff; }
+.card.card-border-shadow-light-blue-accent-2:hover::after { border-bottom-color: #40c4ff; }
+.bg-label-light-blue-accent-2 { background-color: #40c4ff !important; color: #03a9f4 !important; }
+.light-blue.accent-3 { background-color: #00b0ff !important; }
+.text-light-blue.text-accent-3 { color: #00b0ff !important; }
+.select2-results__option.light-blue.accent-3{ background-color: #00b0ff !important; color: #fff !important; }
+.card.card-border-shadow-light-blue-accent-3::after { border-bottom-color: #00b0ff; }
+.card.card-border-shadow-light-blue-accent-3:hover::after { border-bottom-color: #00b0ff; }
+.bg-label-light-blue-accent-3 { background-color: #00b0ff !important; color: #03a9f4 !important; }
+.light-blue.accent-4 { background-color: #0091ea !important; }
+.text-light-blue.text-accent-4 { color: #0091ea !important; }
+.select2-results__option.light-blue.accent-4{ background-color: #0091ea !important; color: #fff !important; }
+.card.card-border-shadow-light-blue-accent-4::after { border-bottom-color: #0091ea; }
+.card.card-border-shadow-light-blue-accent-4:hover::after { border-bottom-color: #0091ea; }
+.bg-label-light-blue-accent-4 { background-color: #0091ea !important; color: #03a9f4 !important; }
+.cyan { background-color: #00bcd4 !important; }
+.text-cyan { color: #00bcd4 !important; }
+.select2-results__option.cyan{ background-color: #00bcd4 !important; color: #fff !important; }
+.card.card-border-shadow-cyan::after { border-bottom-color: #00bcd4; }
+.card.card-border-shadow-cyan:hover::after { border-bottom-color: #00bcd4; }
+.bg-label-cyan { background-color: #e0f7fa !important; color: #00bcd4 !important; }
+.cyan.lighten-5 { background-color: #e0f7fa !important; }
+.text-cyan.text-lighten-5 { color: #e0f7fa !important; }
+.select2-results__option.cyan.lighten-5{ background-color: #e0f7fa !important; color: #fff !important; }
+.card.card-border-shadow-cyan-lighten-5::after { border-bottom-color: #e0f7fa; }
+.card.card-border-shadow-cyan-lighten-5:hover::after { border-bottom-color: #e0f7fa; }
+.bg-label-cyan-lighten-5 { background-color: #e0f7fa !important; color: #00bcd4 !important; }
+.cyan.lighten-4 { background-color: #b2ebf2 !important; }
+.text-cyan.text-lighten-4 { color: #b2ebf2 !important; }
+.select2-results__option.cyan.lighten-4{ background-color: #b2ebf2 !important; color: #fff !important; }
+.card.card-border-shadow-cyan-lighten-4::after { border-bottom-color: #b2ebf2; }
+.card.card-border-shadow-cyan-lighten-4:hover::after { border-bottom-color: #b2ebf2; }
+.bg-label-cyan-lighten-4 { background-color: #b2ebf2 !important; color: #00bcd4 !important; }
+.cyan.lighten-3 { background-color: #80deea !important; }
+.text-cyan.text-lighten-3 { color: #80deea !important; }
+.select2-results__option.cyan.lighten-3{ background-color: #80deea !important; color: #fff !important; }
+.card.card-border-shadow-cyan-lighten-3::after { border-bottom-color: #80deea; }
+.card.card-border-shadow-cyan-lighten-3:hover::after { border-bottom-color: #80deea; }
+.bg-label-cyan-lighten-3 { background-color: #80deea !important; color: #00bcd4 !important; }
+.cyan.lighten-2 { background-color: #4dd0e1 !important; }
+.text-cyan.text-lighten-2 { color: #4dd0e1 !important; }
+.select2-results__option.cyan.lighten-2{ background-color: #4dd0e1 !important; color: #fff !important; }
+.card.card-border-shadow-cyan-lighten-2::after { border-bottom-color: #4dd0e1; }
+.card.card-border-shadow-cyan-lighten-2:hover::after { border-bottom-color: #4dd0e1; }
+.bg-label-cyan-lighten-2 { background-color: #4dd0e1 !important; color: #00bcd4 !important; }
+.cyan.lighten-1 { background-color: #26c6da !important; }
+.text-cyan.text-lighten-1 { color: #26c6da !important; }
+.select2-results__option.cyan.lighten-1{ background-color: #26c6da !important; color: #fff !important; }
+.card.card-border-shadow-cyan-lighten-1::after { border-bottom-color: #26c6da; }
+.card.card-border-shadow-cyan-lighten-1:hover::after { border-bottom-color: #26c6da; }
+.bg-label-cyan-lighten-1 { background-color: #26c6da !important; color: #00bcd4 !important; }
+.cyan.darken-1 { background-color: #00acc1 !important; }
+.text-cyan.text-darken-1 { color: #00acc1 !important; }
+.select2-results__option.cyan.darken-1{ background-color: #00acc1 !important; color: #fff !important; }
+.card.card-border-shadow-cyan-darken-1::after { border-bottom-color: #00acc1; }
+.card.card-border-shadow-cyan-darken-1:hover::after { border-bottom-color: #00acc1; }
+.bg-label-cyan-darken-1 { background-color: #00acc1 !important; color: #00bcd4 !important; }
+.cyan.darken-2 { background-color: #0097a7 !important; }
+.text-cyan.text-darken-2 { color: #0097a7 !important; }
+.select2-results__option.cyan.darken-2{ background-color: #0097a7 !important; color: #fff !important; }
+.card.card-border-shadow-cyan-darken-2::after { border-bottom-color: #0097a7; }
+.card.card-border-shadow-cyan-darken-2:hover::after { border-bottom-color: #0097a7; }
+.bg-label-cyan-darken-2 { background-color: #0097a7 !important; color: #00bcd4 !important; }
+.cyan.darken-3 { background-color: #00838f !important; }
+.text-cyan.text-darken-3 { color: #00838f !important; }
+.select2-results__option.cyan.darken-3{ background-color: #00838f !important; color: #fff !important; }
+.card.card-border-shadow-cyan-darken-3::after { border-bottom-color: #00838f; }
+.card.card-border-shadow-cyan-darken-3:hover::after { border-bottom-color: #00838f; }
+.bg-label-cyan-darken-3 { background-color: #00838f !important; color: #00bcd4 !important; }
+.cyan.darken-4 { background-color: #006064 !important; }
+.text-cyan.text-darken-4 { color: #006064 !important; }
+.select2-results__option.cyan.darken-4{ background-color: #006064 !important; color: #fff !important; }
+.card.card-border-shadow-cyan-darken-4::after { border-bottom-color: #006064; }
+.card.card-border-shadow-cyan-darken-4:hover::after { border-bottom-color: #006064; }
+.bg-label-cyan-darken-4 { background-color: #006064 !important; color: #00bcd4 !important; }
+.cyan.accent-1 { background-color: #84ffff !important; }
+.text-cyan.text-accent-1 { color: #84ffff !important; }
+.select2-results__option.cyan.accent-1{ background-color: #84ffff !important; color: #fff !important; }
+.card.card-border-shadow-cyan-accent-1::after { border-bottom-color: #84ffff; }
+.card.card-border-shadow-cyan-accent-1:hover::after { border-bottom-color: #84ffff; }
+.bg-label-cyan-accent-1 { background-color: #84ffff !important; color: #00bcd4 !important; }
+.cyan.accent-2 { background-color: #18ffff !important; }
+.text-cyan.text-accent-2 { color: #18ffff !important; }
+.select2-results__option.cyan.accent-2{ background-color: #18ffff !important; color: #fff !important; }
+.card.card-border-shadow-cyan-accent-2::after { border-bottom-color: #18ffff; }
+.card.card-border-shadow-cyan-accent-2:hover::after { border-bottom-color: #18ffff; }
+.bg-label-cyan-accent-2 { background-color: #18ffff !important; color: #00bcd4 !important; }
+.cyan.accent-3 { background-color: #00e5ff !important; }
+.text-cyan.text-accent-3 { color: #00e5ff !important; }
+.select2-results__option.cyan.accent-3{ background-color: #00e5ff !important; color: #fff !important; }
+.card.card-border-shadow-cyan-accent-3::after { border-bottom-color: #00e5ff; }
+.card.card-border-shadow-cyan-accent-3:hover::after { border-bottom-color: #00e5ff; }
+.bg-label-cyan-accent-3 { background-color: #00e5ff !important; color: #00bcd4 !important; }
+.cyan.accent-4 { background-color: #00b8d4 !important; }
+.text-cyan.text-accent-4 { color: #00b8d4 !important; }
+.select2-results__option.cyan.accent-4{ background-color: #00b8d4 !important; color: #fff !important; }
+.card.card-border-shadow-cyan-accent-4::after { border-bottom-color: #00b8d4; }
+.card.card-border-shadow-cyan-accent-4:hover::after { border-bottom-color: #00b8d4; }
+.bg-label-cyan-accent-4 { background-color: #00b8d4 !important; color: #00bcd4 !important; }
+.teal { background-color: #009688 !important; }
+.text-teal { color: #009688 !important; }
+.select2-results__option.teal{ background-color: #009688 !important; color: #fff !important; }
+.card.card-border-shadow-teal::after { border-bottom-color: #009688; }
+.card.card-border-shadow-teal:hover::after { border-bottom-color: #009688; }
+.bg-label-teal { background-color: #e0f2f1 !important; color: #009688 !important; }
+.teal.lighten-5 { background-color: #e0f2f1 !important; }
+.text-teal.text-lighten-5 { color: #e0f2f1 !important; }
+.select2-results__option.teal.lighten-5{ background-color: #e0f2f1 !important; color: #fff !important; }
+.card.card-border-shadow-teal-lighten-5::after { border-bottom-color: #e0f2f1; }
+.card.card-border-shadow-teal-lighten-5:hover::after { border-bottom-color: #e0f2f1; }
+.bg-label-teal-lighten-5 { background-color: #e0f2f1 !important; color: #009688 !important; }
+.teal.lighten-4 { background-color: #b2dfdb !important; }
+.text-teal.text-lighten-4 { color: #b2dfdb !important; }
+.select2-results__option.teal.lighten-4{ background-color: #b2dfdb !important; color: #fff !important; }
+.card.card-border-shadow-teal-lighten-4::after { border-bottom-color: #b2dfdb; }
+.card.card-border-shadow-teal-lighten-4:hover::after { border-bottom-color: #b2dfdb; }
+.bg-label-teal-lighten-4 { background-color: #b2dfdb !important; color: #009688 !important; }
+.teal.lighten-3 { background-color: #80cbc4 !important; }
+.text-teal.text-lighten-3 { color: #80cbc4 !important; }
+.select2-results__option.teal.lighten-3{ background-color: #80cbc4 !important; color: #fff !important; }
+.card.card-border-shadow-teal-lighten-3::after { border-bottom-color: #80cbc4; }
+.card.card-border-shadow-teal-lighten-3:hover::after { border-bottom-color: #80cbc4; }
+.bg-label-teal-lighten-3 { background-color: #80cbc4 !important; color: #009688 !important; }
+.teal.lighten-2 { background-color: #4db6ac !important; }
+.text-teal.text-lighten-2 { color: #4db6ac !important; }
+.select2-results__option.teal.lighten-2{ background-color: #4db6ac !important; color: #fff !important; }
+.card.card-border-shadow-teal-lighten-2::after { border-bottom-color: #4db6ac; }
+.card.card-border-shadow-teal-lighten-2:hover::after { border-bottom-color: #4db6ac; }
+.bg-label-teal-lighten-2 { background-color: #4db6ac !important; color: #009688 !important; }
+.teal.lighten-1 { background-color: #26a69a !important; }
+.text-teal.text-lighten-1 { color: #26a69a !important; }
+.select2-results__option.teal.lighten-1{ background-color: #26a69a !important; color: #fff !important; }
+.card.card-border-shadow-teal-lighten-1::after { border-bottom-color: #26a69a; }
+.card.card-border-shadow-teal-lighten-1:hover::after { border-bottom-color: #26a69a; }
+.bg-label-teal-lighten-1 { background-color: #26a69a !important; color: #009688 !important; }
+.teal.darken-1 { background-color: #00897b !important; }
+.text-teal.text-darken-1 { color: #00897b !important; }
+.select2-results__option.teal.darken-1{ background-color: #00897b !important; color: #fff !important; }
+.card.card-border-shadow-teal-darken-1::after { border-bottom-color: #00897b; }
+.card.card-border-shadow-teal-darken-1:hover::after { border-bottom-color: #00897b; }
+.bg-label-teal-darken-1 { background-color: #00897b !important; color: #009688 !important; }
+.teal.darken-2 { background-color: #00796b !important; }
+.text-teal.text-darken-2 { color: #00796b !important; }
+.select2-results__option.teal.darken-2{ background-color: #00796b !important; color: #fff !important; }
+.card.card-border-shadow-teal-darken-2::after { border-bottom-color: #00796b; }
+.card.card-border-shadow-teal-darken-2:hover::after { border-bottom-color: #00796b; }
+.bg-label-teal-darken-2 { background-color: #00796b !important; color: #009688 !important; }
+.teal.darken-3 { background-color: #00695c !important; }
+.text-teal.text-darken-3 { color: #00695c !important; }
+.select2-results__option.teal.darken-3{ background-color: #00695c !important; color: #fff !important; }
+.card.card-border-shadow-teal-darken-3::after { border-bottom-color: #00695c; }
+.card.card-border-shadow-teal-darken-3:hover::after { border-bottom-color: #00695c; }
+.bg-label-teal-darken-3 { background-color: #00695c !important; color: #009688 !important; }
+.teal.darken-4 { background-color: #004d40 !important; }
+.text-teal.text-darken-4 { color: #004d40 !important; }
+.select2-results__option.teal.darken-4{ background-color: #004d40 !important; color: #fff !important; }
+.card.card-border-shadow-teal-darken-4::after { border-bottom-color: #004d40; }
+.card.card-border-shadow-teal-darken-4:hover::after { border-bottom-color: #004d40; }
+.bg-label-teal-darken-4 { background-color: #004d40 !important; color: #009688 !important; }
+.teal.accent-1 { background-color: #a7ffeb !important; }
+.text-teal.text-accent-1 { color: #a7ffeb !important; }
+.select2-results__option.teal.accent-1{ background-color: #a7ffeb !important; color: #fff !important; }
+.card.card-border-shadow-teal-accent-1::after { border-bottom-color: #a7ffeb; }
+.card.card-border-shadow-teal-accent-1:hover::after { border-bottom-color: #a7ffeb; }
+.bg-label-teal-accent-1 { background-color: #a7ffeb !important; color: #009688 !important; }
+.teal.accent-2 { background-color: #64ffda !important; }
+.text-teal.text-accent-2 { color: #64ffda !important; }
+.select2-results__option.teal.accent-2{ background-color: #64ffda !important; color: #fff !important; }
+.card.card-border-shadow-teal-accent-2::after { border-bottom-color: #64ffda; }
+.card.card-border-shadow-teal-accent-2:hover::after { border-bottom-color: #64ffda; }
+.bg-label-teal-accent-2 { background-color: #64ffda !important; color: #009688 !important; }
+.teal.accent-3 { background-color: #1de9b6 !important; }
+.text-teal.text-accent-3 { color: #1de9b6 !important; }
+.select2-results__option.teal.accent-3{ background-color: #1de9b6 !important; color: #fff !important; }
+.card.card-border-shadow-teal-accent-3::after { border-bottom-color: #1de9b6; }
+.card.card-border-shadow-teal-accent-3:hover::after { border-bottom-color: #1de9b6; }
+.bg-label-teal-accent-3 { background-color: #1de9b6 !important; color: #009688 !important; }
+.teal.accent-4 { background-color: #00bfa5 !important; }
+.text-teal.text-accent-4 { color: #00bfa5 !important; }
+.select2-results__option.teal.accent-4{ background-color: #00bfa5 !important; color: #fff !important; }
+.card.card-border-shadow-teal-accent-4::after { border-bottom-color: #00bfa5; }
+.card.card-border-shadow-teal-accent-4:hover::after { border-bottom-color: #00bfa5; }
+.bg-label-teal-accent-4 { background-color: #00bfa5 !important; color: #009688 !important; }
+.green { background-color: #4caf50 !important; }
+.text-green { color: #4caf50 !important; }
+.select2-results__option.green{ background-color: #4caf50 !important; color: #fff !important; }
+.card.card-border-shadow-green::after { border-bottom-color: #4caf50; }
+.card.card-border-shadow-green:hover::after { border-bottom-color: #4caf50; }
+.bg-label-green { background-color: #e8f5e9 !important; color: #4caf50 !important; }
+.green.lighten-5 { background-color: #e8f5e9 !important; }
+.text-green.text-lighten-5 { color: #e8f5e9 !important; }
+.select2-results__option.green.lighten-5{ background-color: #e8f5e9 !important; color: #fff !important; }
+.card.card-border-shadow-green-lighten-5::after { border-bottom-color: #e8f5e9; }
+.card.card-border-shadow-green-lighten-5:hover::after { border-bottom-color: #e8f5e9; }
+.bg-label-green-lighten-5 { background-color: #e8f5e9 !important; color: #4caf50 !important; }
+.green.lighten-4 { background-color: #c8e6c9 !important; }
+.text-green.text-lighten-4 { color: #c8e6c9 !important; }
+.select2-results__option.green.lighten-4{ background-color: #c8e6c9 !important; color: #fff !important; }
+.card.card-border-shadow-green-lighten-4::after { border-bottom-color: #c8e6c9; }
+.card.card-border-shadow-green-lighten-4:hover::after { border-bottom-color: #c8e6c9; }
+.bg-label-green-lighten-4 { background-color: #c8e6c9 !important; color: #4caf50 !important; }
+.green.lighten-3 { background-color: #a5d6a7 !important; }
+.text-green.text-lighten-3 { color: #a5d6a7 !important; }
+.select2-results__option.green.lighten-3{ background-color: #a5d6a7 !important; color: #fff !important; }
+.card.card-border-shadow-green-lighten-3::after { border-bottom-color: #a5d6a7; }
+.card.card-border-shadow-green-lighten-3:hover::after { border-bottom-color: #a5d6a7; }
+.bg-label-green-lighten-3 { background-color: #a5d6a7 !important; color: #4caf50 !important; }
+.green.lighten-2 { background-color: #81c784 !important; }
+.text-green.text-lighten-2 { color: #81c784 !important; }
+.select2-results__option.green.lighten-2{ background-color: #81c784 !important; color: #fff !important; }
+.card.card-border-shadow-green-lighten-2::after { border-bottom-color: #81c784; }
+.card.card-border-shadow-green-lighten-2:hover::after { border-bottom-color: #81c784; }
+.bg-label-green-lighten-2 { background-color: #81c784 !important; color: #4caf50 !important; }
+.green.lighten-1 { background-color: #66bb6a !important; }
+.text-green.text-lighten-1 { color: #66bb6a !important; }
+.select2-results__option.green.lighten-1{ background-color: #66bb6a !important; color: #fff !important; }
+.card.card-border-shadow-green-lighten-1::after { border-bottom-color: #66bb6a; }
+.card.card-border-shadow-green-lighten-1:hover::after { border-bottom-color: #66bb6a; }
+.bg-label-green-lighten-1 { background-color: #66bb6a !important; color: #4caf50 !important; }
+.green.darken-1 { background-color: #43a047 !important; }
+.text-green.text-darken-1 { color: #43a047 !important; }
+.select2-results__option.green.darken-1{ background-color: #43a047 !important; color: #fff !important; }
+.card.card-border-shadow-green-darken-1::after { border-bottom-color: #43a047; }
+.card.card-border-shadow-green-darken-1:hover::after { border-bottom-color: #43a047; }
+.bg-label-green-darken-1 { background-color: #43a047 !important; color: #4caf50 !important; }
+.green.darken-2 { background-color: #388e3c !important; }
+.text-green.text-darken-2 { color: #388e3c !important; }
+.select2-results__option.green.darken-2{ background-color: #388e3c !important; color: #fff !important; }
+.card.card-border-shadow-green-darken-2::after { border-bottom-color: #388e3c; }
+.card.card-border-shadow-green-darken-2:hover::after { border-bottom-color: #388e3c; }
+.bg-label-green-darken-2 { background-color: #388e3c !important; color: #4caf50 !important; }
+.green.darken-3 { background-color: #2e7d32 !important; }
+.text-green.text-darken-3 { color: #2e7d32 !important; }
+.select2-results__option.green.darken-3{ background-color: #2e7d32 !important; color: #fff !important; }
+.card.card-border-shadow-green-darken-3::after { border-bottom-color: #2e7d32; }
+.card.card-border-shadow-green-darken-3:hover::after { border-bottom-color: #2e7d32; }
+.bg-label-green-darken-3 { background-color: #2e7d32 !important; color: #4caf50 !important; }
+.green.darken-4 { background-color: #1b5e20 !important; }
+.text-green.text-darken-4 { color: #1b5e20 !important; }
+.select2-results__option.green.darken-4{ background-color: #1b5e20 !important; color: #fff !important; }
+.card.card-border-shadow-green-darken-4::after { border-bottom-color: #1b5e20; }
+.card.card-border-shadow-green-darken-4:hover::after { border-bottom-color: #1b5e20; }
+.bg-label-green-darken-4 { background-color: #1b5e20 !important; color: #4caf50 !important; }
+.green.accent-1 { background-color: #b9f6ca !important; }
+.text-green.text-accent-1 { color: #b9f6ca !important; }
+.select2-results__option.green.accent-1{ background-color: #b9f6ca !important; color: #fff !important; }
+.card.card-border-shadow-green-accent-1::after { border-bottom-color: #b9f6ca; }
+.card.card-border-shadow-green-accent-1:hover::after { border-bottom-color: #b9f6ca; }
+.bg-label-green-accent-1 { background-color: #b9f6ca !important; color: #4caf50 !important; }
+.green.accent-2 { background-color: #69f0ae !important; }
+.text-green.text-accent-2 { color: #69f0ae !important; }
+.select2-results__option.green.accent-2{ background-color: #69f0ae !important; color: #fff !important; }
+.card.card-border-shadow-green-accent-2::after { border-bottom-color: #69f0ae; }
+.card.card-border-shadow-green-accent-2:hover::after { border-bottom-color: #69f0ae; }
+.bg-label-green-accent-2 { background-color: #69f0ae !important; color: #4caf50 !important; }
+.green.accent-3 { background-color: #00e676 !important; }
+.text-green.text-accent-3 { color: #00e676 !important; }
+.select2-results__option.green.accent-3{ background-color: #00e676 !important; color: #fff !important; }
+.card.card-border-shadow-green-accent-3::after { border-bottom-color: #00e676; }
+.card.card-border-shadow-green-accent-3:hover::after { border-bottom-color: #00e676; }
+.bg-label-green-accent-3 { background-color: #00e676 !important; color: #4caf50 !important; }
+.green.accent-4 { background-color: #00c853 !important; }
+.text-green.text-accent-4 { color: #00c853 !important; }
+.select2-results__option.green.accent-4{ background-color: #00c853 !important; color: #fff !important; }
+.card.card-border-shadow-green-accent-4::after { border-bottom-color: #00c853; }
+.card.card-border-shadow-green-accent-4:hover::after { border-bottom-color: #00c853; }
+.bg-label-green-accent-4 { background-color: #00c853 !important; color: #4caf50 !important; }
+.light-green { background-color: #8bc34a !important; }
+.text-light-green { color: #8bc34a !important; }
+.select2-results__option.light-green{ background-color: #8bc34a !important; color: #fff !important; }
+.card.card-border-shadow-light-green::after { border-bottom-color: #8bc34a; }
+.card.card-border-shadow-light-green:hover::after { border-bottom-color: #8bc34a; }
+.bg-label-light-green { background-color: #f1f8e9 !important; color: #8bc34a !important; }
+.light-green.lighten-5 { background-color: #f1f8e9 !important; }
+.text-light-green.text-lighten-5 { color: #f1f8e9 !important; }
+.select2-results__option.light-green.lighten-5{ background-color: #f1f8e9 !important; color: #fff !important; }
+.card.card-border-shadow-light-green-lighten-5::after { border-bottom-color: #f1f8e9; }
+.card.card-border-shadow-light-green-lighten-5:hover::after { border-bottom-color: #f1f8e9; }
+.bg-label-light-green-lighten-5 { background-color: #f1f8e9 !important; color: #8bc34a !important; }
+.light-green.lighten-4 { background-color: #dcedc8 !important; }
+.text-light-green.text-lighten-4 { color: #dcedc8 !important; }
+.select2-results__option.light-green.lighten-4{ background-color: #dcedc8 !important; color: #fff !important; }
+.card.card-border-shadow-light-green-lighten-4::after { border-bottom-color: #dcedc8; }
+.card.card-border-shadow-light-green-lighten-4:hover::after { border-bottom-color: #dcedc8; }
+.bg-label-light-green-lighten-4 { background-color: #dcedc8 !important; color: #8bc34a !important; }
+.light-green.lighten-3 { background-color: #c5e1a5 !important; }
+.text-light-green.text-lighten-3 { color: #c5e1a5 !important; }
+.select2-results__option.light-green.lighten-3{ background-color: #c5e1a5 !important; color: #fff !important; }
+.card.card-border-shadow-light-green-lighten-3::after { border-bottom-color: #c5e1a5; }
+.card.card-border-shadow-light-green-lighten-3:hover::after { border-bottom-color: #c5e1a5; }
+.bg-label-light-green-lighten-3 { background-color: #c5e1a5 !important; color: #8bc34a !important; }
+.light-green.lighten-2 { background-color: #aed581 !important; }
+.text-light-green.text-lighten-2 { color: #aed581 !important; }
+.select2-results__option.light-green.lighten-2{ background-color: #aed581 !important; color: #fff !important; }
+.card.card-border-shadow-light-green-lighten-2::after { border-bottom-color: #aed581; }
+.card.card-border-shadow-light-green-lighten-2:hover::after { border-bottom-color: #aed581; }
+.bg-label-light-green-lighten-2 { background-color: #aed581 !important; color: #8bc34a !important; }
+.light-green.lighten-1 { background-color: #9ccc65 !important; }
+.text-light-green.text-lighten-1 { color: #9ccc65 !important; }
+.select2-results__option.light-green.lighten-1{ background-color: #9ccc65 !important; color: #fff !important; }
+.card.card-border-shadow-light-green-lighten-1::after { border-bottom-color: #9ccc65; }
+.card.card-border-shadow-light-green-lighten-1:hover::after { border-bottom-color: #9ccc65; }
+.bg-label-light-green-lighten-1 { background-color: #9ccc65 !important; color: #8bc34a !important; }
+.light-green.darken-1 { background-color: #7cb342 !important; }
+.text-light-green.text-darken-1 { color: #7cb342 !important; }
+.select2-results__option.light-green.darken-1{ background-color: #7cb342 !important; color: #fff !important; }
+.card.card-border-shadow-light-green-darken-1::after { border-bottom-color: #7cb342; }
+.card.card-border-shadow-light-green-darken-1:hover::after { border-bottom-color: #7cb342; }
+.bg-label-light-green-darken-1 { background-color: #7cb342 !important; color: #8bc34a !important; }
+.light-green.darken-2 { background-color: #689f38 !important; }
+.text-light-green.text-darken-2 { color: #689f38 !important; }
+.select2-results__option.light-green.darken-2{ background-color: #689f38 !important; color: #fff !important; }
+.card.card-border-shadow-light-green-darken-2::after { border-bottom-color: #689f38; }
+.card.card-border-shadow-light-green-darken-2:hover::after { border-bottom-color: #689f38; }
+.bg-label-light-green-darken-2 { background-color: #689f38 !important; color: #8bc34a !important; }
+.light-green.darken-3 { background-color: #558b2f !important; }
+.text-light-green.text-darken-3 { color: #558b2f !important; }
+.select2-results__option.light-green.darken-3{ background-color: #558b2f !important; color: #fff !important; }
+.card.card-border-shadow-light-green-darken-3::after { border-bottom-color: #558b2f; }
+.card.card-border-shadow-light-green-darken-3:hover::after { border-bottom-color: #558b2f; }
+.bg-label-light-green-darken-3 { background-color: #558b2f !important; color: #8bc34a !important; }
+.light-green.darken-4 { background-color: #33691e !important; }
+.text-light-green.text-darken-4 { color: #33691e !important; }
+.select2-results__option.light-green.darken-4{ background-color: #33691e !important; color: #fff !important; }
+.card.card-border-shadow-light-green-darken-4::after { border-bottom-color: #33691e; }
+.card.card-border-shadow-light-green-darken-4:hover::after { border-bottom-color: #33691e; }
+.bg-label-light-green-darken-4 { background-color: #33691e !important; color: #8bc34a !important; }
+.light-green.accent-1 { background-color: #ccff90 !important; }
+.text-light-green.text-accent-1 { color: #ccff90 !important; }
+.select2-results__option.light-green.accent-1{ background-color: #ccff90 !important; color: #fff !important; }
+.card.card-border-shadow-light-green-accent-1::after { border-bottom-color: #ccff90; }
+.card.card-border-shadow-light-green-accent-1:hover::after { border-bottom-color: #ccff90; }
+.bg-label-light-green-accent-1 { background-color: #ccff90 !important; color: #8bc34a !important; }
+.light-green.accent-2 { background-color: #b2ff59 !important; }
+.text-light-green.text-accent-2 { color: #b2ff59 !important; }
+.select2-results__option.light-green.accent-2{ background-color: #b2ff59 !important; color: #fff !important; }
+.card.card-border-shadow-light-green-accent-2::after { border-bottom-color: #b2ff59; }
+.card.card-border-shadow-light-green-accent-2:hover::after { border-bottom-color: #b2ff59; }
+.bg-label-light-green-accent-2 { background-color: #b2ff59 !important; color: #8bc34a !important; }
+.light-green.accent-3 { background-color: #76ff03 !important; }
+.text-light-green.text-accent-3 { color: #76ff03 !important; }
+.select2-results__option.light-green.accent-3{ background-color: #76ff03 !important; color: #fff !important; }
+.card.card-border-shadow-light-green-accent-3::after { border-bottom-color: #76ff03; }
+.card.card-border-shadow-light-green-accent-3:hover::after { border-bottom-color: #76ff03; }
+.bg-label-light-green-accent-3 { background-color: #76ff03 !important; color: #8bc34a !important; }
+.light-green.accent-4 { background-color: #64dd17 !important; }
+.text-light-green.text-accent-4 { color: #64dd17 !important; }
+.select2-results__option.light-green.accent-4{ background-color: #64dd17 !important; color: #fff !important; }
+.card.card-border-shadow-light-green-accent-4::after { border-bottom-color: #64dd17; }
+.card.card-border-shadow-light-green-accent-4:hover::after { border-bottom-color: #64dd17; }
+.bg-label-light-green-accent-4 { background-color: #64dd17 !important; color: #8bc34a !important; }
+.lime { background-color: #cddc39 !important; }
+.text-lime { color: #cddc39 !important; }
+.select2-results__option.lime{ background-color: #cddc39 !important; color: #fff !important; }
+.card.card-border-shadow-lime::after { border-bottom-color: #cddc39; }
+.card.card-border-shadow-lime:hover::after { border-bottom-color: #cddc39; }
+.bg-label-lime { background-color: #f9fbe7 !important; color: #cddc39 !important; }
+.lime.lighten-5 { background-color: #f9fbe7 !important; }
+.text-lime.text-lighten-5 { color: #f9fbe7 !important; }
+.select2-results__option.lime.lighten-5{ background-color: #f9fbe7 !important; color: #fff !important; }
+.card.card-border-shadow-lime-lighten-5::after { border-bottom-color: #f9fbe7; }
+.card.card-border-shadow-lime-lighten-5:hover::after { border-bottom-color: #f9fbe7; }
+.bg-label-lime-lighten-5 { background-color: #f9fbe7 !important; color: #cddc39 !important; }
+.lime.lighten-4 { background-color: #f0f4c3 !important; }
+.text-lime.text-lighten-4 { color: #f0f4c3 !important; }
+.select2-results__option.lime.lighten-4{ background-color: #f0f4c3 !important; color: #fff !important; }
+.card.card-border-shadow-lime-lighten-4::after { border-bottom-color: #f0f4c3; }
+.card.card-border-shadow-lime-lighten-4:hover::after { border-bottom-color: #f0f4c3; }
+.bg-label-lime-lighten-4 { background-color: #f0f4c3 !important; color: #cddc39 !important; }
+.lime.lighten-3 { background-color: #e6ee9c !important; }
+.text-lime.text-lighten-3 { color: #e6ee9c !important; }
+.select2-results__option.lime.lighten-3{ background-color: #e6ee9c !important; color: #fff !important; }
+.card.card-border-shadow-lime-lighten-3::after { border-bottom-color: #e6ee9c; }
+.card.card-border-shadow-lime-lighten-3:hover::after { border-bottom-color: #e6ee9c; }
+.bg-label-lime-lighten-3 { background-color: #e6ee9c !important; color: #cddc39 !important; }
+.lime.lighten-2 { background-color: #dce775 !important; }
+.text-lime.text-lighten-2 { color: #dce775 !important; }
+.select2-results__option.lime.lighten-2{ background-color: #dce775 !important; color: #fff !important; }
+.card.card-border-shadow-lime-lighten-2::after { border-bottom-color: #dce775; }
+.card.card-border-shadow-lime-lighten-2:hover::after { border-bottom-color: #dce775; }
+.bg-label-lime-lighten-2 { background-color: #dce775 !important; color: #cddc39 !important; }
+.lime.lighten-1 { background-color: #d4e157 !important; }
+.text-lime.text-lighten-1 { color: #d4e157 !important; }
+.select2-results__option.lime.lighten-1{ background-color: #d4e157 !important; color: #fff !important; }
+.card.card-border-shadow-lime-lighten-1::after { border-bottom-color: #d4e157; }
+.card.card-border-shadow-lime-lighten-1:hover::after { border-bottom-color: #d4e157; }
+.bg-label-lime-lighten-1 { background-color: #d4e157 !important; color: #cddc39 !important; }
+.lime.darken-1 { background-color: #c0ca33 !important; }
+.text-lime.text-darken-1 { color: #c0ca33 !important; }
+.select2-results__option.lime.darken-1{ background-color: #c0ca33 !important; color: #fff !important; }
+.card.card-border-shadow-lime-darken-1::after { border-bottom-color: #c0ca33; }
+.card.card-border-shadow-lime-darken-1:hover::after { border-bottom-color: #c0ca33; }
+.bg-label-lime-darken-1 { background-color: #c0ca33 !important; color: #cddc39 !important; }
+.lime.darken-2 { background-color: #afb42b !important; }
+.text-lime.text-darken-2 { color: #afb42b !important; }
+.select2-results__option.lime.darken-2{ background-color: #afb42b !important; color: #fff !important; }
+.card.card-border-shadow-lime-darken-2::after { border-bottom-color: #afb42b; }
+.card.card-border-shadow-lime-darken-2:hover::after { border-bottom-color: #afb42b; }
+.bg-label-lime-darken-2 { background-color: #afb42b !important; color: #cddc39 !important; }
+.lime.darken-3 { background-color: #9e9d24 !important; }
+.text-lime.text-darken-3 { color: #9e9d24 !important; }
+.select2-results__option.lime.darken-3{ background-color: #9e9d24 !important; color: #fff !important; }
+.card.card-border-shadow-lime-darken-3::after { border-bottom-color: #9e9d24; }
+.card.card-border-shadow-lime-darken-3:hover::after { border-bottom-color: #9e9d24; }
+.bg-label-lime-darken-3 { background-color: #9e9d24 !important; color: #cddc39 !important; }
+.lime.darken-4 { background-color: #827717 !important; }
+.text-lime.text-darken-4 { color: #827717 !important; }
+.select2-results__option.lime.darken-4{ background-color: #827717 !important; color: #fff !important; }
+.card.card-border-shadow-lime-darken-4::after { border-bottom-color: #827717; }
+.card.card-border-shadow-lime-darken-4:hover::after { border-bottom-color: #827717; }
+.bg-label-lime-darken-4 { background-color: #827717 !important; color: #cddc39 !important; }
+.lime.accent-1 { background-color: #f4ff81 !important; }
+.text-lime.text-accent-1 { color: #f4ff81 !important; }
+.select2-results__option.lime.accent-1{ background-color: #f4ff81 !important; color: #fff !important; }
+.card.card-border-shadow-lime-accent-1::after { border-bottom-color: #f4ff81; }
+.card.card-border-shadow-lime-accent-1:hover::after { border-bottom-color: #f4ff81; }
+.bg-label-lime-accent-1 { background-color: #f4ff81 !important; color: #cddc39 !important; }
+.lime.accent-2 { background-color: #eeff41 !important; }
+.text-lime.text-accent-2 { color: #eeff41 !important; }
+.select2-results__option.lime.accent-2{ background-color: #eeff41 !important; color: #fff !important; }
+.card.card-border-shadow-lime-accent-2::after { border-bottom-color: #eeff41; }
+.card.card-border-shadow-lime-accent-2:hover::after { border-bottom-color: #eeff41; }
+.bg-label-lime-accent-2 { background-color: #eeff41 !important; color: #cddc39 !important; }
+.lime.accent-3 { background-color: #c6ff00 !important; }
+.text-lime.text-accent-3 { color: #c6ff00 !important; }
+.select2-results__option.lime.accent-3{ background-color: #c6ff00 !important; color: #fff !important; }
+.card.card-border-shadow-lime-accent-3::after { border-bottom-color: #c6ff00; }
+.card.card-border-shadow-lime-accent-3:hover::after { border-bottom-color: #c6ff00; }
+.bg-label-lime-accent-3 { background-color: #c6ff00 !important; color: #cddc39 !important; }
+.lime.accent-4 { background-color: #aeea00 !important; }
+.text-lime.text-accent-4 { color: #aeea00 !important; }
+.select2-results__option.lime.accent-4{ background-color: #aeea00 !important; color: #fff !important; }
+.card.card-border-shadow-lime-accent-4::after { border-bottom-color: #aeea00; }
+.card.card-border-shadow-lime-accent-4:hover::after { border-bottom-color: #aeea00; }
+.bg-label-lime-accent-4 { background-color: #aeea00 !important; color: #cddc39 !important; }
+.yellow { background-color: #ffeb3b !important; }
+.text-yellow { color: #ffeb3b !important; }
+.select2-results__option.yellow{ background-color: #ffeb3b !important; color: #fff !important; }
+.card.card-border-shadow-yellow::after { border-bottom-color: #ffeb3b; }
+.card.card-border-shadow-yellow:hover::after { border-bottom-color: #ffeb3b; }
+.bg-label-yellow { background-color: #fffde7 !important; color: #ffeb3b !important; }
+.yellow.lighten-5 { background-color: #fffde7 !important; }
+.text-yellow.text-lighten-5 { color: #fffde7 !important; }
+.select2-results__option.yellow.lighten-5{ background-color: #fffde7 !important; color: #fff !important; }
+.card.card-border-shadow-yellow-lighten-5::after { border-bottom-color: #fffde7; }
+.card.card-border-shadow-yellow-lighten-5:hover::after { border-bottom-color: #fffde7; }
+.bg-label-yellow-lighten-5 { background-color: #fffde7 !important; color: #ffeb3b !important; }
+.yellow.lighten-4 { background-color: #fff9c4 !important; }
+.text-yellow.text-lighten-4 { color: #fff9c4 !important; }
+.select2-results__option.yellow.lighten-4{ background-color: #fff9c4 !important; color: #fff !important; }
+.card.card-border-shadow-yellow-lighten-4::after { border-bottom-color: #fff9c4; }
+.card.card-border-shadow-yellow-lighten-4:hover::after { border-bottom-color: #fff9c4; }
+.bg-label-yellow-lighten-4 { background-color: #fff9c4 !important; color: #ffeb3b !important; }
+.yellow.lighten-3 { background-color: #fff59d !important; }
+.text-yellow.text-lighten-3 { color: #fff59d !important; }
+.select2-results__option.yellow.lighten-3{ background-color: #fff59d !important; color: #fff !important; }
+.card.card-border-shadow-yellow-lighten-3::after { border-bottom-color: #fff59d; }
+.card.card-border-shadow-yellow-lighten-3:hover::after { border-bottom-color: #fff59d; }
+.bg-label-yellow-lighten-3 { background-color: #fff59d !important; color: #ffeb3b !important; }
+.yellow.lighten-2 { background-color: #fff176 !important; }
+.text-yellow.text-lighten-2 { color: #fff176 !important; }
+.select2-results__option.yellow.lighten-2{ background-color: #fff176 !important; color: #fff !important; }
+.card.card-border-shadow-yellow-lighten-2::after { border-bottom-color: #fff176; }
+.card.card-border-shadow-yellow-lighten-2:hover::after { border-bottom-color: #fff176; }
+.bg-label-yellow-lighten-2 { background-color: #fff176 !important; color: #ffeb3b !important; }
+.yellow.lighten-1 { background-color: #ffee58 !important; }
+.text-yellow.text-lighten-1 { color: #ffee58 !important; }
+.select2-results__option.yellow.lighten-1{ background-color: #ffee58 !important; color: #fff !important; }
+.card.card-border-shadow-yellow-lighten-1::after { border-bottom-color: #ffee58; }
+.card.card-border-shadow-yellow-lighten-1:hover::after { border-bottom-color: #ffee58; }
+.bg-label-yellow-lighten-1 { background-color: #ffee58 !important; color: #ffeb3b !important; }
+.yellow.darken-1 { background-color: #fdd835 !important; }
+.text-yellow.text-darken-1 { color: #fdd835 !important; }
+.select2-results__option.yellow.darken-1{ background-color: #fdd835 !important; color: #fff !important; }
+.card.card-border-shadow-yellow-darken-1::after { border-bottom-color: #fdd835; }
+.card.card-border-shadow-yellow-darken-1:hover::after { border-bottom-color: #fdd835; }
+.bg-label-yellow-darken-1 { background-color: #fdd835 !important; color: #ffeb3b !important; }
+.yellow.darken-2 { background-color: #fbc02d !important; }
+.text-yellow.text-darken-2 { color: #fbc02d !important; }
+.select2-results__option.yellow.darken-2{ background-color: #fbc02d !important; color: #fff !important; }
+.card.card-border-shadow-yellow-darken-2::after { border-bottom-color: #fbc02d; }
+.card.card-border-shadow-yellow-darken-2:hover::after { border-bottom-color: #fbc02d; }
+.bg-label-yellow-darken-2 { background-color: #fbc02d !important; color: #ffeb3b !important; }
+.yellow.darken-3 { background-color: #f9a825 !important; }
+.text-yellow.text-darken-3 { color: #f9a825 !important; }
+.select2-results__option.yellow.darken-3{ background-color: #f9a825 !important; color: #fff !important; }
+.card.card-border-shadow-yellow-darken-3::after { border-bottom-color: #f9a825; }
+.card.card-border-shadow-yellow-darken-3:hover::after { border-bottom-color: #f9a825; }
+.bg-label-yellow-darken-3 { background-color: #f9a825 !important; color: #ffeb3b !important; }
+.yellow.darken-4 { background-color: #f57f17 !important; }
+.text-yellow.text-darken-4 { color: #f57f17 !important; }
+.select2-results__option.yellow.darken-4{ background-color: #f57f17 !important; color: #fff !important; }
+.card.card-border-shadow-yellow-darken-4::after { border-bottom-color: #f57f17; }
+.card.card-border-shadow-yellow-darken-4:hover::after { border-bottom-color: #f57f17; }
+.bg-label-yellow-darken-4 { background-color: #f57f17 !important; color: #ffeb3b !important; }
+.yellow.accent-1 { background-color: #ffff8d !important; }
+.text-yellow.text-accent-1 { color: #ffff8d !important; }
+.select2-results__option.yellow.accent-1{ background-color: #ffff8d !important; color: #fff !important; }
+.card.card-border-shadow-yellow-accent-1::after { border-bottom-color: #ffff8d; }
+.card.card-border-shadow-yellow-accent-1:hover::after { border-bottom-color: #ffff8d; }
+.bg-label-yellow-accent-1 { background-color: #ffff8d !important; color: #ffeb3b !important; }
+.yellow.accent-2 { background-color: #ffff00 !important; }
+.text-yellow.text-accent-2 { color: #ffff00 !important; }
+.select2-results__option.yellow.accent-2{ background-color: #ffff00 !important; color: #fff !important; }
+.card.card-border-shadow-yellow-accent-2::after { border-bottom-color: #ffff00; }
+.card.card-border-shadow-yellow-accent-2:hover::after { border-bottom-color: #ffff00; }
+.bg-label-yellow-accent-2 { background-color: #ffff00 !important; color: #ffeb3b !important; }
+.yellow.accent-3 { background-color: #ffea00 !important; }
+.text-yellow.text-accent-3 { color: #ffea00 !important; }
+.select2-results__option.yellow.accent-3{ background-color: #ffea00 !important; color: #fff !important; }
+.card.card-border-shadow-yellow-accent-3::after { border-bottom-color: #ffea00; }
+.card.card-border-shadow-yellow-accent-3:hover::after { border-bottom-color: #ffea00; }
+.bg-label-yellow-accent-3 { background-color: #ffea00 !important; color: #ffeb3b !important; }
+.yellow.accent-4 { background-color: #ffd600 !important; }
+.text-yellow.text-accent-4 { color: #ffd600 !important; }
+.select2-results__option.yellow.accent-4{ background-color: #ffd600 !important; color: #fff !important; }
+.card.card-border-shadow-yellow-accent-4::after { border-bottom-color: #ffd600; }
+.card.card-border-shadow-yellow-accent-4:hover::after { border-bottom-color: #ffd600; }
+.bg-label-yellow-accent-4 { background-color: #ffd600 !important; color: #ffeb3b !important; }
+.amber { background-color: #ffc107 !important; }
+.text-amber { color: #ffc107 !important; }
+.select2-results__option.amber{ background-color: #ffc107 !important; color: #fff !important; }
+.card.card-border-shadow-amber::after { border-bottom-color: #ffc107; }
+.card.card-border-shadow-amber:hover::after { border-bottom-color: #ffc107; }
+.bg-label-amber { background-color: #fff8e1 !important; color: #ffc107 !important; }
+.amber.lighten-5 { background-color: #fff8e1 !important; }
+.text-amber.text-lighten-5 { color: #fff8e1 !important; }
+.select2-results__option.amber.lighten-5{ background-color: #fff8e1 !important; color: #fff !important; }
+.card.card-border-shadow-amber-lighten-5::after { border-bottom-color: #fff8e1; }
+.card.card-border-shadow-amber-lighten-5:hover::after { border-bottom-color: #fff8e1; }
+.bg-label-amber-lighten-5 { background-color: #fff8e1 !important; color: #ffc107 !important; }
+.amber.lighten-4 { background-color: #ffecb3 !important; }
+.text-amber.text-lighten-4 { color: #ffecb3 !important; }
+.select2-results__option.amber.lighten-4{ background-color: #ffecb3 !important; color: #fff !important; }
+.card.card-border-shadow-amber-lighten-4::after { border-bottom-color: #ffecb3; }
+.card.card-border-shadow-amber-lighten-4:hover::after { border-bottom-color: #ffecb3; }
+.bg-label-amber-lighten-4 { background-color: #ffecb3 !important; color: #ffc107 !important; }
+.amber.lighten-3 { background-color: #ffe082 !important; }
+.text-amber.text-lighten-3 { color: #ffe082 !important; }
+.select2-results__option.amber.lighten-3{ background-color: #ffe082 !important; color: #fff !important; }
+.card.card-border-shadow-amber-lighten-3::after { border-bottom-color: #ffe082; }
+.card.card-border-shadow-amber-lighten-3:hover::after { border-bottom-color: #ffe082; }
+.bg-label-amber-lighten-3 { background-color: #ffe082 !important; color: #ffc107 !important; }
+.amber.lighten-2 { background-color: #ffd54f !important; }
+.text-amber.text-lighten-2 { color: #ffd54f !important; }
+.select2-results__option.amber.lighten-2{ background-color: #ffd54f !important; color: #fff !important; }
+.card.card-border-shadow-amber-lighten-2::after { border-bottom-color: #ffd54f; }
+.card.card-border-shadow-amber-lighten-2:hover::after { border-bottom-color: #ffd54f; }
+.bg-label-amber-lighten-2 { background-color: #ffd54f !important; color: #ffc107 !important; }
+.amber.lighten-1 { background-color: #ffca28 !important; }
+.text-amber.text-lighten-1 { color: #ffca28 !important; }
+.select2-results__option.amber.lighten-1{ background-color: #ffca28 !important; color: #fff !important; }
+.card.card-border-shadow-amber-lighten-1::after { border-bottom-color: #ffca28; }
+.card.card-border-shadow-amber-lighten-1:hover::after { border-bottom-color: #ffca28; }
+.bg-label-amber-lighten-1 { background-color: #ffca28 !important; color: #ffc107 !important; }
+.amber.darken-1 { background-color: #ffb300 !important; }
+.text-amber.text-darken-1 { color: #ffb300 !important; }
+.select2-results__option.amber.darken-1{ background-color: #ffb300 !important; color: #fff !important; }
+.card.card-border-shadow-amber-darken-1::after { border-bottom-color: #ffb300; }
+.card.card-border-shadow-amber-darken-1:hover::after { border-bottom-color: #ffb300; }
+.bg-label-amber-darken-1 { background-color: #ffb300 !important; color: #ffc107 !important; }
+.amber.darken-2 { background-color: #ffa000 !important; }
+.text-amber.text-darken-2 { color: #ffa000 !important; }
+.select2-results__option.amber.darken-2{ background-color: #ffa000 !important; color: #fff !important; }
+.card.card-border-shadow-amber-darken-2::after { border-bottom-color: #ffa000; }
+.card.card-border-shadow-amber-darken-2:hover::after { border-bottom-color: #ffa000; }
+.bg-label-amber-darken-2 { background-color: #ffa000 !important; color: #ffc107 !important; }
+.amber.darken-3 { background-color: #ff8f00 !important; }
+.text-amber.text-darken-3 { color: #ff8f00 !important; }
+.select2-results__option.amber.darken-3{ background-color: #ff8f00 !important; color: #fff !important; }
+.card.card-border-shadow-amber-darken-3::after { border-bottom-color: #ff8f00; }
+.card.card-border-shadow-amber-darken-3:hover::after { border-bottom-color: #ff8f00; }
+.bg-label-amber-darken-3 { background-color: #ff8f00 !important; color: #ffc107 !important; }
+.amber.darken-4 { background-color: #ff6f00 !important; }
+.text-amber.text-darken-4 { color: #ff6f00 !important; }
+.select2-results__option.amber.darken-4{ background-color: #ff6f00 !important; color: #fff !important; }
+.card.card-border-shadow-amber-darken-4::after { border-bottom-color: #ff6f00; }
+.card.card-border-shadow-amber-darken-4:hover::after { border-bottom-color: #ff6f00; }
+.bg-label-amber-darken-4 { background-color: #ff6f00 !important; color: #ffc107 !important; }
+.amber.accent-1 { background-color: #ffe57f !important; }
+.text-amber.text-accent-1 { color: #ffe57f !important; }
+.select2-results__option.amber.accent-1{ background-color: #ffe57f !important; color: #fff !important; }
+.card.card-border-shadow-amber-accent-1::after { border-bottom-color: #ffe57f; }
+.card.card-border-shadow-amber-accent-1:hover::after { border-bottom-color: #ffe57f; }
+.bg-label-amber-accent-1 { background-color: #ffe57f !important; color: #ffc107 !important; }
+.amber.accent-2 { background-color: #ffd740 !important; }
+.text-amber.text-accent-2 { color: #ffd740 !important; }
+.select2-results__option.amber.accent-2{ background-color: #ffd740 !important; color: #fff !important; }
+.card.card-border-shadow-amber-accent-2::after { border-bottom-color: #ffd740; }
+.card.card-border-shadow-amber-accent-2:hover::after { border-bottom-color: #ffd740; }
+.bg-label-amber-accent-2 { background-color: #ffd740 !important; color: #ffc107 !important; }
+.amber.accent-3 { background-color: #ffc400 !important; }
+.text-amber.text-accent-3 { color: #ffc400 !important; }
+.select2-results__option.amber.accent-3{ background-color: #ffc400 !important; color: #fff !important; }
+.card.card-border-shadow-amber-accent-3::after { border-bottom-color: #ffc400; }
+.card.card-border-shadow-amber-accent-3:hover::after { border-bottom-color: #ffc400; }
+.bg-label-amber-accent-3 { background-color: #ffc400 !important; color: #ffc107 !important; }
+.amber.accent-4 { background-color: #ffab00 !important; }
+.text-amber.text-accent-4 { color: #ffab00 !important; }
+.select2-results__option.amber.accent-4{ background-color: #ffab00 !important; color: #fff !important; }
+.card.card-border-shadow-amber-accent-4::after { border-bottom-color: #ffab00; }
+.card.card-border-shadow-amber-accent-4:hover::after { border-bottom-color: #ffab00; }
+.bg-label-amber-accent-4 { background-color: #ffab00 !important; color: #ffc107 !important; }
+.orange { background-color: #ff9800 !important; }
+.text-orange { color: #ff9800 !important; }
+.select2-results__option.orange{ background-color: #ff9800 !important; color: #fff !important; }
+.card.card-border-shadow-orange::after { border-bottom-color: #ff9800; }
+.card.card-border-shadow-orange:hover::after { border-bottom-color: #ff9800; }
+.bg-label-orange { background-color: #fff3e0 !important; color: #ff9800 !important; }
+.orange.lighten-5 { background-color: #fff3e0 !important; }
+.text-orange.text-lighten-5 { color: #fff3e0 !important; }
+.select2-results__option.orange.lighten-5{ background-color: #fff3e0 !important; color: #fff !important; }
+.card.card-border-shadow-orange-lighten-5::after { border-bottom-color: #fff3e0; }
+.card.card-border-shadow-orange-lighten-5:hover::after { border-bottom-color: #fff3e0; }
+.bg-label-orange-lighten-5 { background-color: #fff3e0 !important; color: #ff9800 !important; }
+.orange.lighten-4 { background-color: #ffe0b2 !important; }
+.text-orange.text-lighten-4 { color: #ffe0b2 !important; }
+.select2-results__option.orange.lighten-4{ background-color: #ffe0b2 !important; color: #fff !important; }
+.card.card-border-shadow-orange-lighten-4::after { border-bottom-color: #ffe0b2; }
+.card.card-border-shadow-orange-lighten-4:hover::after { border-bottom-color: #ffe0b2; }
+.bg-label-orange-lighten-4 { background-color: #ffe0b2 !important; color: #ff9800 !important; }
+.orange.lighten-3 { background-color: #ffcc80 !important; }
+.text-orange.text-lighten-3 { color: #ffcc80 !important; }
+.select2-results__option.orange.lighten-3{ background-color: #ffcc80 !important; color: #fff !important; }
+.card.card-border-shadow-orange-lighten-3::after { border-bottom-color: #ffcc80; }
+.card.card-border-shadow-orange-lighten-3:hover::after { border-bottom-color: #ffcc80; }
+.bg-label-orange-lighten-3 { background-color: #ffcc80 !important; color: #ff9800 !important; }
+.orange.lighten-2 { background-color: #ffb74d !important; }
+.text-orange.text-lighten-2 { color: #ffb74d !important; }
+.select2-results__option.orange.lighten-2{ background-color: #ffb74d !important; color: #fff !important; }
+.card.card-border-shadow-orange-lighten-2::after { border-bottom-color: #ffb74d; }
+.card.card-border-shadow-orange-lighten-2:hover::after { border-bottom-color: #ffb74d; }
+.bg-label-orange-lighten-2 { background-color: #ffb74d !important; color: #ff9800 !important; }
+.orange.lighten-1 { background-color: #ffa726 !important; }
+.text-orange.text-lighten-1 { color: #ffa726 !important; }
+.select2-results__option.orange.lighten-1{ background-color: #ffa726 !important; color: #fff !important; }
+.card.card-border-shadow-orange-lighten-1::after { border-bottom-color: #ffa726; }
+.card.card-border-shadow-orange-lighten-1:hover::after { border-bottom-color: #ffa726; }
+.bg-label-orange-lighten-1 { background-color: #ffa726 !important; color: #ff9800 !important; }
+.orange.darken-1 { background-color: #fb8c00 !important; }
+.text-orange.text-darken-1 { color: #fb8c00 !important; }
+.select2-results__option.orange.darken-1{ background-color: #fb8c00 !important; color: #fff !important; }
+.card.card-border-shadow-orange-darken-1::after { border-bottom-color: #fb8c00; }
+.card.card-border-shadow-orange-darken-1:hover::after { border-bottom-color: #fb8c00; }
+.bg-label-orange-darken-1 { background-color: #fb8c00 !important; color: #ff9800 !important; }
+.orange.darken-2 { background-color: #f57c00 !important; }
+.text-orange.text-darken-2 { color: #f57c00 !important; }
+.select2-results__option.orange.darken-2{ background-color: #f57c00 !important; color: #fff !important; }
+.card.card-border-shadow-orange-darken-2::after { border-bottom-color: #f57c00; }
+.card.card-border-shadow-orange-darken-2:hover::after { border-bottom-color: #f57c00; }
+.bg-label-orange-darken-2 { background-color: #f57c00 !important; color: #ff9800 !important; }
+.orange.darken-3 { background-color: #ef6c00 !important; }
+.text-orange.text-darken-3 { color: #ef6c00 !important; }
+.select2-results__option.orange.darken-3{ background-color: #ef6c00 !important; color: #fff !important; }
+.card.card-border-shadow-orange-darken-3::after { border-bottom-color: #ef6c00; }
+.card.card-border-shadow-orange-darken-3:hover::after { border-bottom-color: #ef6c00; }
+.bg-label-orange-darken-3 { background-color: #ef6c00 !important; color: #ff9800 !important; }
+.orange.darken-4 { background-color: #e65100 !important; }
+.text-orange.text-darken-4 { color: #e65100 !important; }
+.select2-results__option.orange.darken-4{ background-color: #e65100 !important; color: #fff !important; }
+.card.card-border-shadow-orange-darken-4::after { border-bottom-color: #e65100; }
+.card.card-border-shadow-orange-darken-4:hover::after { border-bottom-color: #e65100; }
+.bg-label-orange-darken-4 { background-color: #e65100 !important; color: #ff9800 !important; }
+.orange.accent-1 { background-color: #ffd180 !important; }
+.text-orange.text-accent-1 { color: #ffd180 !important; }
+.select2-results__option.orange.accent-1{ background-color: #ffd180 !important; color: #fff !important; }
+.card.card-border-shadow-orange-accent-1::after { border-bottom-color: #ffd180; }
+.card.card-border-shadow-orange-accent-1:hover::after { border-bottom-color: #ffd180; }
+.bg-label-orange-accent-1 { background-color: #ffd180 !important; color: #ff9800 !important; }
+.orange.accent-2 { background-color: #ffab40 !important; }
+.text-orange.text-accent-2 { color: #ffab40 !important; }
+.select2-results__option.orange.accent-2{ background-color: #ffab40 !important; color: #fff !important; }
+.card.card-border-shadow-orange-accent-2::after { border-bottom-color: #ffab40; }
+.card.card-border-shadow-orange-accent-2:hover::after { border-bottom-color: #ffab40; }
+.bg-label-orange-accent-2 { background-color: #ffab40 !important; color: #ff9800 !important; }
+.orange.accent-3 { background-color: #ff9100 !important; }
+.text-orange.text-accent-3 { color: #ff9100 !important; }
+.select2-results__option.orange.accent-3{ background-color: #ff9100 !important; color: #fff !important; }
+.card.card-border-shadow-orange-accent-3::after { border-bottom-color: #ff9100; }
+.card.card-border-shadow-orange-accent-3:hover::after { border-bottom-color: #ff9100; }
+.bg-label-orange-accent-3 { background-color: #ff9100 !important; color: #ff9800 !important; }
+.orange.accent-4 { background-color: #ff6d00 !important; }
+.text-orange.text-accent-4 { color: #ff6d00 !important; }
+.select2-results__option.orange.accent-4{ background-color: #ff6d00 !important; color: #fff !important; }
+.card.card-border-shadow-orange-accent-4::after { border-bottom-color: #ff6d00; }
+.card.card-border-shadow-orange-accent-4:hover::after { border-bottom-color: #ff6d00; }
+.bg-label-orange-accent-4 { background-color: #ff6d00 !important; color: #ff9800 !important; }
+.deep-orange { background-color: #ff5722 !important; }
+.text-deep-orange { color: #ff5722 !important; }
+.select2-results__option.deep-orange{ background-color: #ff5722 !important; color: #fff !important; }
+.card.card-border-shadow-deep-orange::after { border-bottom-color: #ff5722; }
+.card.card-border-shadow-deep-orange:hover::after { border-bottom-color: #ff5722; }
+.bg-label-deep-orange { background-color: #fbe9e7 !important; color: #ff5722 !important; }
+.deep-orange.lighten-5 { background-color: #fbe9e7 !important; }
+.text-deep-orange.text-lighten-5 { color: #fbe9e7 !important; }
+.select2-results__option.deep-orange.lighten-5{ background-color: #fbe9e7 !important; color: #fff !important; }
+.card.card-border-shadow-deep-orange-lighten-5::after { border-bottom-color: #fbe9e7; }
+.card.card-border-shadow-deep-orange-lighten-5:hover::after { border-bottom-color: #fbe9e7; }
+.bg-label-deep-orange-lighten-5 { background-color: #fbe9e7 !important; color: #ff5722 !important; }
+.deep-orange.lighten-4 { background-color: #ffccbc !important; }
+.text-deep-orange.text-lighten-4 { color: #ffccbc !important; }
+.select2-results__option.deep-orange.lighten-4{ background-color: #ffccbc !important; color: #fff !important; }
+.card.card-border-shadow-deep-orange-lighten-4::after { border-bottom-color: #ffccbc; }
+.card.card-border-shadow-deep-orange-lighten-4:hover::after { border-bottom-color: #ffccbc; }
+.bg-label-deep-orange-lighten-4 { background-color: #ffccbc !important; color: #ff5722 !important; }
+.deep-orange.lighten-3 { background-color: #ffab91 !important; }
+.text-deep-orange.text-lighten-3 { color: #ffab91 !important; }
+.select2-results__option.deep-orange.lighten-3{ background-color: #ffab91 !important; color: #fff !important; }
+.card.card-border-shadow-deep-orange-lighten-3::after { border-bottom-color: #ffab91; }
+.card.card-border-shadow-deep-orange-lighten-3:hover::after { border-bottom-color: #ffab91; }
+.bg-label-deep-orange-lighten-3 { background-color: #ffab91 !important; color: #ff5722 !important; }
+.deep-orange.lighten-2 { background-color: #ff8a65 !important; }
+.text-deep-orange.text-lighten-2 { color: #ff8a65 !important; }
+.select2-results__option.deep-orange.lighten-2{ background-color: #ff8a65 !important; color: #fff !important; }
+.card.card-border-shadow-deep-orange-lighten-2::after { border-bottom-color: #ff8a65; }
+.card.card-border-shadow-deep-orange-lighten-2:hover::after { border-bottom-color: #ff8a65; }
+.bg-label-deep-orange-lighten-2 { background-color: #ff8a65 !important; color: #ff5722 !important; }
+.deep-orange.lighten-1 { background-color: #ff7043 !important; }
+.text-deep-orange.text-lighten-1 { color: #ff7043 !important; }
+.select2-results__option.deep-orange.lighten-1{ background-color: #ff7043 !important; color: #fff !important; }
+.card.card-border-shadow-deep-orange-lighten-1::after { border-bottom-color: #ff7043; }
+.card.card-border-shadow-deep-orange-lighten-1:hover::after { border-bottom-color: #ff7043; }
+.bg-label-deep-orange-lighten-1 { background-color: #ff7043 !important; color: #ff5722 !important; }
+.deep-orange.darken-1 { background-color: #f4511e !important; }
+.text-deep-orange.text-darken-1 { color: #f4511e !important; }
+.select2-results__option.deep-orange.darken-1{ background-color: #f4511e !important; color: #fff !important; }
+.card.card-border-shadow-deep-orange-darken-1::after { border-bottom-color: #f4511e; }
+.card.card-border-shadow-deep-orange-darken-1:hover::after { border-bottom-color: #f4511e; }
+.bg-label-deep-orange-darken-1 { background-color: #f4511e !important; color: #ff5722 !important; }
+.deep-orange.darken-2 { background-color: #e64a19 !important; }
+.text-deep-orange.text-darken-2 { color: #e64a19 !important; }
+.select2-results__option.deep-orange.darken-2{ background-color: #e64a19 !important; color: #fff !important; }
+.card.card-border-shadow-deep-orange-darken-2::after { border-bottom-color: #e64a19; }
+.card.card-border-shadow-deep-orange-darken-2:hover::after { border-bottom-color: #e64a19; }
+.bg-label-deep-orange-darken-2 { background-color: #e64a19 !important; color: #ff5722 !important; }
+.deep-orange.darken-3 { background-color: #d84315 !important; }
+.text-deep-orange.text-darken-3 { color: #d84315 !important; }
+.select2-results__option.deep-orange.darken-3{ background-color: #d84315 !important; color: #fff !important; }
+.card.card-border-shadow-deep-orange-darken-3::after { border-bottom-color: #d84315; }
+.card.card-border-shadow-deep-orange-darken-3:hover::after { border-bottom-color: #d84315; }
+.bg-label-deep-orange-darken-3 { background-color: #d84315 !important; color: #ff5722 !important; }
+.deep-orange.darken-4 { background-color: #bf360c !important; }
+.text-deep-orange.text-darken-4 { color: #bf360c !important; }
+.select2-results__option.deep-orange.darken-4{ background-color: #bf360c !important; color: #fff !important; }
+.card.card-border-shadow-deep-orange-darken-4::after { border-bottom-color: #bf360c; }
+.card.card-border-shadow-deep-orange-darken-4:hover::after { border-bottom-color: #bf360c; }
+.bg-label-deep-orange-darken-4 { background-color: #bf360c !important; color: #ff5722 !important; }
+.deep-orange.accent-1 { background-color: #ff9e80 !important; }
+.text-deep-orange.text-accent-1 { color: #ff9e80 !important; }
+.select2-results__option.deep-orange.accent-1{ background-color: #ff9e80 !important; color: #fff !important; }
+.card.card-border-shadow-deep-orange-accent-1::after { border-bottom-color: #ff9e80; }
+.card.card-border-shadow-deep-orange-accent-1:hover::after { border-bottom-color: #ff9e80; }
+.bg-label-deep-orange-accent-1 { background-color: #ff9e80 !important; color: #ff5722 !important; }
+.deep-orange.accent-2 { background-color: #ff6e40 !important; }
+.text-deep-orange.text-accent-2 { color: #ff6e40 !important; }
+.select2-results__option.deep-orange.accent-2{ background-color: #ff6e40 !important; color: #fff !important; }
+.card.card-border-shadow-deep-orange-accent-2::after { border-bottom-color: #ff6e40; }
+.card.card-border-shadow-deep-orange-accent-2:hover::after { border-bottom-color: #ff6e40; }
+.bg-label-deep-orange-accent-2 { background-color: #ff6e40 !important; color: #ff5722 !important; }
+.deep-orange.accent-3 { background-color: #ff3d00 !important; }
+.text-deep-orange.text-accent-3 { color: #ff3d00 !important; }
+.select2-results__option.deep-orange.accent-3{ background-color: #ff3d00 !important; color: #fff !important; }
+.card.card-border-shadow-deep-orange-accent-3::after { border-bottom-color: #ff3d00; }
+.card.card-border-shadow-deep-orange-accent-3:hover::after { border-bottom-color: #ff3d00; }
+.bg-label-deep-orange-accent-3 { background-color: #ff3d00 !important; color: #ff5722 !important; }
+.deep-orange.accent-4 { background-color: #dd2c00 !important; }
+.text-deep-orange.text-accent-4 { color: #dd2c00 !important; }
+.select2-results__option.deep-orange.accent-4{ background-color: #dd2c00 !important; color: #fff !important; }
+.card.card-border-shadow-deep-orange-accent-4::after { border-bottom-color: #dd2c00; }
+.card.card-border-shadow-deep-orange-accent-4:hover::after { border-bottom-color: #dd2c00; }
+.bg-label-deep-orange-accent-4 { background-color: #dd2c00 !important; color: #ff5722 !important; }
+.brown { background-color: #795548 !important; }
+.text-brown { color: #795548 !important; }
+.select2-results__option.brown{ background-color: #795548 !important; color: #fff !important; }
+.card.card-border-shadow-brown::after { border-bottom-color: #795548; }
+.card.card-border-shadow-brown:hover::after { border-bottom-color: #795548; }
+.bg-label-brown { background-color: #efebe9 !important; color: #795548 !important; }
+.brown.lighten-5 { background-color: #efebe9 !important; }
+.text-brown.text-lighten-5 { color: #efebe9 !important; }
+.select2-results__option.brown.lighten-5{ background-color: #efebe9 !important; color: #fff !important; }
+.card.card-border-shadow-brown-lighten-5::after { border-bottom-color: #efebe9; }
+.card.card-border-shadow-brown-lighten-5:hover::after { border-bottom-color: #efebe9; }
+.bg-label-brown-lighten-5 { background-color: #efebe9 !important; color: #795548 !important; }
+.brown.lighten-4 { background-color: #d7ccc8 !important; }
+.text-brown.text-lighten-4 { color: #d7ccc8 !important; }
+.select2-results__option.brown.lighten-4{ background-color: #d7ccc8 !important; color: #fff !important; }
+.card.card-border-shadow-brown-lighten-4::after { border-bottom-color: #d7ccc8; }
+.card.card-border-shadow-brown-lighten-4:hover::after { border-bottom-color: #d7ccc8; }
+.bg-label-brown-lighten-4 { background-color: #d7ccc8 !important; color: #795548 !important; }
+.brown.lighten-3 { background-color: #bcaaa4 !important; }
+.text-brown.text-lighten-3 { color: #bcaaa4 !important; }
+.select2-results__option.brown.lighten-3{ background-color: #bcaaa4 !important; color: #fff !important; }
+.card.card-border-shadow-brown-lighten-3::after { border-bottom-color: #bcaaa4; }
+.card.card-border-shadow-brown-lighten-3:hover::after { border-bottom-color: #bcaaa4; }
+.bg-label-brown-lighten-3 { background-color: #bcaaa4 !important; color: #795548 !important; }
+.brown.lighten-2 { background-color: #a1887f !important; }
+.text-brown.text-lighten-2 { color: #a1887f !important; }
+.select2-results__option.brown.lighten-2{ background-color: #a1887f !important; color: #fff !important; }
+.card.card-border-shadow-brown-lighten-2::after { border-bottom-color: #a1887f; }
+.card.card-border-shadow-brown-lighten-2:hover::after { border-bottom-color: #a1887f; }
+.bg-label-brown-lighten-2 { background-color: #a1887f !important; color: #795548 !important; }
+.brown.lighten-1 { background-color: #8d6e63 !important; }
+.text-brown.text-lighten-1 { color: #8d6e63 !important; }
+.select2-results__option.brown.lighten-1{ background-color: #8d6e63 !important; color: #fff !important; }
+.card.card-border-shadow-brown-lighten-1::after { border-bottom-color: #8d6e63; }
+.card.card-border-shadow-brown-lighten-1:hover::after { border-bottom-color: #8d6e63; }
+.bg-label-brown-lighten-1 { background-color: #8d6e63 !important; color: #795548 !important; }
+.brown.darken-1 { background-color: #6d4c41 !important; }
+.text-brown.text-darken-1 { color: #6d4c41 !important; }
+.select2-results__option.brown.darken-1{ background-color: #6d4c41 !important; color: #fff !important; }
+.card.card-border-shadow-brown-darken-1::after { border-bottom-color: #6d4c41; }
+.card.card-border-shadow-brown-darken-1:hover::after { border-bottom-color: #6d4c41; }
+.bg-label-brown-darken-1 { background-color: #6d4c41 !important; color: #795548 !important; }
+.brown.darken-2 { background-color: #5d4037 !important; }
+.text-brown.text-darken-2 { color: #5d4037 !important; }
+.select2-results__option.brown.darken-2{ background-color: #5d4037 !important; color: #fff !important; }
+.card.card-border-shadow-brown-darken-2::after { border-bottom-color: #5d4037; }
+.card.card-border-shadow-brown-darken-2:hover::after { border-bottom-color: #5d4037; }
+.bg-label-brown-darken-2 { background-color: #5d4037 !important; color: #795548 !important; }
+.brown.darken-3 { background-color: #4e342e !important; }
+.text-brown.text-darken-3 { color: #4e342e !important; }
+.select2-results__option.brown.darken-3{ background-color: #4e342e !important; color: #fff !important; }
+.card.card-border-shadow-brown-darken-3::after { border-bottom-color: #4e342e; }
+.card.card-border-shadow-brown-darken-3:hover::after { border-bottom-color: #4e342e; }
+.bg-label-brown-darken-3 { background-color: #4e342e !important; color: #795548 !important; }
+.brown.darken-4 { background-color: #3e2723 !important; }
+.text-brown.text-darken-4 { color: #3e2723 !important; }
+.select2-results__option.brown.darken-4{ background-color: #3e2723 !important; color: #fff !important; }
+.card.card-border-shadow-brown-darken-4::after { border-bottom-color: #3e2723; }
+.card.card-border-shadow-brown-darken-4:hover::after { border-bottom-color: #3e2723; }
+.bg-label-brown-darken-4 { background-color: #3e2723 !important; color: #795548 !important; }
+.grey { background-color: #9e9e9e !important; }
+.text-grey { color: #9e9e9e !important; }
+.select2-results__option.grey{ background-color: #9e9e9e !important; color: #fff !important; }
+.card.card-border-shadow-grey::after { border-bottom-color: #9e9e9e; }
+.card.card-border-shadow-grey:hover::after { border-bottom-color: #9e9e9e; }
+.bg-label-grey { background-color: #fafafa !important; color: #9e9e9e !important; }
+.grey.lighten-5 { background-color: #fafafa !important; }
+.text-grey.text-lighten-5 { color: #fafafa !important; }
+.select2-results__option.grey.lighten-5{ background-color: #fafafa !important; color: #fff !important; }
+.card.card-border-shadow-grey-lighten-5::after { border-bottom-color: #fafafa; }
+.card.card-border-shadow-grey-lighten-5:hover::after { border-bottom-color: #fafafa; }
+.bg-label-grey-lighten-5 { background-color: #fafafa !important; color: #9e9e9e !important; }
+.grey.lighten-4 { background-color: #f5f5f5 !important; }
+.text-grey.text-lighten-4 { color: #f5f5f5 !important; }
+.select2-results__option.grey.lighten-4{ background-color: #f5f5f5 !important; color: #fff !important; }
+.card.card-border-shadow-grey-lighten-4::after { border-bottom-color: #f5f5f5; }
+.card.card-border-shadow-grey-lighten-4:hover::after { border-bottom-color: #f5f5f5; }
+.bg-label-grey-lighten-4 { background-color: #f5f5f5 !important; color: #9e9e9e !important; }
+.grey.lighten-3 { background-color: #eeeeee !important; }
+.text-grey.text-lighten-3 { color: #eeeeee !important; }
+.select2-results__option.grey.lighten-3{ background-color: #eeeeee !important; color: #fff !important; }
+.card.card-border-shadow-grey-lighten-3::after { border-bottom-color: #eeeeee; }
+.card.card-border-shadow-grey-lighten-3:hover::after { border-bottom-color: #eeeeee; }
+.bg-label-grey-lighten-3 { background-color: #eeeeee !important; color: #9e9e9e !important; }
+.grey.lighten-2 { background-color: #e0e0e0 !important; }
+.text-grey.text-lighten-2 { color: #e0e0e0 !important; }
+.select2-results__option.grey.lighten-2{ background-color: #e0e0e0 !important; color: #fff !important; }
+.card.card-border-shadow-grey-lighten-2::after { border-bottom-color: #e0e0e0; }
+.card.card-border-shadow-grey-lighten-2:hover::after { border-bottom-color: #e0e0e0; }
+.bg-label-grey-lighten-2 { background-color: #e0e0e0 !important; color: #9e9e9e !important; }
+.grey.lighten-1 { background-color: #bdbdbd !important; }
+.text-grey.text-lighten-1 { color: #bdbdbd !important; }
+.select2-results__option.grey.lighten-1{ background-color: #bdbdbd !important; color: #fff !important; }
+.card.card-border-shadow-grey-lighten-1::after { border-bottom-color: #bdbdbd; }
+.card.card-border-shadow-grey-lighten-1:hover::after { border-bottom-color: #bdbdbd; }
+.bg-label-grey-lighten-1 { background-color: #bdbdbd !important; color: #9e9e9e !important; }
+.grey.darken-1 { background-color: #757575 !important; }
+.text-grey.text-darken-1 { color: #757575 !important; }
+.select2-results__option.grey.darken-1{ background-color: #757575 !important; color: #fff !important; }
+.card.card-border-shadow-grey-darken-1::after { border-bottom-color: #757575; }
+.card.card-border-shadow-grey-darken-1:hover::after { border-bottom-color: #757575; }
+.bg-label-grey-darken-1 { background-color: #757575 !important; color: #9e9e9e !important; }
+.grey.darken-2 { background-color: #616161 !important; }
+.text-grey.text-darken-2 { color: #616161 !important; }
+.select2-results__option.grey.darken-2{ background-color: #616161 !important; color: #fff !important; }
+.card.card-border-shadow-grey-darken-2::after { border-bottom-color: #616161; }
+.card.card-border-shadow-grey-darken-2:hover::after { border-bottom-color: #616161; }
+.bg-label-grey-darken-2 { background-color: #616161 !important; color: #9e9e9e !important; }
+.grey.darken-3 { background-color: #424242 !important; }
+.text-grey.text-darken-3 { color: #424242 !important; }
+.select2-results__option.grey.darken-3{ background-color: #424242 !important; color: #fff !important; }
+.card.card-border-shadow-grey-darken-3::after { border-bottom-color: #424242; }
+.card.card-border-shadow-grey-darken-3:hover::after { border-bottom-color: #424242; }
+.bg-label-grey-darken-3 { background-color: #424242 !important; color: #9e9e9e !important; }
+.grey.darken-4 { background-color: #212121 !important; }
+.text-grey.text-darken-4 { color: #212121 !important; }
+.select2-results__option.grey.darken-4{ background-color: #212121 !important; color: #fff !important; }
+.card.card-border-shadow-grey-darken-4::after { border-bottom-color: #212121; }
+.card.card-border-shadow-grey-darken-4:hover::after { border-bottom-color: #212121; }
+.bg-label-grey-darken-4 { background-color: #212121 !important; color: #9e9e9e !important; }
+.blue-grey { background-color: #607d8b !important; }
+.text-blue-grey { color: #607d8b !important; }
+.select2-results__option.blue-grey{ background-color: #607d8b !important; color: #fff !important; }
+.card.card-border-shadow-blue-grey::after { border-bottom-color: #607d8b; }
+.card.card-border-shadow-blue-grey:hover::after { border-bottom-color: #607d8b; }
+.bg-label-blue-grey { background-color: #eceff1 !important; color: #607d8b !important; }
+.blue-grey.lighten-5 { background-color: #eceff1 !important; }
+.text-blue-grey.text-lighten-5 { color: #eceff1 !important; }
+.select2-results__option.blue-grey.lighten-5{ background-color: #eceff1 !important; color: #fff !important; }
+.card.card-border-shadow-blue-grey-lighten-5::after { border-bottom-color: #eceff1; }
+.card.card-border-shadow-blue-grey-lighten-5:hover::after { border-bottom-color: #eceff1; }
+.bg-label-blue-grey-lighten-5 { background-color: #eceff1 !important; color: #607d8b !important; }
+.blue-grey.lighten-4 { background-color: #cfd8dc !important; }
+.text-blue-grey.text-lighten-4 { color: #cfd8dc !important; }
+.select2-results__option.blue-grey.lighten-4{ background-color: #cfd8dc !important; color: #fff !important; }
+.card.card-border-shadow-blue-grey-lighten-4::after { border-bottom-color: #cfd8dc; }
+.card.card-border-shadow-blue-grey-lighten-4:hover::after { border-bottom-color: #cfd8dc; }
+.bg-label-blue-grey-lighten-4 { background-color: #cfd8dc !important; color: #607d8b !important; }
+.blue-grey.lighten-3 { background-color: #b0bec5 !important; }
+.text-blue-grey.text-lighten-3 { color: #b0bec5 !important; }
+.select2-results__option.blue-grey.lighten-3{ background-color: #b0bec5 !important; color: #fff !important; }
+.card.card-border-shadow-blue-grey-lighten-3::after { border-bottom-color: #b0bec5; }
+.card.card-border-shadow-blue-grey-lighten-3:hover::after { border-bottom-color: #b0bec5; }
+.bg-label-blue-grey-lighten-3 { background-color: #b0bec5 !important; color: #607d8b !important; }
+.blue-grey.lighten-2 { background-color: #90a4ae !important; }
+.text-blue-grey.text-lighten-2 { color: #90a4ae !important; }
+.select2-results__option.blue-grey.lighten-2{ background-color: #90a4ae !important; color: #fff !important; }
+.card.card-border-shadow-blue-grey-lighten-2::after { border-bottom-color: #90a4ae; }
+.card.card-border-shadow-blue-grey-lighten-2:hover::after { border-bottom-color: #90a4ae; }
+.bg-label-blue-grey-lighten-2 { background-color: #90a4ae !important; color: #607d8b !important; }
+.blue-grey.lighten-1 { background-color: #78909c !important; }
+.text-blue-grey.text-lighten-1 { color: #78909c !important; }
+.select2-results__option.blue-grey.lighten-1{ background-color: #78909c !important; color: #fff !important; }
+.card.card-border-shadow-blue-grey-lighten-1::after { border-bottom-color: #78909c; }
+.card.card-border-shadow-blue-grey-lighten-1:hover::after { border-bottom-color: #78909c; }
+.bg-label-blue-grey-lighten-1 { background-color: #78909c !important; color: #607d8b !important; }
+.blue-grey.darken-1 { background-color: #546e7a !important; }
+.text-blue-grey.text-darken-1 { color: #546e7a !important; }
+.select2-results__option.blue-grey.darken-1{ background-color: #546e7a !important; color: #fff !important; }
+.card.card-border-shadow-blue-grey-darken-1::after { border-bottom-color: #546e7a; }
+.card.card-border-shadow-blue-grey-darken-1:hover::after { border-bottom-color: #546e7a; }
+.bg-label-blue-grey-darken-1 { background-color: #546e7a !important; color: #607d8b !important; }
+.blue-grey.darken-2 { background-color: #455a64 !important; }
+.text-blue-grey.text-darken-2 { color: #455a64 !important; }
+.select2-results__option.blue-grey.darken-2{ background-color: #455a64 !important; color: #fff !important; }
+.card.card-border-shadow-blue-grey-darken-2::after { border-bottom-color: #455a64; }
+.card.card-border-shadow-blue-grey-darken-2:hover::after { border-bottom-color: #455a64; }
+.bg-label-blue-grey-darken-2 { background-color: #455a64 !important; color: #607d8b !important; }
+.blue-grey.darken-3 { background-color: #37474f !important; }
+.text-blue-grey.text-darken-3 { color: #37474f !important; }
+.select2-results__option.blue-grey.darken-3{ background-color: #37474f !important; color: #fff !important; }
+.card.card-border-shadow-blue-grey-darken-3::after { border-bottom-color: #37474f; }
+.card.card-border-shadow-blue-grey-darken-3:hover::after { border-bottom-color: #37474f; }
+.bg-label-blue-grey-darken-3 { background-color: #37474f !important; color: #607d8b !important; }
+.blue-grey.darken-4 { background-color: #263238 !important; }
+.text-blue-grey.text-darken-4 { color: #263238 !important; }
+.select2-results__option.blue-grey.darken-4{ background-color: #263238 !important; color: #fff !important; }
+.card.card-border-shadow-blue-grey-darken-4::after { border-bottom-color: #263238; }
+.card.card-border-shadow-blue-grey-darken-4:hover::after { border-bottom-color: #263238; }
+.bg-label-blue-grey-darken-4 { background-color: #263238 !important; color: #607d8b !important; }
+.black { background-color: #000000 !important; }
+.text-black { color: #000000 !important; }
+.select2-results__option.black.select2-results__option--highlighted { background-color: #000000 !important; color: #000 !important; }
+.card.card-border-shadow-black::after { border-bottom-color: #000000; }
+.card.card-border-shadow-black:hover::after { border-bottom-color: #000000; }
+.bg-label-black { background-color: #000000 !important; color: #000 !important; }
+.white { background-color: #ffffff !important; }
+.text-white { color: #ffffff !important; }
+.select2-results__option.white.select2-results__option--highlighted { background-color: #ffffff !important; color: #000 !important; }
+.card.card-border-shadow-white::after { border-bottom-color: #ffffff; }
+.card.card-border-shadow-white:hover::after { border-bottom-color: #ffffff; }
+.bg-label-white { background-color: #ffffff !important; color: #000 !important; }

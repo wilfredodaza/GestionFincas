@@ -1,0 +1,36 @@
+.modal-header{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row-reverse;
+}
+
+.modal-header .close{
+    border-radius: 50rem !important;
+    color: #6d788d;
+    border-color: #e8e9ed;
+    background: #e8e9ed;
+    border: none;
+}
+
+.modal.show{
+    background-color: rgb(var(--bs-primary-rgb), .1);
+}
+.options-on-save{
+    display: none !important;
+}
+
+.card-datatable .dataTables_scrollBody .datatables-basic{
+    min-height: 250px !important;
+}
+
+.dataTables_empty{
+    vertical-align: middle !important;
+}
+
+.btn.hide{
+    display: none !important;
+}
+
+.btn.show{
+    display: inherit !important;
+}
