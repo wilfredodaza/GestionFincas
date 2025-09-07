@@ -29,6 +29,8 @@ $(() => {
         monthSelectorType:  'dropdown',
     });
 
+    localStorage.removeItem('dateMovement');
+
     // var $this_activity = $('#resource_id');
     // $this_activity.select2();
 

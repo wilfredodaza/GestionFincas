@@ -10,6 +10,9 @@ function load_datatable(url, columns, buttons = []){
             url: base_url([url]),
             data: function(d) {
                 // d.date_init     = $('#date_init').val();
+                $('#form-filter').serializeArray().forEach(field => {
+                    d[field.name] = field.value;
+                });
             },
             dataSrc: 'data'
         },
@@ -22,7 +25,7 @@ function load_datatable(url, columns, buttons = []){
         ordering: false,
         processing: true,
         serverSide: true,
-        drawCallback: async (setting) => {
+        drawCallback: async function(setting){
             const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
             tooltipTriggerList.map(function (tooltipTriggerEl) {
               return new bootstrap.Tooltip(tooltipTriggerEl);
@@ -34,8 +37,51 @@ function load_datatable(url, columns, buttons = []){
                 $('.indicadores').html(info_indicadores)
             }
 
+            if ($('input[name="date_init"]').length && $('input[name="date_end"]').length) {
+                const dates = [];
+            
+                if ($('#date_init').val() !== "")
+                    dates.push(`Desde ${$('#date_init').val()}`);
+            
+                if ($('#date_end').val() !== "")
+                    dates.push(`Hasta ${$('#date_end').val()}`);
+            
+                if ($("#title-page").length) {
+                    $("#title-page").html(`${info.title}<br><small>${dates.join(" / ")}</small>`);
+                }
+            }
+            
+
+            Swal.close();
+            setTimeout(() => {
+                this.api().columns.adjust();
+            }, 300);
+
         },
         initComplete: () => {
+
+            if(info_page.form_filter.length != 0){
+                const select2 = $('.form-select');
+
+                if (select2.length) {
+                    select2.each(function () {
+                        var $this = $(this);
+                        const placeholder = $this.attr('placeholder') || 'Seleccione una opción';
+                        const allowNew = $this.hasClass('allow-new');
+                        select2Focus($this);
+                        $this.wrap('<div class="position-relative"></div>').select2({
+                            placeholder,
+                            dropdownParent: $this.parent(),
+                            tags: allowNew
+                        });
+                    });
+                }
+
+                $('.date-input').flatpickr({
+                    locale:             "es",
+                    monthSelectorType:  'dropdown',
+                });
+            }
         },
 
 
@@ -49,7 +95,7 @@ function default_buttons(){
             extend: 'excel',
             text: '<i class="ri-file-excel-line me-1"></i><span class="d-none d-sm-inline-block">Excel</span>',
             className: `btn rounded-pill btn-label-success waves-effect mx-2 mt-2 ${user.role_id == 3 ? 'd-none' : ''}`,
-            filename: `Reporte_${info_page.title.replace(" ", "_")}`,
+            filename: `Reporte_${info_page.title.replace(/\s+/g, "_").toLowerCase()}`,
             title: `Reporte de ${info_page.title}`,
             action: async function (e, dt, button, config) {
         
@@ -121,9 +167,18 @@ function default_buttons(){
                 // 🔹 Ejecutar exportación normal de Excel
                 $.fn.dataTable.ext.buttons.excelHtml5.action.call(this, e, dt, button, config);
             }
-        }
-        
-    ];
+        },
+        info_page.form_filter.length ? {
+            text: `<i class="ri-filter-3-line ri-16px me-sm-2"></i> <span class="d-none d-sm-inline-block">Filtro</span>`,
+            className: 'btn btn-label-warning waves-effect waves-light mx-2 mt-2',
+            action: () => {
+
+                const offCanvasElement = document.querySelector('#canvasFilter');
+                let offCanvasEl = new bootstrap.Offcanvas(offCanvasElement);
+                offCanvasEl.show();
+            }
+        }:null
+    ].filter(Boolean);
 
     return buttons;
 }
@@ -146,8 +201,11 @@ function indicadoresMovimientos(indicadores){
 
             const date_prox = indicadores.reduce((acc, type) => {
                 const state_pendiente = type.states.find(s => s.id == 1);
-                acc = state_pendiente.movements_pend;
+                if(state_pendiente){
+                    acc = state_pendiente.movements_pend;
+                }
                 return acc;
+
             }, []);
 
             info_indicadores = `
@@ -206,18 +264,22 @@ function indicadoresMovimientos(indicadores){
                                     <i class="ri-calendar-schedule-line"></i>
                                 </span>
                                 </div>
-                                <h4 class="mb-0">Próxima${date_prox.length == 1 ? "" : "s"} a vencer</h4>
+                                <h4 class="mb-0">${date_prox.length != 0 ? `Próxima${date_prox.length == 1 ? "" : "s"}` : `Sin actividades pendientes`} a vencer</h4>
                             </div>
                             <div class="row g-6">
                                 <div class="col-sm-12 col-lg-12 d-flex justify-content-center align-items-center">
                                     <p class="mb-0 text-center" >
-                                        ${date_prox.length == 1 ? `
-                                            <span class="me-1 fw-medium">${date_prox[0].title}</span>
-                                            <span class="text-muted">${date_prox[0].date}</span>
-                                        ` : `
-                                            <span class="me-1 fw-medium">${date_prox.length} actividades: </span>
-                                            <span class="text-muted">${date_prox[0].date}</span>
-                                        `}
+                                        ${
+                                            date_prox.length != 0 ? `
+                                                ${date_prox.length == 1 ? `
+                                                    <span class="me-1 fw-medium">${date_prox[0].title}</span>
+                                                    <span class="text-muted">${date_prox[0].date}</span>
+                                                ` : `
+                                                    <span class="me-1 fw-medium">${date_prox.length} actividades: </span>
+                                                    <span class="text-muted">${date_prox[0].date}</span>
+                                                `}
+                                            ` : ""
+                                        }
                                         
                                     </p>
                                 </div>
@@ -476,4 +538,23 @@ function indicadoresMovimientos(indicadores){
 
 function reloadTable(){
     table_datatable[0].ajax.reload();
+}
+
+async function sendFilter(e){
+    e.preventDefault();
+    Swal.fire({
+        showConfirmButton: false,
+        allowOutsideClick: false,
+        customClass: {},
+        // timer: time,
+        willOpen: function () {
+            Swal.showLoading();
+        }
+    });
+
+
+
+    $('#canvasFilter .btn-close').click();
+    await reloadTable();
+
 }

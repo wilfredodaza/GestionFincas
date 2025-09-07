@@ -15,7 +15,7 @@
     <div class="row g-6">
         <div class="col-md-12 col-xxl-12">
             <div class="row gy-6">
-                <h4 class="card-title mb-0 text-center">
+                <h4 class="card-title mb-0 text-center" id="title-page">
                     <?= $data->title ?>
                 </h4>
 
@@ -51,6 +51,13 @@
             </div>
         </div>
     </div>
+
+    <?php if(!empty($data->form_filter)): ?>
+
+        <div class="row gy-2">
+            <?= view('layouts/forms/filter'); ?>
+        </div>
+    <?php endif ?>
 </div>
 
 <?= $this->endsection('content') ?>

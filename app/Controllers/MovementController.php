@@ -27,6 +27,7 @@ class MovementController extends BaseController
     protected $dataTable;
     protected $m_model;
     protected $r_model;
+    protected $s_model;
     protected $p_model;
     protected $md_model;
     protected $rt_model;
@@ -49,6 +50,7 @@ class MovementController extends BaseController
 
         $this->m_model = new Movement();
         $this->r_model = new Resource();
+        $this->s_model = new State();
         $this->p_model = new Provider();
         $this->md_model = new MovementDetail();
         $this->rt_model = new ResourceType();
@@ -85,9 +87,10 @@ class MovementController extends BaseController
         $session->set('user', $user);
 
         $data = (object)[
-            'id'        => "",
-            'title'     => "",
-            'button'    => "",
+            'id'            => "",
+            'title'         => "",
+            'button'        => "",
+            'form_filter'   => []
         ];
 
         switch ($type) {
@@ -95,12 +98,32 @@ class MovementController extends BaseController
                 $data->id       = 1;
                 $data->title    = 'Compras y Gastos';
                 $data->button   = 'Añadir compra';
+                $type_movements = $this->mt_model->whereIn('id', [1, 3])->findAll();
+                $sellers        = $this->m_model->distinct('seller')->select('seller')->findAll();
+                $providers      = $this->p_model->findAll();
+                $states         = $this->s_model->whereIn('id', [3, 4])->findAll();
+                array_unshift($providers, (object)["id" => -1, "name" => "Sin proveedores"]);
+
+                foreach ($sellers as $key => $seller) {
+                    $seller->id = $seller->seller;
+                    $seller->name = $seller->seller;
+                }
+
+                $data->form_filter = [
+                    (object) ["name" => "fecha_mov", "required" => false, "allow_new" => false, "title" => "Fecha de compra", "value" => "", "type" => "date_range"],
+                    (object) ["name" => "tipo_de_movimiento", "required" => false, "allow_new" => false, "title" => "Tipo de movimiento", "value" => "", "type" => "select", "options" => $type_movements],
+                    (object) ["name" => "pagado", "required" => false, "allow_new" => true, "title" => "Pagado por", "value" => "", "type" => "select", "options" => $sellers],
+                    (object) ["name" => "referencia", "required" => false, "allow_new" => false, "title" => "# Referencia", "value" => "", "type" => "text"],
+                    (object) ["name" => "proveedor", "required" => false, "allow_new" => false, "title" => "Proveedor", "value" => "", "type" => "select", "options" => $providers],
+                    (object) ["name" => "estado", "required" => false, "allow_new" => false, "title" => "Estado", "value" => "", "type" => "select", "options" => $states],
+                ];
                 break;
                 
             case 'activities':
                 $data->id       = 2;
                 $data->title    = 'Actividades';
                 $data->button   = 'Añadir actividad';
+                
                 break;
             case 'wage':
                 $data->id       = 3;
@@ -111,6 +134,9 @@ class MovementController extends BaseController
                 # code...
                 break;
             }
+
+            // var_dump($data); die;
+
             return view('movements/index', [
                 'data'  => $data
             ]);
@@ -118,6 +144,11 @@ class MovementController extends BaseController
     }
 
     public function data($type){
+
+        $filters = (object) $this->request->getGet();
+
+        $this->m_model->filter($filters);
+
         switch ($type) {
             case '3':
                 $this->m_model
@@ -144,7 +175,7 @@ class MovementController extends BaseController
                         'm.resolution as custom_number_bill'
                     ])
                     ->whereIn('movements.movement_type_id', [1, 3])
-                    ->whereIn('movements.state_id', [2, 3])
+                    ->whereIn('movements.state_id', [2, 3, 4])
                     ->join('movements as m', 'm.id = movements.movement_reference', 'left');
                 $this->mt_model->whereIn('id', [1, 3]);
                 
@@ -206,15 +237,22 @@ class MovementController extends BaseController
                             ->orderBy('date', 'ASC')
                             ->first();
 
-                            $m_model = new Movement();
-                            $stateCopy->movements_pend = 
-                                $m_model
-                                ->where([
-                                    'state_id'          => 1,
-                                    'movement_type_id'  => 2,
-                                    'date'              => $nearest->date
-                                ])
-                            ->findAll();
+                            if(!empty($nearest)){
+                                $m_model = new Movement();
+                                $stateCopy->movements_pend = 
+                                    $m_model
+                                    ->where([
+                                        'state_id'          => 1,
+                                        'movement_type_id'  => 2,
+                                        'date'              => $nearest->date
+                                    ])
+                                ->findAll();
+                            }else{
+                                $stateCopy->movements_pend = (object)[
+
+                                ];
+                            }
+
                         }
 
                     }else if($type == 1)
@@ -252,7 +290,8 @@ class MovementController extends BaseController
             'recordsTotal'      => $count_data,
             'recordsFiltered'   => $count_data,
             'post'              => $this->dataTable,
-            'indicadores'       => $movement_types
+            'indicadores'       => $movement_types,
+            'filters'           => $filters
         ]);
 
     }
@@ -664,14 +703,15 @@ class MovementController extends BaseController
                             ]);
                             $value = $this->updatedDetail($resource, $value, $data->movement_type_id);
                         }
+                        $this->m_model->save([
+                            'id'        => $data->movement_id,
+                            'value'     => $value
+                        ]);
                     }
-                    // return $this->respond([$movement, $data]);
-                    $this->m_model->save([
-                        'id'        => $data->movement_id,
-                        'state_id'  => $data->state_id,
-                        'value'     => $value
-                    ]);
                     return redirect()->to(base_url(['dashboard/movements/activities']));
+                    break;
+                case '3':
+                    return redirect()->to(base_url(['dashboard/movements/wage']));
                     break;
                 
                 default:

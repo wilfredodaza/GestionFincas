@@ -56,6 +56,44 @@ class Movement extends Model
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
 
+    public function filter($data){
+        $wheres = [];
+        if(isset($data->tipo_de_movimiento) && !empty($data->tipo_de_movimiento)){
+            $wheres["{$this->table}.movement_type_id"] = $data->tipo_de_movimiento;
+        }
+
+        if(isset($data->date_init) && !empty($data->date_init)){
+            $wheres["{$this->table}.date >="] = $data->date_init;
+        }
+
+        if(isset($data->date_end) && !empty($data->date_end)){
+            $wheres["{$this->table}.date <="] = $data->date_end;
+        }
+
+        if(isset($data->estado) && !empty($data->estado)){
+            $wheres["{$this->table}.state_id"] = $data->estado;
+        }
+
+        if(isset($data->proveedor) && !empty($data->proveedor)){
+            if($data->proveedor == "-1")   
+                $wheres["{$this->table}.provider"] = null;
+            else
+                $wheres["{$this->table}.provider"] = $data->proveedor;
+        }
+
+        if(isset($data->pagado) && !empty($data->pagado)){
+            $this->like("{$this->table}.seller", "%{$data->seller}%");
+        }
+
+        if(isset($data->referencia) && !empty($data->referencia)){
+            $this->like("{$this->table}.resolution", "%{$data->referencia}%");
+        }
+
+
+        if(!empty($wheres))
+            $this->where($wheres);
+    }
+
     protected function functionBeforeInsert(array $data){
 
         $movement = $this->where([
@@ -70,7 +108,7 @@ class Movement extends Model
 
     protected function functionAfterFind(array $data){
         
-        log_message("info", "Despues de encontrar". json_encode($data));
+        log_message("info", "Despues de encontrar movimientos: ". json_encode($data));
         if(isset($data['id'])){
             $data['data']->state = $this->builder('states')
                 ->where([
@@ -139,36 +177,64 @@ class Movement extends Model
                 $data['data']->support_base64 = null; // o un mensaje de error
             }
         }else{
-            foreach($data['data'] as $movement){
-                if(isset($movement->id)){
-                    $movement->state = $this->builder('states')
-                        ->where([
-                            'id' => $movement->state_id
-                        ])->get()->getResult()[0];
-
-                    $movement->type = $this->builder('movement_types')
-                        ->where([
-                            'id' => $movement->movement_type_id
-                        ])->get()->getResult()[0];
-                    
-                    $provider = $this->builder('providers')
-                        ->where([
-                            'id' => $movement->provider_id
-                        ])->get()->getResult();
-                    $movement->provider = !empty($provider) ? $provider[0] : [];
-
-                    $movement->farm = $this->builder('farms')
-                        ->where([
-                            'id' => $movement->farm_id
-                        ])->get()->getResult()[0];
-
-                    $movement->details = $this->builder('movement_details')
-                        ->where([
-                            'movement_id' => $movement->id
-                        ])->get()->getResult();
+            if(!empty($data['data'])){
+                foreach($data['data'] as $movement){
+                    if(isset($movement->id)){
+                        $movement->state = $this->builder('states')
+                            ->where([
+                                'id' => $movement->state_id
+                            ])->get()->getResult()[0];
+    
+                        $movement->type = $this->builder('movement_types')
+                            ->where([
+                                'id' => $movement->movement_type_id
+                            ])->get()->getResult()[0];
+                        
+                        $provider = $this->builder('providers')
+                            ->where([
+                                'id' => $movement->provider_id
+                            ])->get()->getResult();
+                        $movement->provider = !empty($provider) ? $provider[0] : [];
+    
+                        $movement->farm = $this->builder('farms')
+                            ->where([
+                                'id' => $movement->farm_id
+                            ])->get()->getResult()[0];
+    
+                        $movement->details = $this->builder('movement_details')
+                            ->where([
+                                'movement_id' => $movement->id
+                            ])->get()->getResult();
+                    }
                 }
             }
         }
         return $data;
     }
+
+    protected function functionBeforeUpdate(array $data){
+        
+        if(isset($data['data']['state_id'])){
+            if($data['data']['state_id'] == 4){
+                $movement = $this->find($data['id'][0]);
+                if(!empty($movement)){
+                    // $data['data']['value'] = 0;
+                    // foreach ($movement->details as $key => $detail) {
+                    //     $this->builder('movement_details')->save([
+                    //         'id'        => $detail->id,
+                    //         'quantity'  => 0,
+                    //         'value'     => 0,
+                            
+                    //     ]);
+                    // }
+                }
+            }
+        }
+
+        
+        // echo json_encode($data);
+        return $data;
+    }
+
+
 }

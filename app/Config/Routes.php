@@ -93,6 +93,10 @@ $routes->get('/table/(:segment)', 'TableController::index/$1');
 $routes->post('/table/(:segment)/(:segment)', 'TableController::detail/$1/$2');
 $routes->get('/table/(:segment)/(:segment)', 'TableController::detail/$1/$2');
 
+$routes->group('load', function($routes){
+	$routes->get('env', 'LoadsController::env');
+});
+
 /**
  * --------------------------------------------------------------------
  * Additional Routing

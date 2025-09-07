@@ -44,14 +44,16 @@ function init(){
 
             let actions = _ ? `
                 <div class="d-inline-block">
-                    <a href="${base_url(['dashboard/movements/download', m.id])}" target="_blank" class="btn btn-sm btn-text-secondary rounded-pill btn-icon" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="tooltip-warning" data-bs-original-title="Descargar ${m.movement_type_name}"><i class="ri-file-pdf-2-line"></i></a>
-                    <a href="javascript:void(0);" class="btn btn-sm btn-text-secondary rounded-pill btn-icon dropdown-toggle hide-arrow" data-bs-toggle="dropdown" aria-expanded="false"><i class="ri-more-2-line"></i></a>
-                    <ul class="dropdown-menu dropdown-menu-end m-0" style="">
-                        ${info.id != 3 ? `<li><a href="${base_url(['dashboard/movements/edit', m.id])}" class="dropdown-item">Editar</a></li>` : ""}
-                        ${info.id == 3 ? `<li><a href="${base_url(['dashboard/movements/new', `${info.id}_${m.id}`])}" class="dropdown-item">Pagar</a></li>` : ""}
-                        ${m.support ? `<li><a target="_blank" href="${base_url(['uploads', m.support])}" class="dropdown-item">Soporte</a></li>` : ""}
-                    <li><a href="javascript:void(0);" onclick="decline(${m.id})" class="dropdown-item text-danger">Rechazar</a></li>
-                    </ul> 
+                    <a href="${base_url(['dashboard/movements/download', m.id])}" target="_blank" class="btn btn-sm btn-text-secondary rounded-pill btn-icon" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="tooltip-warning" data-bs-original-title="Descargar ${info.title}"><i class="ri-file-pdf-2-line"></i></a>
+                    ${m.state_id != 4 ? `
+                        <a href="javascript:void(0);" class="btn btn-sm btn-text-secondary rounded-pill btn-icon dropdown-toggle hide-arrow" data-bs-toggle="dropdown" aria-expanded="false"><i class="ri-more-2-line"></i></a>
+                        <ul class="dropdown-menu dropdown-menu-end m-0" style="">
+                            ${info.id != 3 ? `<li><a href="${base_url(['dashboard/movements/edit', m.id])}" class="dropdown-item">Editar</a></li>` : ""}
+                            ${info.id == 3 ? `<li><a href="${base_url(['dashboard/movements/new', `${info.id}_${m.id}`])}" class="dropdown-item">Pagar</a></li>` : ""}
+                            ${m.support ? `<li><a target="_blank" href="${base_url(['uploads', m.support])}" class="dropdown-item">Soporte</a></li>` : ""}
+                        <li><a href="javascript:void(0);" onclick="decline(${m.id})" class="dropdown-item text-danger">Rechazar</a></li>
+                        </ul>
+                    ` : ""}
                 </div>
             ` : ''
             return actions;
@@ -76,4 +78,17 @@ function init(){
     ].filter(Boolean)
 
     load_datatable(url, columns, buttons)
+
+}
+
+async function decline(movement_id){
+    const data = {
+        movement_id,
+        state_id: 4,
+        movement_type_id: info.id
+    }
+    const url = base_url(['dashboard/movements/state']);
+    await fetchHelper.post(url, data, {}, 500);
+
+    reloadTable();
 }

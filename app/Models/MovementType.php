@@ -42,4 +42,13 @@ class MovementType extends Model
     protected $afterFind      = [];
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
+
+    public function filter($data){
+        $wheres = [];
+        if(isset($data->tipo_de_movimiento) && !empty($data->tipo_de_movimiento)){
+            $wheres["{$this->table}.id"] = $data->tipo_de_movimiento;
+        }
+        if(!empty($wheres))
+            $this->where($wheres);
+    }
 }
