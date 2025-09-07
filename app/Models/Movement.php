@@ -76,9 +76,9 @@ class Movement extends Model
 
         if(isset($data->proveedor) && !empty($data->proveedor)){
             if($data->proveedor == "-1")   
-                $wheres["{$this->table}.provider"] = null;
+                $wheres["{$this->table}.provider_id"] = null;
             else
-                $wheres["{$this->table}.provider"] = $data->proveedor;
+                $wheres["{$this->table}.provider_id"] = $data->proveedor;
         }
 
         if(isset($data->pagado) && !empty($data->pagado)){

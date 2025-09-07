@@ -14,7 +14,22 @@ function load_datatable(url, columns, buttons = []){
                     d[field.name] = field.value;
                 });
             },
-            dataSrc: 'data'
+            dataSrc: 'data',
+            error: function (xhr, error, thrown) {
+                console.error("Error en la petición AJAX:", error, thrown);
+                console.log("Respuesta del servidor:", xhr.responseText);
+    
+                // Ejemplo: mostrar alerta con SweetAlert
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error en la carga',
+                    text: 'No se pudieron obtener los datos del servidor',
+                    allowOutsideClick: false,
+                    customClass: {
+                        confirmButton: 'btn btn-primary waves-effect'
+                    },
+                });
+            }
         },
         columns,
         dom: '<"card-header flex-column flex-md-row border-bottom"<"head-label text-center"><"dt-action-buttons text-end pt-0 pt-md-0"B>>t<"row"<"col-sm-12 col-md-6"i><"col-sm-12 col-md-6"p>>',

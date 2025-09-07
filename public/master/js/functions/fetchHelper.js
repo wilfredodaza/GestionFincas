@@ -45,6 +45,7 @@ const request = async (url, data, method = 'POST', time = 500, headers = {}) => 
         console.log(error.message);
         const error_parse = JSON.parse(error.message);
         console.log(error_parse);
+        Swal.close();
         return new Promise((_, reject) => {
             if(error_parse.msg === 'Error desconocido'){
                 Swal.fire({
@@ -57,7 +58,6 @@ const request = async (url, data, method = 'POST', time = 500, headers = {}) => 
                 },
                 })
             }else{
-                Swal.close();
                 alert(error_parse.title, error_parse.msg, 'error');
             }
             reject(error_parse);
