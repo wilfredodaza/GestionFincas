@@ -123,7 +123,7 @@ class MovementController extends BaseController
                 $data->id       = 2;
                 $data->title    = 'Actividades';
                 $data->button   = 'Añadir actividad';
-                
+
                 break;
             case 'wage':
                 $data->id       = 3;
@@ -225,17 +225,21 @@ class MovementController extends BaseController
                         ])->findAll();
 
                         if($state->id == 1){
-                            $m_model = new Movement();
-                            $nearest = $m_model
-                            ->select("date")
-                            ->whereIn('farm_id', $this->farms_ids)
-                            ->where([
-                                'state_id'          => 1,
-                                'movement_type_id'  => 2,
-                                'date >='           => date("Y-m-d")
-                            ])
-                            ->orderBy('date', 'ASC')
-                            ->first();
+                            if(!empty($this->farms_ids)){
+                                $m_model = new Movement();
+                                $nearest = $m_model
+                                ->select("date")
+                                ->whereIn('farm_id', $this->farms_ids)
+                                ->where([
+                                    'state_id'          => 1,
+                                    'movement_type_id'  => 2,
+                                    'date >='           => date("Y-m-d")
+                                ])
+                                ->orderBy('date', 'ASC')
+                                ->first();
+                            }else{
+                                $nearest = [];
+                            }
 
                             if(!empty($nearest)){
                                 $m_model = new Movement();
@@ -248,9 +252,7 @@ class MovementController extends BaseController
                                     ])
                                 ->findAll();
                             }else{
-                                $stateCopy->movements_pend = (object)[
-
-                                ];
+                                $stateCopy->movements_pend = (object)[];
                             }
 
                         }
