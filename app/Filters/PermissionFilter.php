@@ -38,6 +38,11 @@ class PermissionFilter implements FilterInterface
             }
         }else if($url == 'dashboard'){
             if($method != ''){
+                
+                $urls = $request->uri->getSegments();
+                array_shift($urls);
+                // var_dump($urls); die;
+                $url = implode("/", $urls);
                 $data = $permission->select('*')
                 ->join('menus', 'menus.id = permissions.menu_id')
                 ->join('roles', 'roles.id = permissions.role_id')

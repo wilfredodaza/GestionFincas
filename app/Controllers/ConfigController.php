@@ -43,6 +43,9 @@ class ConfigController extends BaseController
                 // });
                 $this->crud->setRelation('role_id', 'roles', 'name');
                 $this->crud->setFieldUpload('photo', 'assets/upload/images', '/assets/upload/images');
+                $this->crud->setActionButton('Contraseñas', 'fa fa-lock', function ($row) {
+                    return base_url(['table', 'users', $row->id]);
+                }, false);
 
                 break;
             case 'permissions':
