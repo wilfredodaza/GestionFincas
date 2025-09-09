@@ -8,6 +8,7 @@ use App\Traits\Grocery;
 use App\Models\Menu;
 use App\Models\Farm;
 use App\Models\Resource;
+use App\Models\Password;
 use App\Models\ResourcePresentation;
 use CodeIgniter\Exceptions\PageNotFoundException;
 
