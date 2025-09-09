@@ -35,16 +35,22 @@ class TableController extends BaseController
             $this->crud->setTable($component[0]->table);
             switch ($component[0]->url) {
                 case 'usuarios':
-                    $this->crud->setActionButton('Algo mas que aqeullo', 'fa fa-bars', function ($row) {
-                        return base_url(['table', 'info_creditos', $row->id]);
-                    }, false);
-                    
+                    $this->crud->where(['role_id > ?' => 1]);
+                    $this->crud->unsetDelete();
                     $this->crud->setFieldUpload('photo', 'assets/upload/images', '/assets/upload/images');
-                    $this->crud->setRelation('role_id', 'roles', 'name');
+                    $this->crud->setRelation('role_id', 'roles', 'name', ['id > ?' => 1]);
                     $this->crud->displayAs([
                         'name'  => 'Nombre',
-                        'photo' => 'Foto'
+                        'photo' => 'Foto',
+                        'username'  => 'Usuario',
+                        'status'    => 'Estado',
+                        'role_id'   => 'Rol'
                     ]);
+                    $this->crud->unsetEditFields(['role_id', 'usuario']);
+                    $this->crud->uniqueFields(['email', 'username']);
+                    $this->crud->setActionButton('Contraseñas', 'fa fa-lock', function ($row) {
+                        return base_url(['table', 'users', $row->id]);
+                    }, false);
                     break;
                 case 'menus':
                     $this->crud->setTexteditor(['description']);
