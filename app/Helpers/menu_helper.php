@@ -35,7 +35,8 @@ function menus(){
         $data = $permission->select('menus.*')
             ->where([
                 'role_id'       => session('user')->role_id,
-                'menus.type'    => 'primario'
+                'menus.type'    => 'primario',
+                'status'        => 'active'
             ])
             ->join('menus', 'menus.id = permissions.menu_id')
             ->join('roles', 'roles.id = permissions.role_id')
@@ -60,7 +61,8 @@ function menus(){
             ->where([
                 'role_id'       => session('user')->role_id,
                 'menus.type'    => 'secundario',
-                'references'    => $menu->id
+                'references'    => $menu->id,
+                'status'        => 'active',
             ])
             ->join('menus', 'menus.id = permissions.menu_id')
             ->join('roles', 'roles.id = permissions.role_id')
