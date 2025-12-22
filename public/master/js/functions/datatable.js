@@ -183,7 +183,7 @@ function default_buttons(){
                 $.fn.dataTable.ext.buttons.excelHtml5.action.call(this, e, dt, button, config);
             }
         },
-        info_page.form_filter.length ? {
+        info_page.form_filter && info_page.form_filter.length ? {
             text: `<i class="ri-filter-3-line ri-16px me-sm-2"></i> <span class="d-none d-sm-inline-block">Filtro</span>`,
             className: 'btn btn-label-warning waves-effect waves-light mx-2 mt-2',
             action: () => {
