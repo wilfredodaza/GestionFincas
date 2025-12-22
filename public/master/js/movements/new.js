@@ -74,13 +74,13 @@ function loadTable(){
                 `;
             }},
             {title: 'Valor Unitario', data: 'value', render: (v, _, p) => {
-                return movement_type.id == 2 ?`
+                return movement_type.id == 2 && p.resource_type_id != 1 ?`
                     ${formatPrice(p.presentation.presentation_value)} por ${p.measurement_unit.code} 
                 `
                 :`
                     <div class="input-group input-group-merge">
                         <div class="form-floating form-floating-outline">
-                            <input type="text" class="form-control" min="1" onkeyup="updateFormattedValue(this)" value="${separador_miles(movement_type.id == 2 ? p.presentation.presentation_value : v )}" onchange="handleChange(this.value, ${p.id}, ${p.presentation.id}, 'value')">
+                            <input type="text" class="form-control" min="1" onkeyup="updateFormattedValue(this)" value="${separador_miles(movement_type.id == 2 && p.resource_type_id != 1 ? p.presentation.presentation_value : v )}" onchange="handleChange(this.value, ${p.id}, ${p.presentation.id}, 'value')">
                         </div>
                     </div>
                 `;
@@ -109,7 +109,7 @@ function loadTable(){
                     switch (movement_type.id) {
                         case '2':
                             const quantity = parseFloat(__.presentation.presentation) * __.quantity;
-                            return formatPrice(parseFloat(__.presentation.presentation_value) * quantity)
+                            return formatPrice(parseFloat(__.presentation.presentation_value && __.resource_type_id != 1 ? __.presentation.presentation_value : __.value) * quantity)
                             break;
                     
                         default:
@@ -159,7 +159,7 @@ function loadTable(){
             var value_total = resources_selected.reduce((a, b) => {
                 switch (movement_type.id) {
                     case '2':
-                        return a + ((parseInt(b.quantity) * parseFloat(b.presentation.presentation)) * parseFloat(b.presentation.presentation_value));                        
+                        return a + ((parseInt(b.quantity) * parseFloat(b.presentation.presentation)) * parseFloat(b.presentation.presentation_value && b.resource_type_id != 1 ? b.presentation.presentation_value : b.value));                        
                         break;
                 
                     default:

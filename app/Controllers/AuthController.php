@@ -57,6 +57,8 @@ class AuthController extends BaseController
                     // $data->password = $user->getPassword($data->id);
                     if((int) $data->password->attempts < 5){
                         if (password_verify($password, $data->password->password)) {
+                            $token = bin2hex(random_bytes(32));
+                            $data->token = $token;
                             $session = session();
                             $session->set('user', $data);
                             // return $this->respond([
@@ -189,7 +191,7 @@ class AuthController extends BaseController
 
     public function resetPassword()
     {
-        return view('auth\reset_password');
+        return view('auth/reset_password');
     }
 
     public function forgotPassword()

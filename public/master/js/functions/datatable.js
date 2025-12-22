@@ -75,7 +75,7 @@ function load_datatable(url, columns, buttons = []){
         },
         initComplete: () => {
 
-            if(info_page.form_filter.length != 0){
+            if(info_page.form_filter && info_page.form_filter.length != 0){
                 const select2 = $('.form-select');
 
                 if (select2.length) {

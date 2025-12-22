@@ -59,13 +59,13 @@ function loadTable(){
                 `;
             }},
             {title: 'Valor Unitario', data: 'value', render: (v, _, p) => {
-                return movement.type.id == 2 ?`
+                return movement.type.id == 2 && p.resource_type_id != 1 ?`
                     ${formatPrice(p.presentation.presentation_value)} por ${p.measurement_unit.code} 
                 `
                 :`
                     <div class="input-group input-group-merge">
                         <div class="form-floating form-floating-outline">
-                            <input type="text" class="form-control" min="1" onkeyup="updateFormattedValue(this)" value="${separador_miles(movement.type.id == 1 ? v : p.presentation_value)}" onchange="handleChange(this.value, ${p.id}, ${p.presentation.id}, 'value')">
+                            <input type="text" class="form-control" min="1" onkeyup="updateFormattedValue(this)" value="${separador_miles(movement.type.id == 1 && p.resource_type_id != 1 ? v : p.presentation_value)}" onchange="handleChange(this.value, ${p.id}, ${p.presentation.id}, 'value')">
                         </div>
                     </div>
                 `;
@@ -95,7 +95,7 @@ function loadTable(){
                         return formatPrice(n * __.quantity)
                     else if(movement.type.id == 2){
                         const quantity = parseFloat(__.presentation.presentation) * __.quantity;
-                        return formatPrice(parseFloat(__.presentation.presentation_value) * quantity)
+                        return formatPrice(parseFloat(__.presentation.presentation_value && __.resource_type_id != 1 ? __.presentation.presentation_value : __.value) * quantity)
                     }
                 }
             },
