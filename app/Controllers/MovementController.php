@@ -778,7 +778,7 @@ class MovementController extends BaseController
                                 'id'                    => $resource->movement_detail_id,
                                 'approximate_amount'    => $detail->quantity
                             ]);
-                            $value = $this->updatedDetail($resource, $value, $data->movement_type_id);
+                            $value = $this->updatedDetail($resource, $value, $data->movement_type_id, $data->movement_id);
                         }
                         $this->m_model->save([
                             'id'        => $data->movement_id,
