@@ -53,7 +53,7 @@ function loadTable(){
                 return `
                     <div class="input-group input-group-merge">
                         <div class="form-floating form-floating-outline">
-                            <input type="number" class="form-control" min="1" value="${q}" onchange="handleChange(this.value, ${p.id}, ${p.presentation.id}, 'quantity')">
+                            <input type="number" class="form-control" min="1" value="${parseFloat(q).toFixed(2)}" onchange="handleChange(parseFloat(this.value).toFixed(2), ${p.id}, ${p.presentation.id}, 'quantity')">
                         </div>
                     </div>
                 `;
@@ -65,7 +65,7 @@ function loadTable(){
                 :`
                     <div class="input-group input-group-merge">
                         <div class="form-floating form-floating-outline">
-                            <input type="text" class="form-control" min="1" onkeyup="updateFormattedValue(this)" value="${separador_miles(movement.type.id == 1 && p.resource_type_id != 1 ? v : p.presentation_value)}" onchange="handleChange(this.value, ${p.id}, ${p.presentation.id}, 'value')">
+                            <input type="text" class="form-control" min="1" onkeyup="updateFormattedValue(this)" value="${separador_miles(movement.type.id == 2 && p.resource_type_id != 1 ? p.presentation_value : v)}" onchange="handleChange(this.value, ${p.id}, ${p.presentation.id}, 'value')">
                         </div>
                     </div>
                 `;
@@ -140,7 +140,7 @@ function loadTable(){
                 if(movement.type.id == 1)
                     return a + (parseInt(b.quantity) * parseFloat(b.value));
                 else if(movement.type.id == 2){
-                    return a + ((parseInt(b.quantity) * parseFloat(b.presentation.presentation)) * parseFloat(b.presentation.presentation_value));
+                    return a + ((parseInt(b.quantity) * parseFloat(b.presentation.presentation)) * parseFloat(movement.type.id == 2 && b.resource_type_id != 1 ? b.presentation.presentation_value : b.value));
                 }
             }, 0);
 

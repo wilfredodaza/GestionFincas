@@ -89,6 +89,9 @@ class Movement extends Model
             $this->like("{$this->table}.resolution", "%{$data->referencia}%");
         }
 
+        if(isset($data->farm_id) && !empty($data->farm_id)){
+            $this->whereIn("{$this->table}.farm_id", $data->farm_id);
+        }
 
         if(!empty($wheres))
             $this->where($wheres);

@@ -24,8 +24,10 @@
                                 case 'select': ?>
                                     <div class="col-sm-12 mb-2">
                                         <div class="form-floating form-floating-outline">
-                                            <select class="form-select <?= $input->required ? "required" : "" ?> <?= $input->allow_new ? "allow-new" : "" ?>" id="<?= $input->name ?>" name="<?= $input->name ?>" data-allow-clear="true">
-                                                <option value="" selected>Seleccionar</option>
+                                            <select class="form-select <?= $input->required ? "required" : "" ?> <?= $input->allow_new ? "allow-new" : "" ?>" id="<?= $input->name ?>" name="<?= $input->name ?>" <?= isset($input->multiple) && $input->multiple ? "multiple" : 'data-allow-clear="true"' ?>>
+                                                <?php if(!isset($input->multiple)): ?>
+                                                    <option value="" selected>Seleccionar</option>
+                                                <?php endif ?>
                                                 <?php foreach($input->options as $option): ?>
                                                     <option value="<?= $option->id ?>" <?= $input->value == $option->id ? "selected" : "" ?>><?= "{$option->name}" ?></option>
                                                 <?php endforeach ?>

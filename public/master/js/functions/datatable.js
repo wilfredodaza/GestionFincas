@@ -10,8 +10,11 @@ function load_datatable(url, columns, buttons = []){
             url: base_url([url]),
             data: function(d) {
                 // d.date_init     = $('#date_init').val();
-                $('#form-filter').serializeArray().forEach(field => {
-                    d[field.name] = field.value;
+                const form = $(`#form-filter`);
+                const inputs = form.find('input, select, textarea');
+                inputs.each(function () {
+                    const input = $(this);
+                    d[input.attr('name')] = input.val();
                 });
             },
             dataSrc: 'data',

@@ -37,7 +37,7 @@
                                             class="form-select form-select-lg newSelect required" placeholder="Seleccionar finca"
                                             id="farm_id" name="farm_id">
                                                 <!-- <option value="" disabled selected>Seleccione una finca</option> -->
-                                                <?php foreach(session('user')->farms as $farm): ?>
+                                                <?php foreach($farms as $farm): ?>
                                                     <option value="<?= $farm->id ?>" <?= $movement_type->id == 3 ? ($movement->farm_id == $farm->id ? "selected" : "") : "" ?>><?= $farm->name ?></option>
                                                 <?php endforeach ?>
                                             </select>

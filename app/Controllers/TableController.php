@@ -10,6 +10,7 @@ use App\Models\Farm;
 use App\Models\Resource;
 use App\Models\Password;
 use App\Models\ResourcePresentation;
+use App\Models\FarmUser;
 use CodeIgniter\Exceptions\PageNotFoundException;
 
 class TableController extends BaseController
@@ -52,6 +53,74 @@ class TableController extends BaseController
                     $this->crud->setActionButton('Contraseñas', 'fa fa-lock', function ($row) {
                         return base_url(['table', 'users', $row->id]);
                     }, false);
+                    $this->crud->callbackAfterInsert(function ($stateParameters) {
+                        
+                        return $stateParameters;
+                    });
+                    break;
+                case 'passwords':
+                    $this->crud->setRelation('user_id', 'users', 'name');
+                    $this->crud->displayAs([
+                        'user_id'   => 'Usuario',
+                        'password'  => 'Contraseña',
+                        'attempts'  => 'Intentos',
+                        'status'    => 'Estado',
+                        'created_at'=> 'Creado'
+                    ]);
+                    $this->crud->addFields(['user_id', 'password']);
+                    $this->crud->unsetColumns(['password', 'updated_at']);
+                    $this->crud->fieldType('password', 'password');
+
+                    $this->crud->unsetDelete();
+                    $this->crud->unsetEdit();
+                    $this->crud->callbackBeforeInsert(function ($info){
+                        $info->data['created_at']   = date('Y-m-d H:i:s');
+                        $info->data['updated_at']   = date('Y-m-d H:i:s');
+                        $info->data['temporary']    = 'Si';
+                        $info->data['password']     = password_hash($info->data['password'], PASSWORD_DEFAULT);
+                        $p_model = new Password();
+                        $passwords = $p_model->where(['user_id' => $info->data['user_id'], 'status' => 'active'])->findAll();
+                        foreach ($passwords as $key => $password) {
+                            $p_model->save([
+                                'id'        => $password->id,
+                                'status'    => 'inactive'
+                            ]);
+                        }
+                        return $info;
+                    });
+                    $this->crud->defaultOrdering('passwords.created_at', 'DESC');
+                    
+                    break;
+                case 'users':
+                    $this->crud->setRelation('role_id', 'roles', 'name', ['id > ?' => 1]);
+                    $this->crud->displayAs([
+                        'name'  => 'Nombre',
+                        'photo' => 'Foto',
+                        'username'  => 'Usuario',
+                        'status'    => 'Estado',
+                        'role_id'   => 'Rol'
+                    ]);
+                    $this->crud->unsetEditFields(['role_id', 'usuario']);
+                    $this->crud->uniqueFields(['email', 'username']);
+                    break;
+                case 'famrs_users':
+                    $this->crud->setRelation('farm_id', 'farms', 'name');
+                    $this->crud->setRelation('user_id', 'users', '{name}');
+                    $this->crud->displayAs([
+                        'farm_id'   => 'Finca',
+                        'user_id'   => 'Usuario',
+                        'status'    => 'Estado',
+                        'created_at'=> 'Creado'
+                    ]);
+                    $this->crud->addFields(['farm_id', 'user_id']);
+                    $this->crud->editFields(['farm_id', 'user_id', 'status']);
+                    $this->crud->unsetDelete();
+                    $this->crud->columns(['farm_id', 'user_id', 'status', 'created_at']);
+                    $this->crud->callbackBeforeInsert(function ($info){
+                        $info->data['created_at']   = date('Y-m-d H:i:s');
+                        $info->data['updated_at']   = date('Y-m-d H:i:s');
+                        return $info;
+                    });
                     break;
                 case 'menus':
                     $this->crud->setTexteditor(['description']);
@@ -79,10 +148,8 @@ class TableController extends BaseController
                         if (($key = array_search('user_id', $columns)) !== false) {
                             unset($columns[$key]);
                         }
-                    }
-
-                    if(session('user')->role_id != 1)
                         $this->crud->where(['user_id' => session('user')->id]);
+                    }
 
                     $this->crud->addFields($columns);
 
@@ -90,8 +157,8 @@ class TableController extends BaseController
                         $stateParameters->data['created_at'] = date('Y-m-d h:i:s');
                         $stateParameters->data['updated_at'] = date('Y-m-d h:i:s');
 
-                        if(session('user')->role_id != 1)
-                            $stateParameters->data['user_id'] = session('user')->id;
+                        // if(session('user')->role_id != 1)
+                        //     $stateParameters->data['user_id'] = session('user')->id;
 
                         return $stateParameters;
                     });
@@ -106,15 +173,68 @@ class TableController extends BaseController
                         if(session('user')->id == $stateParameters->data['user_id']){
                             $f_model = new Farm();
                             session('user')->farms = $f_model->where(['user_id' => session('user')->id])->findAll();                        
-                        }                        
+                        }
+                        
+                        $fu_model = new FarmUser();
+                        $fu_model->save([
+                            'farm_id' => $stateParameters->insertId,
+                            'user_id' => $stateParameters->data['user_id'],
+                            'status' => 'active'
+                        ]);                       
                     
                         return $stateParameters;
                     });
 
-                    $this->crud->setActionButton('Lotes', 'fa fa-bars', function ($row) {
-                        return base_url(['table', 'lots', $row->id]);
-                    }, false);
+                    // $this->crud->setActionButton('Lotes', 'fa fa-bars', function ($row) {
+                    //     return base_url(['table', 'lots', $row->id]);
+                    // }, false);
 
+                    break;
+                case 'lots':
+                    $this->crud->setRelation('farm_id', 'farms', 'name');
+                    $this->crud->setRelation('crop_type_id', 'crop_types', 'name');
+                    $this->crud->displayAs([
+                        'farm_id'   => 'Finca',
+                        'crop_type_id'  => 'Cultivo',
+                        'name'      => 'Nombre',
+                        'area'      => 'Área',
+                        'altitud'   => 'Altitud',
+                        'densidad'  => 'Densidad',
+                        'status'    => 'Estado',
+                        'created_at'=> 'Creado'
+                    ]);
+                    $columns = ['farm_id', 'crop_type_id', 'name', 'area', 'altitud', 'densidad', 'status', 'created_at'];
+                    $this->crud->columns($columns);
+                    $this->crud->editFields($columns);
+                    if (($key = array_search('created_at', $columns)) !== false) {
+                        unset($columns[$key]);
+                    }
+                    $this->crud->editFields($columns);
+                    if (($key = array_search('status', $columns)) !== false) {
+                        unset($columns[$key]);
+                    }
+                    $this->crud->addFields($columns);
+                    $this->crud->callbackBeforeInsert(function ($stateParameters) {
+                        $stateParameters->data['created_at'] = date('Y-m-d h:i:s');
+                        $stateParameters->data['updated_at'] = date('Y-m-d h:i:s');
+                        return $stateParameters;
+                    });
+                    $this->crud->callbackBeforeUpdate(function ($stateParameters) {
+                        $stateParameters->data['updated_at'] = date('Y-m-d h:i:s');
+                        return $stateParameters;
+                    });
+
+                    $this->crud->callbackColumn('altitud', function ($value) {
+                        return number_format($value, 0, '.', ',') . ' m.s.n.m';
+                    });
+
+                    $this->crud->callbackColumn('densidad', function ($value) {
+                        return number_format($value, 0, '.', ',');
+                    });
+
+                    $this->crud->callbackColumn('area', function ($value) {
+                        return number_format($value, 2, '.', ',');
+                    });
                     break;
                 case 'crop_types':
                     $this->crud->displayAs([

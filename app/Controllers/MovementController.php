@@ -6,6 +6,7 @@ use App\Controllers\BaseController;
 use CodeIgniter\HTTP\ResponseInterface;
 
 use CodeIgniter\API\ResponseTrait;
+use Config\Services;
 
 use App\Models\Movement;
 use App\Models\Resource;
@@ -17,6 +18,7 @@ use App\Models\Provider;
 use App\Models\User;
 use App\Models\State;
 use App\Models\ResourcePresentation;
+use App\Models\FarmUser;
 
 use Mpdf\Mpdf;
 
@@ -35,7 +37,7 @@ class MovementController extends BaseController
     protected $mm_model;
     protected $rp_model;
     protected $farms_ids;
-
+    protected $fu_model;
     protected $states;
 
     public function __construct(){
@@ -52,13 +54,26 @@ class MovementController extends BaseController
         $this->r_model = new Resource();
         $this->s_model = new State();
         $this->p_model = new Provider();
+        $this->u_model = new User();
         $this->md_model = new MovementDetail();
         $this->rt_model = new ResourceType();
         $this->mt_model = new MovementType();
         $this->mm_model = new MeasurementUnit();
         $this->rp_model = new ResourcePresentation();
+        $this->fu_model = new FarmUser();
 
-        $this->farms_ids = array_map(fn($obj) => $obj->id, session('user')->farms);
+        $this->farms_ids = $this->fu_model->where(['user_id' => session('user')->id])->findAll();
+        $this->farms_ids = array_map(fn($obj) => $obj->farm_id, $this->farms_ids);
+
+        // $user = $this->u_model->find(1);
+        // $user->token = bin2hex(random_bytes(32));
+        
+        // $session = session();
+        // $session->set('user', $user);
+
+
+
+        // $this->farms_ids = array_map(fn($obj) => $obj->id, session('user')->farms);
 
         $s_model = new State();
         $this->states = $s_model->findAll();
@@ -102,6 +117,14 @@ class MovementController extends BaseController
                 $sellers        = $this->m_model->distinct('seller')->select('seller')->findAll();
                 $providers      = $this->p_model->findAll();
                 $states         = $this->s_model->whereIn('id', [3, 4])->findAll();
+                $farms               = $this->fu_model
+                    ->select([
+                        'farms.*'
+                    ])
+                    ->where(['farms_users.user_id' => session('user')->id, 'farms_users.status' => 'Activo'])
+                    ->join('farms', 'farms.id = farms_users.farm_id')
+                    ->findAll();
+
                 array_unshift($providers, (object)["id" => -1, "name" => "Sin proveedores"]);
 
                 foreach ($sellers as $key => $seller) {
@@ -112,6 +135,7 @@ class MovementController extends BaseController
                 $data->form_filter = [
                     (object) ["name" => "fecha_mov", "required" => false, "allow_new" => false, "title" => "Fecha de compra", "value" => "", "type" => "date_range"],
                     (object) ["name" => "tipo_de_movimiento", "required" => false, "allow_new" => false, "title" => "Tipo de movimiento", "value" => "", "type" => "select", "options" => $type_movements],
+                    (object) ["name" => "farm_id", "required" => false, "allow_new" => false, "title" => "Finca", "value" => "", "type" => "select", "options" => $farms, "multiple" => true],
                     (object) ["name" => "pagado", "required" => false, "allow_new" => true, "title" => "Pagado por", "value" => "", "type" => "select", "options" => $sellers],
                     (object) ["name" => "referencia", "required" => false, "allow_new" => false, "title" => "# Referencia", "value" => "", "type" => "text"],
                     (object) ["name" => "proveedor", "required" => false, "allow_new" => false, "title" => "Proveedor", "value" => "", "type" => "select", "options" => $providers],
@@ -309,6 +333,13 @@ class MovementController extends BaseController
         $resources          = [];
         $providers          = $this->p_model->findAll();
         $movement_type      = $this->mt_model->find($type);
+        $farms               = $this->fu_model
+            ->select([
+                'farms.*'
+            ])
+            ->where(['farms_users.user_id' => session('user')->id, 'farms_users.status' => 'Activo'])
+            ->join('farms', 'farms.id = farms_users.farm_id')
+            ->findAll();
 
         // var_dump([$type, $movement_type]); die;
 
@@ -334,9 +365,9 @@ class MovementController extends BaseController
                 break;
         }
 
-        $resources = array_filter($resources, function($resource) {
-            return isset($resource->presentations) && !empty($resource->presentations);
-        });
+        // $resources = array_filter($resources, function($resource) {
+        //     return isset($resource->presentations) && !empty($resource->presentations);
+        // });
 
         $resources = array_values($resources);
 
@@ -344,7 +375,8 @@ class MovementController extends BaseController
             'resources'         => $resources,
             'providers'         => $providers,
             'movement_type'     => $movement_type,
-            'movement'          => $movement
+            'movement'          => $movement,
+            'farms'             => $farms
             // 'measurement_units' => $measurement_units
         ]);
     }
@@ -352,6 +384,14 @@ class MovementController extends BaseController
     public function store(){
         try{
             $data = $this->request->getJson();
+
+            if(isset($data->api)){
+                $errors = $this->validarData($data);
+                if(!empty($errors)){
+                    return $this->respond(['title' => 'Error de validación', 'error' => $errors], 400);
+                }
+            }
+            
 
             if(!empty($data->support_file)){
                 $fileData = base64_decode($data->support_file);
@@ -369,7 +409,7 @@ class MovementController extends BaseController
             }
 
             $movement = [
-                'user_id'           => session('user')->id,
+                'user_id'           => isset($data->usuario) ? $data->usuario : session('user')->id,
                 'farm_id'           => $data->farm_id,
                 'movement_type_id'  => $data->movement_type_id,
                 'provider_id'       => isset($data->provider_id) && !empty($data->provider_id) ? $data->provider_id : null,
@@ -385,7 +425,6 @@ class MovementController extends BaseController
             ];
 
 
-
             if($this->m_model->save($movement)){
 
                 $movement_id = $this->m_model->insertID();
@@ -396,7 +435,7 @@ class MovementController extends BaseController
                 foreach ($data->resources as $key => $resource) {
 
                     if($data->movement_type_id == 2){
-                        $resource->value = (int) $resource->presentation->presentation * (float) $resource->presentation->presentation_value;
+                        $resource->value = (int) $resource->presentation->presentation * (float) ($resource->resource_type_id != 1 ? $resource->presentation->presentation_value : $resource->value);
                     }
 
                     if(!isset($resource->presentation->id)){
@@ -410,13 +449,13 @@ class MovementController extends BaseController
                     $data_resource = [
                         'movement_id'   => $movement_id,
                         'lot_id'        => isset($resource->lot_id) ? $resource->lot_id : null,
-                        'resource_id'   => $resource->id,
+                        'resource_id'   => $resource->id ?? null,
                         'quantity'      => $resource->quantity,
                         'value'         => $resource->value,
-                        'note'          => $resource->note,
+                        'note'          => $resource->note ?? null,
 
                         // 'measurement_unit_id'   => $resource->measurement_unit_id,
-                        'presentation_id'          => $resource->presentation->id,
+                        'presentation_id'          => $resource->presentation->id ?? null,
                         'presentation_value'    => $resource->value / (int) $resource->presentation->presentation,
                     ];
 
@@ -424,7 +463,7 @@ class MovementController extends BaseController
                     if($data->movement_type_id == 1 || $data->movement_type_id == 3){
                         $this->rp_model->save([
                             'id'                    => $resource->presentation->id,
-                            'presentation_value'    => $resource->value / (int) $resource->presentation->presentation
+                            'presentation_value'    => $resource->value / (int) ($resource->presentation->presentation)
                         ]);
                     }
 
@@ -438,9 +477,19 @@ class MovementController extends BaseController
 
                 switch ($data->movement_type_id) {
                     case '1':
+                        if(isset($data->api)){
+                            return $this->respond([
+                                'title' => 'Movimiento creado con exito.'
+                            ]);
+                        }
                         return redirect()->to(base_url(['dashboard/movements/bills']));
                         break;
                     case '2':
+                        if(isset($data->api)){
+                            return $this->respond([
+                                'title' => 'Movimiento creado con exito.'
+                            ]);
+                        }
                         return redirect()->to(base_url(['dashboard/movements/activities']));
                         break;
                     case '3':
@@ -448,6 +497,11 @@ class MovementController extends BaseController
                             'id'        => $data->movement_reference,
                             'state_id'  => 3
                         ]);
+                        if(isset($data->api)){
+                            return $this->respond([
+                                'title' => 'Movimiento creado con exito.'
+                            ]);
+                        }
                         return redirect()->to(base_url(['dashboard/movements/wage']));
                         break;
                     
@@ -460,7 +514,11 @@ class MovementController extends BaseController
                 'data' => $data,
             ]);
         }catch(\Exception $e){
-			return $this->respond(['title' => 'Error en el servidor', 'error' => $e->getMessage()], 500);
+			$line = null;
+			if (method_exists($e, 'getLine')) {
+				$line = $e->getLine();
+			}
+			return $this->respond(['title' => 'Error en el servidor', 'error' => $e->getMessage(), 'line' => $line], 500);
 		}
     }
 
@@ -468,6 +526,14 @@ class MovementController extends BaseController
         $resources          = [];
         $providers          = $this->p_model->findAll();
         $movement           = $this->m_model->find($id_movement);
+        $farms               = $this->fu_model
+            ->select([
+                'farms.*'
+            ])
+            ->where(['farms_users.user_id' => session('user')->id, 'farms_users.status' => 'Activo'])
+            ->join('farms', 'farms.id = farms_users.farm_id')
+            ->findAll();
+
         switch ($movement->movement_type_id) {
             case '1':
                 $resources = $this->r_model
@@ -502,6 +568,7 @@ class MovementController extends BaseController
             'resources'         => $resources,
             'providers'         => $providers,
             'movement'          => $movement,
+            'farms'             => $farms
         ]);
     }
 
@@ -724,6 +791,61 @@ class MovementController extends BaseController
         }catch(\Exception $e){
 			return $this->respond(['title' => 'Error en el servidor', 'error' => $e->getMessage()], 500);
 		}
+    }
+
+    protected function validarData($data){
+        $errors = [];
+        
+        if(isset($data->provider) && empty($data->provider)){
+            $errors[] = "El proovedor no fue mensionado.";
+        }else{
+            $provider_aux = $this->p_model->like('name', "%{$data->provider}%")->first();
+            if(!$provider_aux){
+                $errors[] = "El proovedor no existe.";
+            }else{
+                $data->provider_id = $provider_aux->id;
+            }
+        }
+        
+        if(empty($data->resources)){    
+            $errors[] = "Debe agregar al menos un producto o recurso.";
+        }
+
+        foreach($data->resources as $resource){
+            if(empty($resource->name)){
+                $errors[] = "El nombre del producto o recurso es obligatorio.";
+            }else{
+                $resource->name = ucfirst($resource->name);
+                $resouces_aux = $this->r_model->like('name', "%{$resource->name}%")->first();
+                if(!$resouces_aux){
+                    $errors[] = "El producto o recurso no existe.";
+                }else{
+                    $resource->id = $resouces_aux->id;
+                    foreach($resouces_aux->presentations as $presentation){
+                        if(isset($presentation->base) && $presentation->base == 'Si'){
+                            $resource->presentation = $presentation;
+                            break;
+                        }
+                    }
+                    if(!isset($resource->presentation) || !empty($resource->presentation)){
+                        $resource->presentation = $resouces_aux->presentations[0];
+                    }
+                }
+            }
+            if(empty($resource->quantity)){
+                $errors[] = "La cantidad de *{$resource->name}* es obligatoria.";
+            }else if($resource->quantity <= 0){
+                $errors[] = "La cantidad de *{$resource->name}* debe ser mayor a 0.";
+            }
+            if(empty($resource->value)){
+                $errors[] = "El valor de *{$resource->name}* es obligatorio.";
+            }else if($resource->value <= 0){
+                $errors[] = "El valor de *{$resource->name}* debe ser mayor a 0.";
+            }
+        }
+
+
+        return $errors;
     }
 
 }
