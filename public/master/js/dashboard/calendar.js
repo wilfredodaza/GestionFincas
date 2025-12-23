@@ -272,7 +272,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const event = {
           id: m.id,
           url: '',
-          title: m.title ? m.title : m.type.name,
+          title: m.title ? `${m.type.name} / ${m.title}` : m.type.name,
           start: m.date,
           end: m.date,
           allDay: true,
