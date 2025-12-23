@@ -62,8 +62,8 @@ class MovementController extends BaseController
         $this->rp_model = new ResourcePresentation();
         $this->fu_model = new FarmUser();
 
-        $this->farms_ids = $this->fu_model->where(['user_id' => session('user')->id])->findAll();
-        $this->farms_ids = array_map(fn($obj) => $obj->farm_id, $this->farms_ids);
+        $this->farms_ids = $this->fu_model->where(['user_id' => session('user')->id, 'status' => 'Activo'])->findAll();
+        $this->farms_ids = array_column($this->farms_ids, 'farm_id');
 
         // $user = $this->u_model->find(1);
         // $user->token = bin2hex(random_bytes(32));
@@ -78,10 +78,13 @@ class MovementController extends BaseController
         $s_model = new State();
         $this->states = $s_model->findAll();
 
-        // var_dump([ session('user')]); die;
+        // var_dump([$this->farms_ids]); die;
 
-        if(!empty($this->farms_ids)){
+        // Buscar los movimientos de las fincas asignadas
+        if (!empty($this->farms_ids)) {
             $this->m_model->whereIn('movements.farm_id', $this->farms_ids);
+        }else{
+            $this->m_model->where('1 = 0');
         }
 
         // $this->m_model->orderBy('movements.id', 'DESC');
@@ -171,8 +174,6 @@ class MovementController extends BaseController
 
         $filters = (object) $this->request->getGet();
 
-        $this->m_model->filter($filters);
-
         switch ($type) {
             case '3':
                 $this->m_model
@@ -222,14 +223,17 @@ class MovementController extends BaseController
             // else
             $movement_types = $this->mt_model->findAll();
             $m_model = new Movement();
+
+            
             foreach ($movement_types as $key => $mt) {
+                $m_model->filter($filters);
                 $mt->states = [];
                 foreach ($this->states as $key => $state) {
                     $stateCopy = clone $state;
                     $movements = [];
                     if($type == 3){
                         if(in_array($state->id, [2, 3])){
-                            $movements = $m_model
+                            $m_model
                             ->select([
                                 'movements.*'
                             ])
@@ -238,54 +242,65 @@ class MovementController extends BaseController
                                 'state_id'          => $state->id,
                                 'md.resource_id'    => 1
                             ])
-                            ->join('movement_details as md', 'md.movement_id = movements.id', 'left')
-                            ->findAll();
+                            ->join('movement_details as md', 'md.movement_id = movements.id', 'left');
                         }                    
                     }else if($type == 2){
                         // if(in_array($mt->id, [1,2,3]))
-                        $movements = $m_model->where([
+                        $m_model->where([
                             'movement_type_id'  => $mt->id,
                             'state_id'          => $state->id
-                        ])->findAll();
+                        ]);
 
-                        if($state->id == 1){
-                            if(!empty($this->farms_ids)){
-                                $m_model = new Movement();
-                                $nearest = $m_model
-                                ->select("date")
-                                ->whereIn('farm_id', $this->farms_ids)
+                    }else if($type == 1){
+                        $m_model->where([
+                            'movement_type_id'  => $mt->id,
+                            'state_id'          => $state->id
+                        ]);
+                    }
+
+                    
+                    if(!empty($this->farms_ids)){
+                        $m_model->whereIn('farm_id', $this->farms_ids);
+                    }else {
+                        $m_model->where('1 = 0');
+                    }
+
+                    $m_model->filter($filters);
+
+                    $movements = $m_model->findAll();
+
+                    if($state->id == 1){
+                        if(!empty($this->farms_ids)){
+                            $m_model = new Movement();
+                            $nearest = $m_model
+                            ->select("date")
+                            ->whereIn('farm_id', $this->farms_ids)
+                            ->where([
+                                'state_id'          => 1,
+                                'movement_type_id'  => 2,
+                                'date >='           => date("Y-m-d")
+                            ])
+                            ->orderBy('date', 'ASC')
+                            ->first();
+                        }else{
+                            $nearest = [];
+                        }
+
+                        if(!empty($nearest)){
+                            $m_model = new Movement();
+                            $stateCopy->movements_pend = 
+                                $m_model
                                 ->where([
                                     'state_id'          => 1,
                                     'movement_type_id'  => 2,
-                                    'date >='           => date("Y-m-d")
+                                    'date'              => $nearest->date
                                 ])
-                                ->orderBy('date', 'ASC')
-                                ->first();
-                            }else{
-                                $nearest = [];
-                            }
-
-                            if(!empty($nearest)){
-                                $m_model = new Movement();
-                                $stateCopy->movements_pend = 
-                                    $m_model
-                                    ->where([
-                                        'state_id'          => 1,
-                                        'movement_type_id'  => 2,
-                                        'date'              => $nearest->date
-                                    ])
-                                ->findAll();
-                            }else{
-                                $stateCopy->movements_pend = (object)[];
-                            }
-
+                            ->findAll();
+                        }else{
+                            $stateCopy->movements_pend = (object)[];
                         }
 
-                    }else if($type == 1)
-                        $movements = $m_model->where([
-                            'movement_type_id'  => $mt->id,
-                            'state_id'          => $state->id
-                        ])->findAll();
+                    }
 
                     if(!empty($movements)){
                         $stateCopy->movements = $movements;
@@ -294,6 +309,10 @@ class MovementController extends BaseController
                 }
             }
         }
+
+        
+
+        $this->m_model->filter($filters);
 
 
 

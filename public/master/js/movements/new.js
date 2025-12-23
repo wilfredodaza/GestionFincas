@@ -156,18 +156,6 @@ function loadTable(){
         drawCallback: function(settings){
             $('#resource_id').removeClass('is-invalid');
             $('.btn-send-bill').prop('disabled', resources_selected.length == 0 ? true : false);
-            var value_total = resources_selected.reduce((a, b) => {
-                switch (movement_type.id) {
-                    case '2':
-                        return a + ((parseInt(b.quantity) * parseFloat(b.presentation.presentation)) * parseFloat(b.presentation.presentation_value && b.resource_type_id != 1 ? b.presentation.presentation_value : b.value));                        
-                        break;
-                
-                    default:
-                        return a + (parseInt(b.quantity) * parseFloat(b.value));
-                        break;
-                }
-            }, 0);
-            $('#td_gastos').html(formatPrice(parseFloat(value_total)));
             
             $('.btn-send-bill').prop('disabled', value_total == 0 ? true : false);
             const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
@@ -201,6 +189,19 @@ function loadTable(){
 
                     this.api().columns.adjust();
                 }
+                
+                var value_total = resources_selected.reduce((a, b) => {
+                    switch (movement_type.id) {
+                        case '2':
+                            return a + ((parseInt(b.quantity) * parseFloat(b.presentation.presentation)) * parseFloat(b.presentation.presentation_value && b.resource_type_id != 1 ? b.presentation.presentation_value : b.value));                        
+                            break;
+                    
+                        default:
+                            return a + (parseInt(b.quantity) * parseFloat(b.value));
+                            break;
+                    }
+                }, 0);
+                $('#td_gastos').html(formatPrice(parseFloat(value_total)));
             }, 300);
             
 
