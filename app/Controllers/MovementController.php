@@ -592,7 +592,7 @@ class MovementController extends BaseController
                     $resource->value = (int) $resource->presentation->presentation * (float) ($resource->resource_type_id == 1 ? $resource->value : $resource->presentation->presentation_value);
                 }
 
-                $value_total = $this->updatedDetail($resource, $value_total, $data->movement_type_id);
+                $value_total = $this->updatedDetail($resource, $value_total, $data->movement_type_id, $data->id);
             }
 
             if(!empty($data->support_file)){
@@ -691,12 +691,12 @@ class MovementController extends BaseController
         $mpdf->Output("{$movement->type->name}_{$movement->resolution}.pdf", 'I');
     }
 
-    protected function updatedDetail($resource, $value, $movement_type_id){
+    protected function updatedDetail($resource, $value, $movement_type_id, $movement_id){
         if(!$resource->productNew && $resource->isDelete){
             $this->md_model->delete($resource->movement_detail_id);
         }else if($resource->productNew && !$resource->isDelete){
             $data_resource = [
-                'movement_id'   => $data->id,
+                'movement_id'   => $movement_id,
                 'lot_id'        => isset($resource->lot_id) ? $resource->lot_id : null,
                 'resource_id'   => $resource->id,
                 'quantity'      => $resource->quantity,
