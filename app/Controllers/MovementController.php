@@ -200,6 +200,7 @@ class MovementController extends BaseController
                     ])
                     ->whereIn('movements.movement_type_id', [1, 3])
                     ->whereIn('movements.state_id', [2, 3, 4])
+                    ->whereIn('movements.farm_id', $this->farms_ids)
                     ->join('movements as m', 'm.id = movements.movement_reference', 'left');
                 $this->mt_model->whereIn('id', [1, 3]);
                 
