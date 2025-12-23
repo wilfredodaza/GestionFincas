@@ -59,7 +59,7 @@ class TableController extends BaseController
                     });
                     break;
                 case 'passwords':
-                    $this->crud->setRelation('user_id', 'users', 'name');
+                    $this->crud->setRelation('user_id', 'users', 'name', ['role_id > ?' => 1]);
                     $this->crud->displayAs([
                         'user_id'   => 'Usuario',
                         'password'  => 'Contraseña',
