@@ -731,7 +731,7 @@ class MovementController extends BaseController
                 'quantity'      => $resource->quantity,
                 'value'         => $resource->value,
                 'note'          => $resource->note,
-                'presentation_value'    => $resource->value / (int) $resource->presentation->presentation,
+                'presentation_value'    => ($resource->resource_type_id == 1 ? $resource->value : $resource->presentation->presentation_value) / (int) $resource->presentation->presentation,
             ];
 
             
@@ -742,7 +742,11 @@ class MovementController extends BaseController
                     'presentation_value'    => $resource->value / (int) $resource->presentation->presentation
                 ]);
             }else if($movement_type_id == 2){
-                $value = $value + (((int) $resource->presentation->presentation * $resource->quantity) * $resource->presentation_value);
+                $value = $value + (((int) $resource->presentation->presentation * $resource->quantity) * ($resource->resource_type_id == 1 ? $resource->value : $resource->presentation->presentation_value));
+                $this->rp_model->save([
+                    'id'                    => $resource->presentation->id,
+                    'presentation_value'    => ($resource->resource_type_id == 1 ? $resource->value : $resource->presentation->presentation_value) / (int) $resource->presentation->presentation
+                ]);
             }
 
             $this->md_model->save($data_resource);
