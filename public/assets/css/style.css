@@ -34,3 +34,7 @@
 .btn.show{
     display: inherit !important;
 }
+
+.chosen-container.chosen-container-single{
+    width: 100% !important;
+}
