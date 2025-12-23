@@ -68,7 +68,7 @@
                       <!-- <hr class="mb-5 mx-n4 mt-3" /> -->
                       <!-- Filter -->
                       <div class="mb-4 mt-4 ms-1">
-                        <h5>Event Filters</h5>
+                        <h5>Filtros</h5>
                       </div>
 
                       <div class="form-check form-check-secondary mb-5 ms-3">

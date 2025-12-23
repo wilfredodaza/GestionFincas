@@ -334,7 +334,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Init FullCalendar
     // ------------------------------------------------
     let calendar = new Calendar(calendarEl, {
-      initialView: 'listMonth',
+      initialView: 'dayGridMonth',
       events: fetchEvents,
       plugins: [dayGridPlugin, interactionPlugin, listPlugin, timegridPlugin],
       editable: true,
@@ -350,6 +350,18 @@ document.addEventListener('DOMContentLoaded', function () {
         start: 'sidebarToggle, prev,next, title',
         end: 'dayGridMonth,timeGridWeek,timeGridDay,listMonth'
       },
+      // Traducción de los datos en los encabezados del calendario
+      locale: 'es', // Establecer el idioma a español
+      buttonText: {
+        today:    'Hoy',
+        month:    'Mes',
+        week:     'Semana',
+        day:      'Día',
+        list:     'Lista'
+      },
+      allDayText: 'Todo el día',
+      moreLinkText: 'más',
+      noEventsText: 'No hay eventos para mostrar',
       direction: direction,
       initialDate: new Date(),
       navLinks: true, // can click day/week names to navigate views
