@@ -162,6 +162,19 @@ function loadTable(){
             tooltipTriggerList.map(function (tooltipTriggerEl) {
               return new bootstrap.Tooltip(tooltipTriggerEl);
             });
+                
+            var value_total = resources_selected.reduce((a, b) => {
+                switch (movement_type.id) {
+                    case '2':
+                        return a + ((parseInt(b.quantity) * parseFloat(b.presentation.presentation)) * parseFloat(b.presentation.presentation_value && b.resource_type_id != 1 ? b.presentation.presentation_value : b.value));                        
+                        break;
+                
+                    default:
+                        return a + (parseInt(b.quantity) * parseFloat(b.value));
+                        break;
+                }
+            }, 0);
+            $('#td_gastos').html(formatPrice(parseFloat(value_total)));
 
             
             setTimeout(() => {
@@ -189,19 +202,6 @@ function loadTable(){
 
                     this.api().columns.adjust();
                 }
-                
-                var value_total = resources_selected.reduce((a, b) => {
-                    switch (movement_type.id) {
-                        case '2':
-                            return a + ((parseInt(b.quantity) * parseFloat(b.presentation.presentation)) * parseFloat(b.presentation.presentation_value && b.resource_type_id != 1 ? b.presentation.presentation_value : b.value));                        
-                            break;
-                    
-                        default:
-                            return a + (parseInt(b.quantity) * parseFloat(b.value));
-                            break;
-                    }
-                }, 0);
-                $('#td_gastos').html(formatPrice(parseFloat(value_total)));
             }, 300);
             
 
