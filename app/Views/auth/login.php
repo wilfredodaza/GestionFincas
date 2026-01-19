@@ -117,7 +117,7 @@
                             <div class="form-floating form-floating-outline mb-5">
                                 <input type="text" class="form-control" id="email-username" name="email-username"
                                     placeholder="Ingrese su email o usuario" autofocus />
-                                <label for="email-username">Email o Usuario</label>
+                                <label for="email-username">Email o Usuario concreto</label>
                             </div>
 
                             <div class="form-password-toggle mb-5">
