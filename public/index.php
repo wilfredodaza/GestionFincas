@@ -1,18 +1,23 @@
 <?php
 
-// Check PHP version.
-$minPhpVersion = '7.4'; // If you update this, don't forget to update `spark`.
+/*
+ *---------------------------------------------------------------
+ * CHECK PHP VERSION
+ *---------------------------------------------------------------
+ */
+$minPhpVersion = '8.3';
 if (version_compare(PHP_VERSION, $minPhpVersion, '<')) {
-    $message = sprintf(
-        'Your PHP version must be %s or higher to run CodeIgniter. Current version: %s',
-        $minPhpVersion,
-        PHP_VERSION
-    );
-
-    exit($message);
+    header('HTTP/1.1 503 Service Unavailable', true, 503);
+    echo 'Your PHP version must be ' . $minPhpVersion . ' or higher. '
+       . 'Current version: ' . PHP_VERSION;
+    exit(1);
 }
 
-// Path to the front controller (this file)
+/*
+ *---------------------------------------------------------------
+ * DEFINE FRONT CONTROLLER PATH
+ *---------------------------------------------------------------
+ */
 define('FCPATH', __DIR__ . DIRECTORY_SEPARATOR);
 
 // Ensure the current directory is pointing to the front controller's directory
@@ -22,66 +27,29 @@ if (getcwd() . DIRECTORY_SEPARATOR !== FCPATH) {
 
 /*
  *---------------------------------------------------------------
- * BOOTSTRAP THE APPLICATION
+ * ERROR REPORTING (solo para debug)
  *---------------------------------------------------------------
- * This process sets up the path constants, loads and registers
- * our autoloader, along with Composer's, loads our constants
- * and fires up an environment-specific bootstrapping.
+ * Puedes quitar esto cuando todo funcione
  */
+ini_set('display_errors', '1');
+ini_set('display_startup_errors', '1');
+error_reporting(E_ALL);
 
-// Load our paths config file
-// This is the line that might need to be changed, depending on your folder structure.
-require FCPATH . '../app/Config/Paths.php';
-// ^^^ Change this line if you move your application folder
+/*
+ *---------------------------------------------------------------
+ * LOAD PATHS CONFIG
+ *---------------------------------------------------------------
+ */
+require FCPATH . 'app/Config/Paths.php';
 
 $paths = new Config\Paths();
 
-// Location of the framework bootstrap file.
-require rtrim($paths->systemDirectory, '\\/ ') . DIRECTORY_SEPARATOR . 'bootstrap.php';
-
-// Load environment settings from .env files into $_SERVER and $_ENV
-require_once SYSTEMPATH . 'Config/DotEnv.php';
-(new CodeIgniter\Config\DotEnv(ROOTPATH))->load();
-
-// Define ENVIRONMENT
-if (! defined('ENVIRONMENT')) {
-    define('ENVIRONMENT', env('CI_ENVIRONMENT', 'production'));
-}
-
-// Load Config Cache
-// $factoriesCache = new \CodeIgniter\Cache\FactoriesCache();
-// $factoriesCache->load('config');
-// ^^^ Uncomment these lines if you want to use Config Caching.
-
-/*
- * ---------------------------------------------------------------
- * GRAB OUR CODEIGNITER INSTANCE
- * ---------------------------------------------------------------
- *
- * The CodeIgniter class contains the core functionality to make
- * the application run, and does all the dirty work to get
- * the pieces all working together.
- */
-
-$app = Config\Services::codeigniter();
-$app->initialize();
-$context = is_cli() ? 'php-cli' : 'web';
-$app->setContext($context);
-
 /*
  *---------------------------------------------------------------
- * LAUNCH THE APPLICATION
+ * BOOTSTRAP CODEIGNITER (CI 4.5+)
  *---------------------------------------------------------------
- * Now that everything is set up, it's time to actually fire
- * up the engines and make this app do its thang.
+ * ⚠️ NO usar system/bootstrap.php (obsoleto)
  */
+require rtrim($paths->systemDirectory, '\\/ ') . DIRECTORY_SEPARATOR . 'Boot.php';
 
-$app->run();
-
-// Save Config Cache
-// $factoriesCache->save('config');
-// ^^^ Uncomment this line if you want to use Config Caching.
-
-// Exits the application, setting the exit code for CLI-based applications
-// that might be watching.
-exit(EXIT_SUCCESS);
+exit(CodeIgniter\Boot::bootWeb($paths));

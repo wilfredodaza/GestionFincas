@@ -117,7 +117,7 @@ class MovementController extends BaseController
                 $data->title    = 'Compras y Gastos';
                 $data->button   = 'Añadir compra';
                 $type_movements = $this->mt_model->whereIn('id', [1, 3])->findAll();
-                $sellers        = $this->m_model->distinct('seller')->select('seller')->findAll();
+                $sellers        = $this->m_model->select('seller')->orderBy('seller', 'ASC')->findAll();
                 $providers      = $this->p_model->findAll();
                 $states         = $this->s_model->whereIn('id', [3, 4])->findAll();
                 $farms               = $this->fu_model

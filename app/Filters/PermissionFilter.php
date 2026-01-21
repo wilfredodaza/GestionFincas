@@ -16,9 +16,10 @@ class PermissionFilter implements FilterInterface
     public function before(RequestInterface $request, $arguments = null)
     {
 
-        $request = Services::request();
-        $url = $request->uri->getSegment(1);
-        $method =  $request->uri->getSegment(2);
+        #$request = Services::request();
+        $uri = $request->getUri();
+        $url = $uri->getSegment(1)??'';
+        $method =  $uri->getSegment(2)??'';
         $permission = new Permission();
 
         if($url == 'table' || $url == 'config') {
@@ -39,7 +40,8 @@ class PermissionFilter implements FilterInterface
         }else if($url == 'dashboard'){
             if($method != ''){
                 
-                $urls = $request->uri->getSegments();
+                #$urls = $request->uri->getSegments();
+                $urls = $uri->getSegments();
                 array_shift($urls);
                 // var_dump($urls); die;
                 $url = implode("/", $urls);
