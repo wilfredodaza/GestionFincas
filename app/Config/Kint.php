@@ -42,8 +42,8 @@ class Kint extends BaseConfig
     */
     public string $richTheme = 'aante-light.css';
     public bool $richFolder  = false;
-    public int $richSort     = AbstractRenderer::SORT_FULL;
-
+    #public int $richSort     = AbstractRenderer::SORT_FULL;
+    public int $richSort     = 0;
     /**
      * @var array<string, class-string<ValuePluginInterface>>|null
      */

@@ -40,7 +40,7 @@ error_reporting(E_ALL);
  * LOAD PATHS CONFIG
  *---------------------------------------------------------------
  */
-require FCPATH . 'app/Config/Paths.php';
+require FCPATH . '../app/Config/Paths.php';
 
 $paths = new Config\Paths();
 
