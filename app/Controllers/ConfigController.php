@@ -86,7 +86,7 @@ class ConfigController extends BaseController
                 }
 
                 if(session('user')->role_id == 2){
-                    $this->curd->columns(['register', 'captcha', 'primary_color', 'secundary_color']);
+                    $this->crud->columns(['register', 'captcha', 'primary_color', 'secundary_color']);
                     $this->crud->displayAs([
                         'register'          => 'Registro',
                         'primary_color'     => 'Color Primario',

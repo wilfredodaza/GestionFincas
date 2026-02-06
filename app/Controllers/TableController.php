@@ -18,6 +18,71 @@ class TableController extends BaseController
     use Grocery;
 
     private $crud;
+    private $id;
+
+    private function getFarmOptionsForUser(int $userId): array
+    {
+        $db = \Config\Database::connect();
+
+        $rows = $db->query("
+            SELECT f.id, f.name
+            FROM farms f
+            LEFT JOIN farms_users fu
+                ON fu.farm_id = f.id
+                AND fu.user_id = ?
+                AND fu.status = 'Activo'
+            WHERE f.user_id = ? OR fu.user_id IS NOT NULL
+            GROUP BY f.id, f.name
+            ORDER BY f.name ASC
+        ", [$userId, $userId])->getResult();
+
+        // Convierte a: [id => name]
+        $options = [];
+        foreach ($rows as $r) {
+            $options[(int) $r->id] = (string) $r->name;
+        }
+
+        return $options;
+    }
+
+    private function getCropTypeOptionsForUser(int $userId): array
+    {
+        // Si ya guardas farms en sesión y confías en eso:
+        $farmIds = [];
+
+        if (session('user') && !empty(session('user')->farms)) {
+            $farmIds = array_map(fn($f) => (int) $f->id, session('user')->farms);
+        }
+
+        // Si por alguna razón no hay farms en sesión, consulta BD (más robusto)
+        if (empty($farmIds)) {
+            $db = \Config\Database::connect();
+            $farmRows = $db->table('farms')->select('id')->where('user_id', $userId)->get()->getResult();
+            $farmIds = array_map(fn($r) => (int) $r->id, $farmRows);
+        }
+
+        if (empty($farmIds)) {
+            return [];
+        }
+
+        $db = \Config\Database::connect();
+        $placeholders = implode(',', array_fill(0, count($farmIds), '?'));
+
+        $rows = $db->query("
+            SELECT id, name
+            FROM crop_types
+            WHERE farm_id IN ($placeholders)
+            ORDER BY name ASC
+        ", $farmIds)->getResult();
+
+        $options = [];
+        foreach ($rows as $r) {
+            $options[(int) $r->id] = (string) $r->name;
+        }
+
+        return $options;
+    }
+
 
     public function __construct()
     {
@@ -50,6 +115,7 @@ class TableController extends BaseController
                     ]);
                     $this->crud->unsetEditFields(['role_id', 'usuario']);
                     $this->crud->uniqueFields(['email', 'username']);
+
                     $this->crud->setActionButton('Contraseñas', 'fa fa-lock', function ($row) {
                         return base_url(['table', 'users', $row->id]);
                     }, false);
@@ -58,6 +124,8 @@ class TableController extends BaseController
                         return $stateParameters;
                     });
                     break;
+
+
                 case 'passwords':
                     $this->crud->setRelation('user_id', 'users', 'name', ['role_id > ?' => 1]);
                     $this->crud->displayAs([
@@ -70,7 +138,7 @@ class TableController extends BaseController
                     $this->crud->addFields(['user_id', 'password']);
                     $this->crud->unsetColumns(['password', 'updated_at']);
                     $this->crud->fieldType('password', 'password');
-
+                    
                     $this->crud->unsetDelete();
                     $this->crud->unsetEdit();
                     $this->crud->callbackBeforeInsert(function ($info){
@@ -103,8 +171,13 @@ class TableController extends BaseController
                     $this->crud->unsetEditFields(['role_id', 'usuario']);
                     $this->crud->uniqueFields(['email', 'username']);
                     break;
+/////////////////////////////////////////////////
                 case 'famrs_users':
-                    $this->crud->setRelation('farm_id', 'farms', 'name');
+                    $userId = (int) session('user')->id;
+                    if($userId !== 1){
+                        $this->crud->setRelation('farm_id', 'farms', 'name',['user_id' => $userId]);
+                    }
+                    
                     $this->crud->setRelation('user_id', 'users', '{name}');
                     $this->crud->displayAs([
                         'farm_id'   => 'Finca',
@@ -112,20 +185,27 @@ class TableController extends BaseController
                         'status'    => 'Estado',
                         'created_at'=> 'Creado'
                     ]);
+                    $columns = ['farm_id', 'user_id', 'status', 'created_at'];
                     $this->crud->addFields(['farm_id', 'user_id']);
                     $this->crud->editFields(['farm_id', 'user_id', 'status']);
+                    // Restriccion visual de Fincas, personal,recursos y proveedores
+                    if($userId !== 1)
+                    $this->crud->where("farm_id IN (SELECT id FROM farms WHERE user_id = {$userId})");
+
                     $this->crud->unsetDelete();
-                    $this->crud->columns(['farm_id', 'user_id', 'status', 'created_at']);
+                    $this->crud->columns($columns);
+                    
                     $this->crud->callbackBeforeInsert(function ($info){
                         $info->data['created_at']   = date('Y-m-d H:i:s');
                         $info->data['updated_at']   = date('Y-m-d H:i:s');
                         return $info;
                     });
                     break;
+///////////////////////////////////////////////////
                 case 'menus':
                     $this->crud->setTexteditor(['description']);
                     break;
-
+///////////////////////////////////////////////////
                 case 'farms':
 
                     $this->crud->setRelation('user_id', 'users', 'name', []);
@@ -144,18 +224,21 @@ class TableController extends BaseController
                         unset($columns[$key]);
                     }
 
-                    if(session('user')->role_id != 1){
-                        if (($key = array_search('user_id', $columns)) !== false) {
-                            unset($columns[$key]);
-                        }
-                        $this->crud->where(['user_id' => session('user')->id]);
+
+                    if (($key = array_search('user_id', $columns)) !== false) {
+                        unset($columns[$key]);
                     }
+
+                    $userId = (int) session('user')->id;
+                    if($userId !== 1)
+                    $this->crud->where(['user_id' => $userId]);
 
                     $this->crud->addFields($columns);
 
                     $this->crud->callbackBeforeInsert(function ($stateParameters) {
-                        $stateParameters->data['created_at'] = date('Y-m-d h:i:s');
-                        $stateParameters->data['updated_at'] = date('Y-m-d h:i:s');
+                        $stateParameters->data['created_at'] = date('Y-m-d H:i:s');
+                        $stateParameters->data['updated_at'] = date('Y-m-d H:i:s');
+                        $stateParameters->data['user_id'] = session('user')->id;
 
                         // if(session('user')->role_id != 1)
                         //     $stateParameters->data['user_id'] = session('user')->id;
@@ -164,63 +247,105 @@ class TableController extends BaseController
                     });
 
                     $this->crud->callbackBeforeUpdate(function ($stateParameters) {
-                        $stateParameters->data['updated_at'] = date('Y-m-d h:i:s');
+                        $stateParameters->data['updated_at'] = date('Y-m-d H:i:s');
                         return $stateParameters;
                     });
 
                     $this->crud->callbackAfterInsert(function ($stateParameters) {
 
-                        if(session('user')->id == $stateParameters->data['user_id']){
+                        $userId = $stateParameters->data['user_id'] ?? session('user')->id;
+
+                        // refrescar fincas en sesión si aplica
+                        if (session('user')->id == $userId) {
                             $f_model = new Farm();
-                            session('user')->farms = $f_model->where(['user_id' => session('user')->id])->findAll();                        
+                            session('user')->farms = $f_model->where(['user_id' => $userId])->findAll();
                         }
-                        
+
                         $fu_model = new FarmUser();
                         $fu_model->save([
                             'farm_id' => $stateParameters->insertId,
-                            'user_id' => $stateParameters->data['user_id'],
-                            'status' => 'active'
-                        ]);                       
-                    
+                            'user_id' => $userId,
+                            'status'  => 'active'
+                        ]);
+
                         return $stateParameters;
                     });
 
-                    // $this->crud->setActionButton('Lotes', 'fa fa-bars', function ($row) {
-                    //     return base_url(['table', 'lots', $row->id]);
-                    // }, false);
-
                     break;
+////////////////////////////////////////////////////////////
                 case 'lots':
-                    $this->crud->setRelation('farm_id', 'farms', 'name');
-                    $this->crud->setRelation('crop_type_id', 'crop_types', 'name');
+                    $userId = (int) session('user')->id;
+
+                    //$farmId = array_map(fn($f) => (int) $f->id, session('user')->farms);
+                    if($userId !== 1){
+                        $cropOptions = $this->getCropTypeOptionsForUser($userId);
+                        $this->crud->fieldType('crop_type_id', 'dropdown', $cropOptions);
+                        $this->crud->setRelation('farm_id', 'farms', 'name' ,['user_id' => $userId]);
+                    }else{
+                        $this->crud->setRelation('crop_type_id', 'crop_types', 'name');
+                        $this->crud->setRelation('farm_id', 'farms', 'name' ,[]);
+                    }
+                    
                     $this->crud->displayAs([
-                        'farm_id'   => 'Finca',
+                        'farm_id'       => 'Finca',
                         'crop_type_id'  => 'Cultivo',
-                        'name'      => 'Nombre',
-                        'area'      => 'Área',
-                        'altitud'   => 'Altitud',
-                        'densidad'  => 'Densidad',
-                        'status'    => 'Estado',
-                        'created_at'=> 'Creado'
+                        'name'          => 'Nombre',
+                        'area'          => 'Área',
+                        'altitud'       => 'Altitud',
+                        'densidad'      => 'Densidad',
+                        'status'        => 'Estado',
+                        'created_at'    => 'Creado'
                     ]);
+
                     $columns = ['farm_id', 'crop_type_id', 'name', 'area', 'altitud', 'densidad', 'status', 'created_at'];
                     $this->crud->columns($columns);
                     $this->crud->editFields($columns);
+
+                    // Quitar created_at del form
                     if (($key = array_search('created_at', $columns)) !== false) {
                         unset($columns[$key]);
                     }
-                    $this->crud->editFields($columns);
+
+                    // FILTRO: solo lotes de fincas del usuario (sin JOIN)
+                    if($userId !== 1)
+                    $this->crud->where("lots.farm_id IN (SELECT id FROM farms WHERE user_id = {$userId} )");
+
+
+                    /*
+                    echo '<pre>';
+                    print_r(session('user'));
+                    //print_r ($fincaId);
+                    echo '</pre>';
+                    */
+
+                    // Quitar status del add form si quieres manejarlo por defecto
                     if (($key = array_search('status', $columns)) !== false) {
                         unset($columns[$key]);
                     }
+
                     $this->crud->addFields($columns);
+
                     $this->crud->callbackBeforeInsert(function ($stateParameters) {
-                        $stateParameters->data['created_at'] = date('Y-m-d h:i:s');
-                        $stateParameters->data['updated_at'] = date('Y-m-d h:i:s');
+                        $stateParameters->data['created_at'] = date('Y-m-d H:i:s');
+                        $stateParameters->data['updated_at'] = date('Y-m-d H:i:s');
+                        
+                        $userId = (int) session('user')->id;
+                        $farmId = (int) ($stateParameters->data['farm_id'] ?? 0);
+
+                        // Validar que la finca exista y sea del usuario en sesión
+                        $farmModel = new \App\Models\Farm();
+                        $isOwner = $farmModel->where(['id' => $farmId, 'user_id' => $userId])->first();
+                        if($userId !== 1){
+                            if (!$isOwner) {
+                            throw new \Exception('No puedes crear un lote en una finca que no es tuya.');
+                            }
+                        }
+                        
                         return $stateParameters;
                     });
+
                     $this->crud->callbackBeforeUpdate(function ($stateParameters) {
-                        $stateParameters->data['updated_at'] = date('Y-m-d h:i:s');
+                        $stateParameters->data['updated_at'] = date('Y-m-d H:i:s');
                         return $stateParameters;
                     });
 
@@ -235,21 +360,52 @@ class TableController extends BaseController
                     $this->crud->callbackColumn('area', function ($value) {
                         return number_format($value, 2, '.', ',');
                     });
+
                     break;
+////////////////////////////////////////////////////////
                 case 'crop_types':
+                    $userId = (int) session('user')->id;
+                    $roleId = (int) session('user')->role_id;
+
+                    if($roleId !== 1){
+                        $farmOptions = $this->getFarmOptionsForUser($userId);
+                        $this->crud->fieldType('farm_id', 'dropdown', $farmOptions);
+                    }else{
+                        $this->crud->setRelation('farm_id', 'farms', 'name',[]);
+                    }
+
                     $this->crud->displayAs([
                         'name'      => 'Tipo cultivo',
+                        'farm_id'   => 'Finca',
                         'status'    => 'Estado',
                         'created_at'=> 'Creado'
                     ]);
-
-                    $columns = ['name', 'status', 'created_at'];
+                    //$columns = ['name','status', 'created_at'];
+                    $columns = ['name','farm_id','status', 'created_at'];
                     $this->crud->columns($columns);
                     $this->crud->editFields($columns);
+                    
+                    /*
+                    echo '<pre>';
+                    print_r(session('user'));
+                    //print_r ($fincaId);
+                    echo '</pre>';
+                    */
+                    
+                    // FILTRO: solo lotes de fincas del usuario (sin JOIN)
+                    if($roleId !== 1){
+                        if($roleId === 2){
+                        $this->crud->where("crop_types.farm_id IN (SELECT id FROM farms WHERE user_id = {$userId})");
+                        }else {
+                            $this->crud->where("crop_types.farm_id IN (SELECT farm_id FROM farms_users WHERE user_id = {$userId} AND status = 'Activo')");
+                        }
+                    }
+                    
+                    
                     if (($key = array_search('created_at', $columns)) !== false) {
                         unset($columns[$key]);
                     }
-                    $this->crud->editFields($columns);
+                    //$this->crud->editFields($columns);
                     if (($key = array_search('status', $columns)) !== false) {
                         unset($columns[$key]);
                     }
@@ -258,6 +414,35 @@ class TableController extends BaseController
                     $this->crud->callbackBeforeInsert(function ($stateParameters) {
                         $stateParameters->data['created_at'] = date('Y-m-d h:i:s');
                         $stateParameters->data['updated_at'] = date('Y-m-d h:i:s');
+
+                        $userId = (int) session('user')->id;
+                        $roleId = (int) session('user')->role_id;
+                        $farmId = (int) ($stateParameters->data['farm_id'] ?? 0);
+
+                        if ($farmId <= 0) {
+                            throw new \Exception('Debes seleccionar una finca.');
+                        }
+
+                        $db = \Config\Database::connect();
+
+                        if ($roleId == 2) {
+                            // Admin dueño
+                            $isAllowed = $db->table('farms')
+                                ->where(['id' => $farmId, 'user_id' => $userId])
+                                ->get()->getRow();
+                        } else {
+                            // Usuario asignado
+                            $isAllowed = $db->table('farms_users')
+                                ->where(['farm_id' => $farmId, 'user_id' => $userId, 'status' => 'Activo'])
+                                ->get()->getRow();
+                        }
+                        if($roleId !== 1){
+                            if (!$isAllowed) {
+                            throw new \Exception('No puedes crear un cultivo en una finca a la que no tienes acceso.');
+                            }
+                        }
+                        
+                        
                         return $stateParameters;
                     });
 
@@ -266,16 +451,36 @@ class TableController extends BaseController
                         return $stateParameters;
                     });
                     break;
-                
+//////////////////////////////////////////
                 case 'resource_types':
+                    $userId = (int) session('user')->id;
+                    $roleId = (int) session('user')->role_id;
+                    if($roleId !== 1){
+                        $farmOptions = $this->getFarmOptionsForUser($userId);
+                        $this->crud->fieldType('farm_id', 'dropdown', $farmOptions);
+                    }else{
+                        $this->crud->setRelation('farm_id', 'farms', 'name',[]);
+                    }
+                    
                     $this->crud->displayAs([
                         'name'          => 'Nombre',
+                        'farm_id'       => 'Finca',
                         'status'        => 'Estado',
                         'created_at'    => 'Creado'
                     ]);
-                    $columns = ['name', 'status', 'created_at'];
+                    $columns = ['name','farm_id', 'status', 'created_at'];
                     $this->crud->columns($columns);
                     $this->crud->editFields($columns);
+
+                    // FILTRO: solo lotes de fincas del usuario (sin JOIN)
+                    if($roleId !== 1){
+                        if($roleId === 2){
+                            $this->crud->where("resource_types.farm_id IN (SELECT id FROM farms WHERE user_id = {$userId})");
+                        }else {
+                            $this->crud->where("resource_types.farm_id IN (SELECT farm_id FROM farms_users WHERE user_id = {$userId} AND status = 'Activo')");
+                        }
+                    }
+                    
                     if (($key = array_search('created_at', $columns)) !== false) {
                         unset($columns[$key]);
                     }
@@ -288,6 +493,34 @@ class TableController extends BaseController
                     $this->crud->callbackBeforeInsert(function ($stateParameters) {
                         $stateParameters->data['created_at'] = date('Y-m-d h:i:s');
                         $stateParameters->data['updated_at'] = date('Y-m-d h:i:s');
+
+                        $userId = (int) session('user')->id;
+                        $roleId = (int) session('user')->role_id;
+                        $farmId = (int) ($stateParameters->data['farm_id'] ?? 0);
+
+                        if ($farmId <= 0) {
+                            throw new \Exception('Debes seleccionar una finca.');
+                        }
+
+                        $db = \Config\Database::connect();
+
+                        if ($roleId == 2) {
+                            // Admin dueño
+                            $isAllowed = $db->table('farms')
+                                ->where(['id' => $farmId, 'user_id' => $userId])
+                                ->get()->getRow();
+                        } else {
+                            // Usuario asignado
+                            $isAllowed = $db->table('farms_users')
+                                ->where(['farm_id' => $farmId, 'user_id' => $userId, 'status' => 'Activo'])
+                                ->get()->getRow();
+                        }
+                        if($roleId !== 1){
+                            if (!$isAllowed) {
+                                throw new \Exception('No puedes crear un cultivo en una finca a la que no tienes acceso.');
+                            }
+                        }
+
                         return $stateParameters;
                     });
 
@@ -295,11 +528,24 @@ class TableController extends BaseController
                         $stateParameters->data['updated_at'] = date('Y-m-d h:i:s');
                         return $stateParameters;
                     });
-
-
                     break;
+///////////////////////////////////////////////////////////
                 case 'resources':
+                    $userId = (int) session('user')->id;
+                    $roleId = (int) session('user')->role_id;
+                    if($roleId !== 1){
+                        $farmOptions = $this->getFarmOptionsForUser($userId);
+                        $this->crud->fieldType('farm_id', 'dropdown', $farmOptions);
+                        $farmId = array_map(fn($f) => (int) $f->id, session('user')->farms);
+                        $this->crud->setRelation('resource_type_id', 'resource_types', 'name', ['farm_id' => $farmId]);
+                    }else{
+                        $this->crud->setRelation('farm_id', 'farms', 'name',[]);
+                        $this->crud->setRelation('resource_type_id', 'resource_types', 'name', []);
+                    }
+                    $this->crud->setRelation('measurement_unit_id', 'measurement_units', '{name} - {code}');
+                    
                     $this->crud->displayAs([
+                        'farm_id'           => 'Finca',
                         'resource_type_id'  => 'Tipo de recurso',
                         'name'              => 'Nombre',
                         'measurement_unit_id'   => 'Unidad de medida', 
@@ -308,9 +554,27 @@ class TableController extends BaseController
                         'status'            => 'Estado',
                         'created_at'        => 'Creado'
                     ]);
-                    $columns = ['resource_type_id', 'measurement_unit_id', 'name', 'status', 'created_at'];
+                    $columns = ['farm_id','resource_type_id', 'measurement_unit_id', 'name', 'status', 'created_at'];
                     $this->crud->columns($columns);
                     $this->crud->editFields($columns);
+
+                    /*
+                    echo '<pre>';
+                    print_r(session('user'));
+                    //print_r ($fincaId);
+                    echo '</pre>';
+                    */
+
+                    // FILTRO: solo lotes de fincas del usuario (sin JOIN)
+                    if($roleId !== 1){
+                        if($roleId === 2){
+                            $this->crud->where("resources.farm_id IN (SELECT id FROM farms WHERE user_id = {$userId}) AND resources.resource_type_id > 1");
+                        }else {
+                            $this->crud->where("resources.farm_id IN (SELECT farm_id FROM farms_users WHERE user_id = {$userId} AND status = 'Activo') AND resources.resource_type_id > 1");
+                        }
+                    }
+                    
+
                     if (($key = array_search('created_at', $columns)) !== false) {
                         unset($columns[$key]);
                     }
@@ -323,21 +587,43 @@ class TableController extends BaseController
                     }
 
                     $columns[] = "measurement_unit_id";
-
                     $this->crud->addFields($columns);
-
-
-                    $this->crud->where(['resource_type_id > ?' => 1]);
+                    $this->crud->editFields($columns);
 
                     $this->crud->callbackBeforeInsert(function ($stateParameters) {
                         $stateParameters->data['created_at'] = date('Y-m-d h:i:s');
                         $stateParameters->data['updated_at'] = date('Y-m-d h:i:s');
+
+                        $userId = (int) session('user')->id;
+                        $roleId = (int) session('user')->role_id;
+                        $farmId = (int) ($stateParameters->data['farm_id'] ?? 0);
+
+                        if ($farmId <= 0) {
+                            throw new \Exception('Debes seleccionar una finca.');
+                        }
+
+                        $db = \Config\Database::connect();
+                        if ($roleId == 2) {
+                            // Admin dueño
+                            $isAllowed = $db->table('farms')
+                                ->where(['id' => $farmId, 'user_id' => $userId])
+                                ->get()->getRow();
+                        } else {
+                            // Usuario asignado
+                            $isAllowed = $db->table('farms_users')
+                                ->where(['farm_id' => $farmId, 'user_id' => $userId, 'status' => 'Activo'])
+                                ->get()->getRow();
+                        }
+                        if($roleId !== 1){
+                            if (!$isAllowed) {
+                                throw new \Exception('No puedes crear un cultivo en una finca a la que no tienes acceso.');
+                            }
+                        }
+                        
                         return $stateParameters;
                     });
 
                     
-                    $this->crud->setRelation('resource_type_id', 'resource_types', 'name', ['id > ?' =>1]);
-                    $this->crud->setRelation('measurement_unit_id', 'measurement_units', '{name} - {code}');
 
                     $this->crud->setActionButton('Presentaciones', 'fa fa-bars', function ($row) {
                         return base_url(['table', 'resource_presentations', $row->id]);
@@ -352,16 +638,37 @@ class TableController extends BaseController
                         return $stateParameters;
                     });
                     break;
+///////////////////////////////////////////////////
                 case 'providers':
+                    $userId = (int) session('user')->id;
+                    $roleId = (int) session('user')->role_id;
+                    if($roleId !== 1){
+                    $farmOptions = $this->getFarmOptionsForUser($userId);
+                    $this->crud->fieldType('farm_id', 'dropdown', $farmOptions);
+                    }else{
+                        $this->crud->setRelation('farm_id', 'farms', 'name',[]);
+                    }
+
                     $this->crud->displayAs([
+                        'farm_id'          => 'Finca',
                         'name'              => 'Nombre',
                         'number'            => 'Nit/Cédula',
                         'status'            => 'Estado',
                         'created_at'        => 'Creado'
                     ]);
-                    $columns = ['name', 'number', 'status', 'created_at'];
+                    $columns = ['farm_id','name', 'number', 'status', 'created_at'];
                     $this->crud->columns($columns);
                     $this->crud->editFields($columns);
+
+                    // FILTRO: solo lotes de fincas del usuario (sin JOIN)
+                    if($roleId !== 1){
+                        if($roleId === 2){
+                            $this->crud->where("providers.farm_id IN (SELECT id FROM farms WHERE user_id = {$userId})");
+                        }else {
+                            $this->crud->where("providers.farm_id IN (SELECT farm_id FROM farms_users WHERE user_id = {$userId} AND status = 'Activo')");
+                        }
+                    }
+
                     if (($key = array_search('created_at', $columns)) !== false) {
                         unset($columns[$key]);
                     }
@@ -374,6 +681,33 @@ class TableController extends BaseController
                     $this->crud->callbackBeforeInsert(function ($stateParameters) {
                         $stateParameters->data['created_at'] = date('Y-m-d h:i:s');
                         $stateParameters->data['updated_at'] = date('Y-m-d h:i:s');
+
+                        $userId = (int) session('user')->id;
+                        $roleId = (int) session('user')->role_id;
+                        $farmId = (int) ($stateParameters->data['farm_id'] ?? 0);
+
+                        if ($farmId <= 0) {
+                            throw new \Exception('Debes seleccionar una finca.');
+                        }
+
+                        $db = \Config\Database::connect();
+                        if ($roleId == 2) {
+                            // Admin dueño
+                            $isAllowed = $db->table('farms')
+                                ->where(['id' => $farmId, 'user_id' => $userId])
+                                ->get()->getRow();
+                        } else {
+                            // Usuario asignado
+                            $isAllowed = $db->table('farms_users')
+                                ->where(['farm_id' => $farmId, 'user_id' => $userId, 'status' => 'Activo'])
+                                ->get()->getRow();
+                        }
+                        if($roleId !== 1){
+                            if (!$isAllowed) {
+                                throw new \Exception('No puedes crear un cultivo en una finca a la que no tienes acceso.');
+                            }
+                        }
+                        
                         return $stateParameters;
                     });
 
@@ -382,6 +716,7 @@ class TableController extends BaseController
                         return $stateParameters;
                     });
                     break;
+/////////////////////////////////////////////////////////////////////////
                 default:
                     break;   
             }
@@ -402,7 +737,12 @@ class TableController extends BaseController
     {
         $title = '';
         $description = '';
-        $this->id = $id;
+        $this->id = (int)$id;
+        if ($this->id <= 0) {
+            // Manejo de error si el ID no es válido
+            return "ID no válido";
+        }
+
         if($data) {
             $this->crud->setTable($data);
             switch ($data) {
@@ -521,6 +861,7 @@ class TableController extends BaseController
                     }, false);
 
                     break;
+////////////////////////////////////////////////////////////////////////////
                 case 'resource_presentations':
 
                     $this->crud->where(['resource_id' => $this->id]);
@@ -596,4 +937,5 @@ class TableController extends BaseController
             throw PageNotFoundException::forPageNotFound();
         }
     }
+    
 }

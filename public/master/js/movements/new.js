@@ -1,6 +1,33 @@
 const resources_selected = [];
 const resources             = getResources();
 const movement_type         = getMovementType();
+const movement              = getMovement();
+
+function getHeadLabelAndEnsureTotal(dtApi) {
+  // dtApi = this.api() dentro de drawCallback / initComplete
+    const $wrap = $(dtApi.table().container());             // ✅ wrapper real del DataTable
+    const $head = $wrap.find('div.head-label');             // ✅ head-label del wrapper
+
+    if (!$head.length) return null;
+
+    // Si no existe el td, lo creamos (porque DataTables lo reconstruye)
+    if (!$head.find('#td_gastos').length) {
+        $head.html(`
+        <p id="id_descuento_customer"></p>
+        <table>
+            <tbody>
+            <tr>
+                <td><b>Total ${movement_type.name}: </b></td>
+                <td id="td_gastos">$0.00</td>
+            </tr>
+            </tbody>
+        </table>
+        `);
+    }
+
+    return $head;
+}
+
 
 $(() => {
 
@@ -35,18 +62,21 @@ $(() => {
     // $this_activity.select2();
 
     const movement = getMovement();
+    const jornalId = (typeof JORNAL_ID !== 'undefined' && JORNAL_ID) ? Number(JORNAL_ID): null;
 
     if(movement.details != undefined){
         movement.details.map(r => {
-            if(r.resource_id == 1){
+            if(jornalId && Number(r.resource_id) === jornalId){
                 r.movement_detail_id = r.id;
                 r.isDelete = false;
                 r.productNew = false;
-                const resource = resources.find(re => re.id == r.resource_id);
-                resource.value = r.value;
-                delete resource.presentation;
+                const resource = resources.find(re => Number(re.id) === jornalId);
+                // Copia segura del recurso para no mutar el original del catálogo
+                const resourceCopy = { ...resource };
+                resourceCopy.value = r.value;
+                delete resourceCopy.presentation;
                 r.item = (resources_selected.length + 1);
-                let combined = $.extend({}, r, resource);
+                let combined = $.extend({}, r, resourceCopy);
                 resources_selected.push(combined);
             }
         })
@@ -105,16 +135,29 @@ function loadTable(){
                 `;
             }},
             {
-                title: 'Total', data: 'value', render: (n, _, __) => {
-                    switch (movement_type.id) {
-                        case '2':
-                            const quantity = parseFloat(__.presentation.presentation) * __.quantity;
-                            return formatPrice(parseFloat(__.presentation.presentation_value && __.resource_type_id != 1 ? __.presentation.presentation_value : __.value) * quantity)
-                            break;
-                    
-                        default:
-                            return formatPrice(n * __.quantity)
-                            break;
+                title: 'Total',
+                data: 'value',
+                render: (n, _, row) => {
+                    const qty = parseFloat(String(row.quantity).replace(',', '.')) || 0;
+                    const val = parseFloat(String(row.value).replace(',', '.')) || 0;
+                    const isJornal = row.name && row.name.trim().toLowerCase() === 'jornal';
+
+                    switch (String(movement_type.id)) {
+                    case '2':
+                        return formatPrice(
+                        (qty * (parseFloat(row.presentation?.presentation) || 1)) *
+                        (parseFloat(
+                            (row.presentation?.presentation_value && row.resource_type_id != 1)
+                            ? row.presentation.presentation_value
+                            : val
+                        ) || 0)
+                        );
+
+                    case '3':
+                        return formatPrice(qty * val);
+
+                    default:
+                        return formatPrice(qty * val);
                     }
                 }
             },
@@ -139,19 +182,9 @@ function loadTable(){
         responsive: false,
         scrollX: true,
         ordering: false,
-        initComplete: ()  => {
-            let info = `
-                <p id="id_descuento_customer"></p>
-                <table>
-                    <tbody>
-                        <tr>
-                            <td><b>Total ${movement_type.name}: </b></td>
-                            <td id="td_gastos">$0.00</td>
-                        </tr>
-                    </tbody>
-                </table>
-            `
-            $('div.head-label').html(info);
+        initComplete: function ()  {
+            const api = this.api();
+            getHeadLabelAndEnsureTotal(api);
         },
         drawCallback: function(settings){
             $('#resource_id').removeClass('is-invalid');
@@ -160,21 +193,50 @@ function loadTable(){
             $('.btn-send-bill').prop('disabled', value_total == 0 ? true : false);
             const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
             tooltipTriggerList.map(function (tooltipTriggerEl) {
-              return new bootstrap.Tooltip(tooltipTriggerEl);
+                return new bootstrap.Tooltip(tooltipTriggerEl);
             });
                 
             var value_total = resources_selected.reduce((a, b) => {
-                switch (movement_type.id) {
-                    case '2':
-                        return a + ((parseInt(b.quantity) * parseFloat(b.presentation.presentation)) * parseFloat(b.presentation.presentation_value && b.resource_type_id != 1 ? b.presentation.presentation_value : b.value));                        
-                        break;
-                
-                    default:
-                        return a + (parseInt(b.quantity) * parseFloat(b.value));
-                        break;
+                const qty = parseFloat(String(b.quantity).replace(',', '.')) || 0;
+                const val = parseFloat(String(b.value).replace(',', '.')) || 0;
+                const isJornal = b.name && b.name.trim().toLowerCase() === 'jornal';
+
+                switch (String(movement_type.id)) {
+
+                    case '2': // Actividades
+                    return a + (
+                        (qty * (parseFloat(b.presentation?.presentation) || 1)) *
+                        (parseFloat(
+                        (b.presentation?.presentation_value && b.resource_type_id != 1)
+                            ? b.presentation.presentation_value
+                            : val
+                        ) || 0)
+                    );
+
+                    case '3': // Gastos
+                    // ✅ Jornal o gasto normal → cantidad * valor
+                    return a + (qty * val);
+
+                    default: // Compras
+                    return a + (qty * val);
                 }
-            }, 0);
-            $('#td_gastos').html(formatPrice(parseFloat(value_total)));
+                }, 0);
+
+            const api = this.api();
+            const $head = getHeadLabelAndEnsureTotal(api);
+
+            const total = Number(value_total) || 0;
+            if ($head) {
+            $head.find('#td_gastos').text(formatPrice(total));
+            }
+
+
+            $('.btn-send-bill').prop('disabled',
+            resources_selected.length === 0 || total === 0
+            );
+
+
+
 
             
             setTimeout(() => {
@@ -224,7 +286,20 @@ function loadTable(){
             {
                 text: '<i class="ri-arrow-go-back-line ri-16px me-sm-2"></i> <span class="d-none d-sm-inline-block">Regresar</span>',
                 className: `btn btn-secondary waves-effect waves-light mx-2 mt-2`,
-                action: () => window.location.href = base_url(['dashboard/movements', movement_type.id == 1 ? 'bills' : 'activities' ])
+                action: () => {
+
+                    const typeId  = String(movement_type.id);
+                    const stateId = Number(movement?.state_id); // si no existe -> NaN
+
+                    // ✅ regla nueva
+                    if (typeId === '3' && (stateId === 1 || stateId === 2)) {
+                    window.location.href = base_url(['dashboard/movements', 'wage']);
+                    return;
+                    }
+
+                    // ✅ regla actual
+                    window.location.href = base_url(['dashboard/movements', typeId === '1' ? 'bills' : 'activities']);
+                }
             }
         ]
     })
@@ -234,7 +309,7 @@ function loadTable(){
 
 function reloadTable(){
 
-    console.log(resources_selected)
+    //console.log(resources_selected)
 
     table_datatable[0].clear();
     table_datatable[0].rows.add(resources_selected.slice().reverse());
@@ -243,12 +318,13 @@ function reloadTable(){
 
 async function changeResource(id_resource){
     let $select = $('#resource_id');
+    
     if(id_resource.length > 0){
         // const [id_resource, presentation_id] = info.split(":");
         let resource = resources.find(p => p.id == id_resource);
         let presentation_base = resource.presentations.find(p => p.base == "Si");
 
-        console.log([resource, presentation_base]);
+        //console.log([resource, presentation_base]);
 
         const resource_add = resources_selected.find(r => r.id == id_resource && r.presentation.id == presentation_base.id);
         if(resource_add){
@@ -259,7 +335,7 @@ async function changeResource(id_resource){
                 resource = {
                     ...resource,
                     quantity: 1,
-                    value: (parseFloat(resource.presentation.presentation) * parseFloat(resource.presentation.presentation_value)),
+                    value: parseFloat(resource.presentation.presentation_value),
                     note: null, lot_id: null, item: (resources_selected.length + 1)};
                 resources_selected.push(resource);
             }
@@ -368,12 +444,13 @@ async function productEdit(id, presentation){
             product.presentations.push(presentation);
         }
         product.presentation = presentation;
-        product.value = (parseFloat(product.presentation.presentation) * parseFloat(product.presentation.presentation_value));
+        product.value = parseFloat(product.presentation.presentation_value);
         reloadTable();
     }
 }
 
 async function sendBill(){
+    try{
     if(resources_selected.length == 0){
         $('#resource_id').addClass('is-invalid');
         alert('Campos obligatorios', 'Por favor ingrese como minimo un producto.', 'warning', 5000);
@@ -431,4 +508,8 @@ async function sendBill(){
 
     localStorage.removeItem('dateMovement')
     console.log([url, data])
+    }catch(e){
+        console.error(e)
+        alert(e.message || 'Error guardando');
+    }
 }

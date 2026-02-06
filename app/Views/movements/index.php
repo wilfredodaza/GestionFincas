@@ -67,6 +67,7 @@
     <script src="<?= base_url(['assets/vendor/libs/flatpickr/flatpickr.js']) ?>"></script>
     <script src="https://npmcdn.com/flatpickr/dist/l10n/es.js"></script>
     <script>
+        const JORNAL_ID = (<?= json_encode($jornal_id) ?>);
         const infoPage = () => (<?= json_encode($data) ?>);
     </script>
     <?= $this->include('layouts/js_datatables') ?>

@@ -19,18 +19,20 @@ use App\Models\User;
 use App\Models\State;
 use App\Models\ResourcePresentation;
 use App\Models\FarmUser;
+use App\Traits\JornalHelper;
 
 use Mpdf\Mpdf;
 
 class MovementController extends BaseController
 {
     use ResponseTrait;
-
+    use JornalHelper;
     protected $dataTable;
     protected $m_model;
     protected $r_model;
     protected $s_model;
     protected $p_model;
+    protected $u_model;
     protected $md_model;
     protected $rt_model;
     protected $mt_model;
@@ -39,9 +41,10 @@ class MovementController extends BaseController
     protected $farms_ids;
     protected $fu_model;
     protected $states;
+    protected array $columns = [];
 
     public function __construct(){
-
+        
         $this->dataTable    = (object) [
             'draw'      => $_GET['draw'] ?? 1,
             'length'    => $length = $_GET['length'] ?? 10,
@@ -62,7 +65,15 @@ class MovementController extends BaseController
         $this->rp_model = new ResourcePresentation();
         $this->fu_model = new FarmUser();
 
-        $this->farms_ids = $this->fu_model->where(['user_id' => session('user')->id, 'status' => 'Activo'])->findAll();
+
+        $roleId = $this->u_model->where(['role_id' => session('user')->role_id]);
+        if($roleId !== 1){
+            $this->farms_ids = $this->fu_model
+                ->where(['user_id' => session('user')->id, 'status' => 'Activo'])->findAll();
+        }else{
+            $this->farms_ids = $this->fu_model
+                ->where(['status' => 'Activo'])->findAll();
+        }
         $this->farms_ids = array_column($this->farms_ids, 'farm_id');
 
         // $user = $this->u_model->find(1);
@@ -79,21 +90,30 @@ class MovementController extends BaseController
         $this->states = $s_model->findAll();
 
         // var_dump([$this->farms_ids]); die;
-
-        // Buscar los movimientos de las fincas asignadas
-        if (!empty($this->farms_ids)) {
-            $this->m_model->whereIn('movements.farm_id', $this->farms_ids);
-        }else{
-            $this->m_model->where('1 = 0');
-        }
-
         // $this->m_model->orderBy('movements.id', 'DESC');
 
-        $this->p_model->where(['status' => 'Activo']);
+        //$this->p_model->where(['status' => 'Activo']);
         $this->r_model->where(['resources.status' => 'Activo']);
         $this->rt_model->where(['status' => 'Activo']);
         $this->mm_model->where(['status' => 'Activo']);
         $this->rp_model->where(['status' => 'Activo']);
+    }
+
+    private function applyFarmScope(\CodeIgniter\Model $model)
+    {
+        $roleId = (int) session('user')->role_id;
+
+        // ✅ Admin ve todo
+        if ($roleId === 1) {
+            return $model;
+        }
+        if (!empty($this->farms_ids)) {
+        $model->whereIn('movements.farm_id', $this->farms_ids);
+        } else {
+            $model->where('1 = 0');
+        }
+
+    return $model;
     }
 
     public function index($type)
@@ -103,6 +123,7 @@ class MovementController extends BaseController
         $user = $u_model->find(session('user')->id);
         $session = session();
         $session->set('user', $user);
+        $roleId = (int)session('user')->role_id;
 
         $data = (object)[
             'id'            => "",
@@ -119,8 +140,9 @@ class MovementController extends BaseController
                 $type_movements = $this->mt_model->whereIn('id', [1, 3])->findAll();
                 $sellers        = $this->m_model->select('seller')->orderBy('seller', 'ASC')->findAll();
                 $providers      = $this->p_model->findAll();
+
                 $states         = $this->s_model->whereIn('id', [3, 4])->findAll();
-                $farms               = $this->fu_model
+                $farms          = $this->fu_model
                     ->select([
                         'farms.*'
                     ])
@@ -155,6 +177,7 @@ class MovementController extends BaseController
             case 'wage':
                 $data->id       = 3;
                 $data->title    = 'Jornales';
+                    
                 break;
                 
             default:
@@ -162,180 +185,137 @@ class MovementController extends BaseController
                 break;
             }
 
-            // var_dump($data); die;
+            $db = \Config\Database::connect();
+            $jornal = $db->table('resources')
+                ->select('id');
+                if($roleId !== 1){
+                    $jornal->whereIn('farm_id', $this->farms_ids ?: [-1]);  
+                }
+                //->whereIn('farm_id', $this->farms_ids ?: [-1])
+                $row = $jornal
+                ->where("LOWER(TRIM(name))", 'jornal')
+                ->limit(1)
+                ->get()
+                ->getRow();
+
 
             return view('movements/index', [
-                'data'  => $data
+                'data'  => $data,
+                'jornal_id' => $row->id ?? null
             ]);
 
     }
-
+/////////////////////////////////////////////////////////
     public function data($type){
 
         $filters = (object) $this->request->getGet();
 
+    // -----------------------------
+    // 1) Aplica reglas por tipo (solo reglas de negocio)
+    // -----------------------------
+
         switch ($type) {
             case '3':
                 $this->m_model
-                    ->join('movement_details as md', 'md.movement_id = movements.id')
-                    ->where('md.resource_id', 1)
-                    ->groupStart() // ( 
-                        ->groupStart()
-                            ->where('movements.movement_type_id', 2)
-                            ->whereIn('movements.state_id', [2, 3])
-                        ->groupEnd()
-                        // ->orGroupStart()
-                        //     ->where('movements.movement_type_id', 3)
-                        //     ->where('movements.state_id', 3)
-                        // ->groupEnd()
-                    ->groupEnd();
+                    ->join('movement_details as md', 'md.movement_id = movements.id', 'inner')
+                    ->join('resources as r', 'r.id = md.resource_id', 'inner')
+                    ->where("LOWER(TRIM(r.name))", 'jornal')
+                    ->groupStart()
+                        ->where('movements.movement_type_id', 2)
+                        ->whereIn('movements.state_id', [1,2, 3])   // si también quieres 4, agrégalo aquí
+                    ->groupEnd()
+                    ->groupBy('movements.id'); // evita duplicados por join
 
-                    
-                $this->mt_model->where(['id' => 2]);
-
+                    $this->mt_model->where(['id' => 2]);
                 break;
+
             case '1':
                 $this->m_model
-                    ->select([
-                        'm.resolution as custom_number_bill'
-                    ])
+                    ->select(['m.resolution as custom_number_bill'])
                     ->whereIn('movements.movement_type_id', [1, 3])
                     ->whereIn('movements.state_id', [2, 3, 4])
                     ->join('movements as m', 'm.id = movements.movement_reference', 'left');
                 $this->mt_model->whereIn('id', [1, 3]);
-                
                 break;
-            
+
             default:
-                $this->m_model
-                    ->where([
-                        'movement_type_id'  => $type,
-                    ]);
+                $this->m_model->where(['movement_type_id' => $type]);
                 $this->mt_model->where(['id' => $type]);
                 break;
         }
 
-        $movement_types = [];
+        // -----------------------------
+        // 2) KPIs (indicadores) con el mismo scope
+        // -----------------------------
+        $movement_types = $this->mt_model->findAll();
 
-        if($this->dataTable->length != -1){
-            // if($type == 3)
-            //     $movement_types = $this->mt_model->where(['resource_id' => 1])->findAll();
-            // else
-            $movement_types = $this->mt_model->findAll();
-            
-            
-            foreach ($movement_types as $key => $mt) {
-                $m_model = new Movement();
-                $m_model->filter($filters);
-                if(!empty($this->farms_ids)){
-                    $m_model->whereIn('movements.farm_id', $this->farms_ids);
-                }else {
-                    $m_model->where('1 = 0');
-                }
+            foreach ($movement_types as $mt) {
+
                 $mt->states = [];
-                foreach ($this->states as $key => $state) {
+
+                foreach ($this->states as $state) {
+
                     $stateCopy = clone $state;
                     $movements = [];
-                    if($type == 3){
-                        if(in_array($state->id, [2, 3])){
-                            $movements = $m_model
-                            ->select([
-                                'movements.*'
-                            ])
-                            ->where([
-                                'movement_type_id'  => $mt->id,
-                                'state_id'          => $state->id,
-                                'md.resource_id'    => 1
-                            ])
-                            ->join('movement_details as md', 'md.movement_id = movements.id', 'left')->findAll();
-                        }                    
-                    }else if($type == 2){
-                        // if(in_array($mt->id, [1,2,3]))
-                        $movements = $m_model->where([
-                            'movement_type_id'  => $mt->id,
-                            'state_id'          => $state->id
-                        ])->findAll();
 
-                    }else if($type == 1){
-                        $movements = $m_model->where([
-                            'movement_type_id'  => $mt->id,
-                            'state_id'          => $state->id
-                        ])->findAll();
-                    }
+                    $q = new \App\Models\Movement();
+                    $q->filter($filters);
+                    $this->applyFarmScope($q);
 
-                    
-
-                    // $m_model->filter($filters);
-
-                    // $movements = $m_model->findAll();
-
-                    if($state->id == 1){
-                        if(!empty($this->farms_ids)){
-                            $m_model = new Movement();
-                            $nearest = $m_model
-                            ->select("date")
-                            ->whereIn('farm_id', $this->farms_ids)
-                            ->where([
-                                'state_id'          => 1,
-                                'movement_type_id'  => 2,
-                                'date >='           => date("Y-m-d")
-                            ])
-                            ->orderBy('date', 'ASC')
-                            ->first();
-                        }else{
-                            $nearest = [];
-                        }
-
-                        if(!empty($nearest)){
-                            $m_model = new Movement();
-                            
-                            $m_model->filter($filters);
-                            if(!empty($this->farms_ids)){
-                                $m_model->whereIn('movements.farm_id', $this->farms_ids);
-                            }else {
-                                $m_model->where('1 = 0');
-                            }
-                            
-                            $stateCopy->movements_pend = 
-                                $m_model
+                    if ($type == 3) {
+                        if (in_array($state->id, [1,2, 3])) {
+                            $movements = $q
+                                ->select('movements.*')
+                                ->join('movement_details as md', 'md.movement_id = movements.id', 'left')
+                                ->join('resources as r', 'r.id = md.resource_id', 'inner')
+                                ->where("LOWER(TRIM(r.name))", 'jornal')
                                 ->where([
-                                    'state_id'          => 1,
-                                    'movement_type_id'  => 2,
-                                    'date'              => $nearest->date
+                                    'movements.movement_type_id' => $mt->id,
+                                    'movements.state_id'         => $state->id
                                 ])
-                            ->findAll();
-                        }else{
-                            $stateCopy->movements_pend = (object)[];
+                                ->groupBy('movements.id') // evita duplicados por join
+                                ->findAll();
                         }
-
+                    } else {
+                        $movements = $q->where([
+                            'movements.movement_type_id' => $mt->id,
+                            'movements.state_id'         => $state->id
+                        ])->findAll();
                     }
 
-                    if(!empty($movements)){
+                    if (!empty($movements)) {
                         $stateCopy->movements = $movements;
                         $mt->states[] = $stateCopy;
                     }
                 }
             }
-        }
-
+        
         
 
+        // -----------------------------
+        // 3) Listado principal (data + count) con el mismo scope
+        // -----------------------------
         $this->m_model->filter($filters);
+        $this->applyFarmScope($this->m_model);
+        
 
+        $this->m_model
+            ->select([
+                'movements.*',
+                'mt.name as movement_type_name',
+                'p.name as provider_name'
+            ])
+            ->join('movement_types as mt', 'mt.id = movements.movement_type_id', 'left')
+            ->join('providers as p', 'p.id = movements.provider_id', 'left')
+            ->orderBy('movements.id', 'DESC');
 
-
-        $this->m_model->select([
-            'movements.*',
-            'mt.name as movement_type_name',
-            'p.name as provider_name'
-        ])
-        ->join('movement_types as mt', 'mt.id = movements.movement_type_id', 'left')
-        ->join('providers as p', 'p.id = movements.provider_id', 'left')
-        ->orderBy('movements.id', 'DESC');
-
+        // count con los filtros ya aplicados (correcto)
         $count_data = $this->m_model->countAllResults(false);
+        //log_message('info', 'roleId='.(int)session('user')->role_id.' farms_ids='.json_encode($this->farms_ids));
 
-        $data = $this->dataTable->length == -1 ? $this->m_model->findAll() : $this->m_model->paginate($this->dataTable->length, 'dataTable', $this->dataTable->page);
+        $data = $this->dataTable->length == -1
+            ? $this->m_model->findAll()
+            : $this->m_model->paginate($this->dataTable->length, 'dataTable', $this->dataTable->page);
 
         return $this->respond([
             'data'              => $data,
@@ -347,9 +327,11 @@ class MovementController extends BaseController
             'filters'           => $filters
         ]);
 
+        
     }
-
+////////////////////////////////////////////////////////////
     public function created($type){
+        $userId = (int) session('user')->id;
         $movement = [];
         if (strpos($type, "_") !== false) {
             [$type, $movement_id] = explode("_", $type, 2);
@@ -358,8 +340,37 @@ class MovementController extends BaseController
             $movement_id = null; // o 0, o "" según tu necesidad
         }
         $resources          = [];
-        $providers          = $this->p_model->findAll();
+        
+        $db = $this->r_model->db;
+        $farmIds = array_merge(
+            array_map(
+                fn($f) => (int)$f->id,
+                $db->table('farms')->select('id')->where('user_id', $userId)->get()->getResult()
+            ),
+            array_map(
+                fn($f) => (int)$f->farm_id,
+                $db->table('farms_users')->select('farm_id')->where([
+                    'user_id' => $userId,
+                    'status'  => 'Activo'
+                ])->get()->getResult()
+            )
+        );
+        $farmIds = array_values(array_unique($farmIds));
+        $resourcesQuery = $this->r_model->whereIn('farm_id', $farmIds);
+
+        $providers = $this->p_model
+            ->select(['providers.*'])
+            ->join('farms f', 'f.id = providers.farm_id')
+            ->join('farms_users fu', 'f.id = fu.farm_id')
+            ->where([
+                'fu.user_id' => session('user')->id,
+                'fu.status'  => 'Activo'
+            ])
+            ->groupBy('providers.id')
+            ->findAll();
+
         $movement_type      = $this->mt_model->find($type);
+
         $farms               = $this->fu_model
             ->select([
                 'farms.*'
@@ -368,46 +379,27 @@ class MovementController extends BaseController
             ->join('farms', 'farms.id = farms_users.farm_id')
             ->findAll();
 
-        // var_dump([$type, $movement_type]); die;
-
-        // $measurement_units  = $this->mm_model->findAll();
         switch ($type) {
-            case '1':
-                $resources = $this->r_model
-                    ->where([
-                        'resource_type_id !=' => 1
-                    ])
-                ->findAll();
-                break;
-            case '3':
-                $resources = $this->r_model
-                    ->where([
-                        'resource_type_id' => 1
-                    ])
-                ->findAll();
-                break;
-            
-            default:
-                $resources = $this->r_model->findAll();
-                break;
+            case '1': $resourcesQuery->where('LOWER(TRIM(name)) !=', 'jornal'); break;
+            case '3': $resourcesQuery->where('LOWER(TRIM(name))', 'jornal'); break;
         }
+        $resourcesQuery->where("EXISTS (SELECT 1 FROM resource_presentations rp WHERE rp.resource_id = resources.id)");
 
-        $resources = array_filter($resources, function($resource) {
-            return isset($resource->presentations) && !empty($resource->presentations);
-        });
-
-        $resources = array_values($resources);
+        $resources = $resourcesQuery->findAll();
+        
+        $jornal = $this->getJornalId($farmIds);
 
         return view('movements/new', [
             'resources'         => $resources,
             'providers'         => $providers,
             'movement_type'     => $movement_type,
             'movement'          => $movement,
-            'farms'             => $farms
+            'farms'             => $farms,
+            'jornal_id'         => $jornal
             // 'measurement_units' => $measurement_units
         ]);
     }
-
+/////////////////////////////////////////////////
     public function store(){
         try{
             $data = $this->request->getJson();
@@ -548,10 +540,40 @@ class MovementController extends BaseController
 			return $this->respond(['title' => 'Error en el servidor', 'error' => $e->getMessage(), 'line' => $line], 500);
 		}
     }
-
+///////////////////////////////////////////////////////////////////////////
     public function edit($id_movement){
+        $userId = (int) session('user')->id;
         $resources          = [];
-        $providers          = $this->p_model->findAll();
+
+        $db = $this->r_model->db;
+        $farmIds = array_merge(
+            array_map(
+                fn($f) => (int)$f->id,
+                $db->table('farms')->select('id')->where('user_id', $userId)->get()->getResult()
+            ),
+            array_map(
+                fn($f) => (int)$f->farm_id,
+                $db->table('farms_users')->select('farm_id')->where([
+                    'user_id' => $userId,
+                    'status'  => 'Activo'
+                ])->get()->getResult()
+            )
+        );
+        $farmIds = array_values(array_unique($farmIds));
+        $resourcesQuery = $this->r_model->whereIn('farm_id', $farmIds);
+
+        //$providers          = $this->p_model->findAll();
+        $providers = $this->p_model
+            ->select(['providers.*'])
+            ->join('farms f', 'f.id = providers.farm_id')
+            ->join('farms_users fu', 'f.id = fu.farm_id')
+            ->where([
+                'fu.user_id' => session('user')->id,
+                'fu.status'  => 'Activo'
+            ])
+            ->groupBy('providers.id')
+            ->findAll();
+
         $movement           = $this->m_model->find($id_movement);
         $farms               = $this->fu_model
             ->select([
@@ -561,50 +583,41 @@ class MovementController extends BaseController
             ->join('farms', 'farms.id = farms_users.farm_id')
             ->findAll();
 
-        switch ($movement->movement_type_id) {
-            case '1':
-                $resources = $this->r_model
-                    ->where([
-                        'resource_type_id !=' => 1
-                    ])
-                ->findAll();
-                break;
-            case '3':
-                $resources = $this->r_model
-                    ->where([
-                        'resource_type_id' => 1
-                    ])
-                ->findAll();
-                break;
-            
-            default:
-                $resources = $this->r_model->findAll();
-                break;
+        switch ($id_movement) {
+            case '1': $resourcesQuery->where('LOWER(TRIM(name)) !=', 'jornal'); break;
+            case '3': $resourcesQuery->where('LOWER(TRIM(name))', 'jornal'); break;
         }
+        $resourcesQuery->where("EXISTS (SELECT 1 FROM resource_presentations rp WHERE rp.resource_id = resources.id)");
 
-        $resources = array_filter($resources, function($resource) {
-            return isset($resource->presentations) && !empty($resource->presentations);
-        });
-
-        $resources = array_values($resources);
-
+        $resources = $resourcesQuery->findAll();
+        
+        $jornal= $this->getJornalId($farmIds);
         // var_dump($movement); die;
         // var_dump($resources); die;
+        
+                    echo '<pre>';
+                    //print_r(session('user'));
+                    print_r ($id_movement);
+                    echo '</pre>';
+                    
 
         return view('movements/edit', [
             'resources'         => $resources,
             'providers'         => $providers,
             'movement'          => $movement,
-            'farms'             => $farms
+            'farms'             => $farms,
+            'jornal_id'         => $jornal
         ]);
     }
-
+//////////////////////////////////////////////////
     public function updated(){
         try {
             $data = $this->request->getJson();
             $movement = $this->m_model->find($data->id);
+            $movementTypeId = (int) $data->movement_type_id;
             $value_total = 0;
             $resources = [];
+            
             foreach ($data->details as $key => $resource) {
 
                 if(!isset($resource->presentation->id)){
@@ -615,11 +628,11 @@ class MovementController extends BaseController
                     $resource->presentation->id = $this->rp_model->insertID();
                 }
 
-                if($data->movement_type_id == 2){
+                if($data->movement_type_id == 2 || $data->movement_type_id == 3){
                     $resource->value = (int) $resource->presentation->presentation * (float) ($resource->resource_type_id == 1 ? $resource->value : $resource->presentation->presentation_value);
                 }
 
-                $value_total = $this->updatedDetail($resource, $value_total, $data->movement_type_id, $data->id);
+                $value_total = $this->updatedDetail($resource, $value_total, $movementTypeId, $data->id);
             }
 
             if(!empty($data->support_file)){
@@ -658,13 +671,17 @@ class MovementController extends BaseController
 
             $this->m_model->save($movement);
 
-            switch ($data->movement_type_id) {
+            switch ($movementTypeId) {
                 case '1':
                     return redirect()->to(base_url(['dashboard/movements/bills']));
                     break;
                 case '2':
                     // return $this->respond([$movement, $data]);
                     return redirect()->to(base_url(['dashboard/movements/activities']));
+                    break;
+                case '3':
+                    // return $this->respond([$movement, $data]);
+                    return redirect()->to(base_url(['dashboard/movements/bills']));
                     break;
                 
                 default:
@@ -705,7 +722,8 @@ class MovementController extends BaseController
             ])
             ->join('providers as p', 'p.id = movements.provider_id', 'left')
             ->find($id_movement);
-
+        
+        
         $page = view('pdf/movement', [
             'movement' => $movement
         ]);
@@ -717,7 +735,7 @@ class MovementController extends BaseController
         $mpdf->WriteHTML($page);
         $mpdf->Output("{$movement->type->name}_{$movement->resolution}.pdf", 'I');
     }
-
+////////////////////////////////////////////////////////
     protected function updatedDetail($resource, $value, $movement_type_id, $movement_id){
         if(!$resource->productNew && $resource->isDelete){
             $this->md_model->delete($resource->movement_detail_id);
@@ -735,7 +753,7 @@ class MovementController extends BaseController
             ];
             
             
-            if($movement_type_id == 1){
+            if($movement_type_id == 1 || $movement_type_id == 3){
                 $value = $value + ($resource->quantity * $resource->value);
                 $this->rp_model->save([
                     'id'                    => $resource->presentation->id,
@@ -762,7 +780,7 @@ class MovementController extends BaseController
             ];
 
             
-            if($movement_type_id == 1){
+            if($movement_type_id == 1 || $movement_type_id == 3){
                 $value = $value + ($resource->quantity * $resource->value);
                 $this->rp_model->save([
                     'id'                    => $resource->presentation->id,

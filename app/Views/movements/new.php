@@ -150,6 +150,7 @@
     <?= $this->include('layouts/js_datatables') ?>
 
     <script>
+        const JORNAL_ID         = <?= json_encode($jornal_id ?? null) ?>;
         const getResources      = () => <?= json_encode($resources) ?>;
         const getMovementType   = () => (<?= json_encode($movement_type) ?>);
         const getMovement       = () => (<?= json_encode($movement) ?>);

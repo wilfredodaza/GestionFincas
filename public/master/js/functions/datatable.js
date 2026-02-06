@@ -203,28 +203,30 @@ function default_buttons(){
 
 function indicadoresMovimientos(indicadores){
 
-    console.log(info_page.id);
+    //console.log(info_page.id);
     let info_indicadores;
 
     switch (info_page.id) {
         case 2:
-            const total = indicadores.reduce((acc, type) => {
-                acc += type.states.reduce((acc, state) => acc += state.movements.length, 0)
-                return acc;
-            }, 0)
-            const total_pendientes = indicadores.reduce((acc, type) => {
-                acc += type.states.reduce((acc, state) => acc += (state.id == 1 ?  (state.movements.length) : 0), 0)
-                return acc;
-            }, 0);
+            const total = (indicadores || []).reduce((acc, type) => {
+            const states = type.states || [];
+            acc += states.reduce((a, state) => a + (state.movements?.length || 0), 0);
+            return acc;
+        }, 0);
 
-            const date_prox = indicadores.reduce((acc, type) => {
-                const state_pendiente = type.states.find(s => s.id == 1);
-                if(state_pendiente){
-                    acc = state_pendiente.movements_pend;
-                }
-                return acc;
+        const total_pendientes = (indicadores || []).reduce((acc, type) => {
+            const states = type.states || [];
+            acc += states.reduce((a, state) => a + (state.id == 1 ? (state.movements?.length || 0) : 0), 0);
+            return acc;
+        }, 0);
 
-            }, []);
+        const date_prox = (indicadores || []).reduce((acc, type) => {
+            const state_pendiente = (type.states || []).find(s => s.id == 1);
+            // movements_pend a veces es {} en tu backend, entonces lo normalizamos a []
+            const pend = state_pendiente?.movements_pend;
+            if (Array.isArray(pend)) return pend;
+            return acc;
+        }, []);
 
             info_indicadores = `
                 <div class="col-sm-12 col-lg-4 mb-1">
@@ -308,47 +310,63 @@ function indicadoresMovimientos(indicadores){
             `
             break;
         case 3:
-
             const total_jornales = indicadores.reduce((acc, type) => {
-                acc += type.states.reduce((acc, state) => {
-                    const total = state.movements.reduce((acc_j, m) => {
-                        const total_jornal = m.details.reduce(
-                            (acc_d, d) => acc_d + (d.resource_id == 1 ? parseInt(d.quantity) : 0),
-                            0
-                        );
-                        console.log([total_jornal, acc_j]);
-                        return acc_j + total_jornal; // ✅ retornar acumulador
+                acc += type.states.reduce((acc2, state) => {
+                    acc2 += (state.movements || []).reduce((acc3, m) => {
+                    const jornalId = (typeof JORNAL_ID !== 'undefined' && JORNAL_ID) ? Number(JORNAL_ID) : null;
+                    const j = (m.details || []).reduce((q, d) => {
+                        if (jornalId && Number(d.resource_id) === jornalId) q += (parseFloat(d.quantity) || 0);
+                        return q;
                     }, 0);
-            
-                    return acc + total; // ✅ retornar acumulador
+                    return acc3 + j;
+                    }, 0);
+                    return acc2;
                 }, 0);
-            
                 return acc;
             }, 0);
 
             const total_jornales_pendientes = indicadores.reduce((acc, type) => {
-                acc += type.states.reduce((acc, state) => {
-                    let total = 0;
-                    if(state.id == 2){
-                        total = state.movements.reduce((acc_j, m) => {
-                            const total_jornal = m.details.reduce(
-                                (acc_d, d) => acc_d + (d.resource_id == 1 ? parseInt(d.quantity) : 0),
-                                0
-                            );
-                            console.log([total_jornal, acc_j]);
-                            return acc_j + total_jornal; // ✅ retornar acumulador
-                        }, 0);
-                    }
-            
-                    return acc + total; // ✅ retornar acumulador
+                acc += type.states.reduce((acc2, state) => {
+                    if (Number(state.id) !== 1) return acc2;
+
+                    acc2 += (state.movements || []).reduce((acc3, m) => {
+                    const jornalId = (typeof JORNAL_ID !== 'undefined' && JORNAL_ID) ? Number(JORNAL_ID) : null;
+                    const j = (m.details || []).reduce((q, d) => {
+                        if (jornalId && Number(d.resource_id) === jornalId) q += (parseFloat(d.quantity) || 0);
+                        return q;
+                    }, 0);
+                    return acc3 + j;
+                    }, 0);
+
+                    return acc2;
                 }, 0);
-            
                 return acc;
             }, 0);
 
+            const total_jornales_realizados = indicadores.reduce((acc, type) => {
+                acc += type.states.reduce((acc2, state) => {
+                    if (Number(state.id) !== 2) return acc2;
+
+                    acc2 += (state.movements || []).reduce((acc3, m) => {
+                    const jornalId = (typeof JORNAL_ID !== 'undefined' && JORNAL_ID) ? Number(JORNAL_ID) : null;
+                    const j = (m.details || []).reduce((q, d) => {
+                        if (jornalId && Number(d.resource_id) === jornalId) q += (parseFloat(d.quantity) || 0);
+                        return q;
+                    }, 0);
+                    return acc3 + j;
+                    }, 0);
+
+                    return acc2;
+                }, 0);
+                return acc;
+            }, 0);
+
+
+
             info_indicadores = `
-                <div class="col-sm-12 col-lg-6 mb-1">
-                    <div class="card card-border-shadow-green h-100">
+            <div class="row">
+                <div class="col-sm-12 col-lg-4 mb-1 d-flex">
+                    <div class="card card-border-shadow-green h-100 w-100">
                         <div class="card-body">
                             <div class="d-flex align-items-center justify-content-center mb-2">
                                 <div class="avatar me-4">
@@ -370,8 +388,8 @@ function indicadoresMovimientos(indicadores){
                     </div>
                 </div>
 
-                <div class="col-sm-12 col-lg-6 mb-1">
-                    <div class="card card-border-shadow-orange h-100">
+                <div class="col-sm-12 col-lg-4 mb-1 d-flex">
+                    <div class="card card-border-shadow-orange h-100 w-100">
                         <div class="card-body">
                             <div class="d-flex align-items-center justify-content-center mb-2">
                                 <div class="avatar me-4">
@@ -392,6 +410,30 @@ function indicadoresMovimientos(indicadores){
                         </div>
                     </div>
                 </div>
+
+                <div class="col-sm-12 col-lg-4 mb-1 d-flex">
+                    <div class="card card-border-shadow-blue h-100 w-100">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center justify-content-center mb-2">
+                                <div class="avatar me-4">
+                                <span class="avatar-initial rounded-3 bg-label-blue">
+                                    <i class="ri-check-double-line"></i>
+                                </span>
+                                </div>
+                                <h4 class="mb-0">Jornales Realizados</h4>
+                            </div>
+                            <div class="row g-6">
+                                <div class="col-sm-12 col-lg-12 d-flex justify-content-center align-items-center">
+                                    <p class="mb-0 text-center" >
+                                        <span class="me-1 fw-medium">Total: </span>
+                                        <small class="text-muted">${total_jornales_realizados}</small>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             `
             
             break;
@@ -459,12 +501,16 @@ function indicadoresMovimientos(indicadores){
                                                     <p class="mb-0 text-center" >
                                                         <span class="me-1 fw-medium">Total: </span>
                                                         <small class="text-muted">${state.movements.reduce((acc, m) => {
-                                                            const total_detail = m.details.reduce((acc, md) => {
-                                                                console.log(m)
-                                                                const total = md.resource_id == 1 ? parseInt(md.quantity) : 0;
-                                                                acc += total;
-                                                                return acc;
-                                                            }, 0)
+                                                            const jornalId = (typeof JORNAL_ID !== 'undefined' && JORNAL_ID)
+                                                                    ? Number(JORNAL_ID)
+                                                                    : null;
+
+                                                                const total_detail = (m.details || []).reduce((acc, md) => {
+                                                                    if (jornalId && Number(md.resource_id) === jornalId) {
+                                                                        acc += parseFloat(md.quantity) || 0;
+                                                                    }
+                                                                    return acc;
+                                                                }, 0);
                                                             acc += total_detail;
                                                             return acc;
                                                         }, 0)}</small>

@@ -13,21 +13,29 @@ function init(){
         {title: 'Fecha', data: 'date'},
         {title: 'Valor', data: 'value', render: (v, _, m) => {
             if(info.id == 3){
-                v = m.details.reduce((acc, d) => {
-                    if(d.resource_id == 1)
-                        acc += parseFloat(d.quantity) * parseFloat(d.value)
+                const jornalId = (typeof JORNAL_ID !== 'undefined' && JORNAL_ID) ? Number(JORNAL_ID) : null;
+
+                v = (m.details || []).reduce((acc, d) => {
+                    if (jornalId && Number(d.resource_id) === jornalId) {
+                        acc += (parseFloat(d.quantity) || 0) * (parseFloat(d.value) || 0);
+                    }
                     return acc;
-                }, 0)
+                }, 0);
             }
-            return formatPrice(parseFloat(v))
+            return formatPrice(parseFloat(v) || 0);
         }},
+
         {title: 'Jornales', data: 'id', render: (id, _, m) => {
-            console.log(m);
-            const jornales = m.details.reduce((acc, detail) => {
-                if(detail.resource_id == 1)
-                    acc += parseFloat(detail.quantity);
+            const jornalId = (typeof JORNAL_ID !== 'undefined' && JORNAL_ID) ? Number(JORNAL_ID) : null;
+
+            const jornales = (m.details || []).reduce((acc, detail) => {
+                if (jornalId && Number(detail.resource_id) === jornalId) {
+                    acc += (parseFloat(detail.quantity) || 0);
+                }
                 return acc;
-            }, 0)
+            }, 0);
+            //console.log('JORNAL_ID:', JORNAL_ID, 'details ids:', (m.details||[]).map(d=>d.resource_id));
+
             return jornales;
         }, visible: info.id == 3},
         {title: 'Actividad', data: 'title', visible: info.id == 2 || info.id == 3},
@@ -72,14 +80,20 @@ function init(){
             text: `<i class="ri-list-ordered ri-16px me-sm-2"></i> <span class="d-none d-sm-inline-block">Ver jornales</span>`,
             className: 'btn btn-primary waves-effect waves-light mx-2 mt-2',
             action: () => {
-                window.location.href = base_url(['dashboard/resource/kardex/1']);
-            }
-        } : null,
+                if (typeof JORNAL_ID === 'undefined' || !JORNAL_ID) {
+                    alert('No se encontró el recurso "Jornal" para tu usuario/fincas.');
+                    return;
+                }
+                window.location.href = base_url([`dashboard/resource/kardex/${JORNAL_ID}`]);
+            } 
+        }:null,
     ].filter(Boolean)
 
     load_datatable(url, columns, buttons)
 
 }
+console.log('index.js cargó, info:', infoPage());
+
 
 async function decline(movement_id){
     const data = {

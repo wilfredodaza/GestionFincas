@@ -27,7 +27,7 @@
                                     </h4>
                                     <h5 class="card-title mb-0 text-center">
                                         <b>Unidad de Medida:</b> <?= "{$resource->measurement_unit->name} - {$resource->measurement_unit->code}" ?>
-                                        <?php if($resource->id == 1): ?>
+                                        <?php if (mb_strtolower(trim($resource->name)) !== 'jornal'): ?>
                                             <br><b>Total Jornales:</b> <?= "{$resource->suma_jornales}" ?>
                                         <?php endif ?>
                                     </h5>
@@ -133,6 +133,7 @@
     <script src="<?= base_url(['assets/vendor/libs/flatpickr/flatpickr.js']) ?>"></script>
     <script src="https://npmcdn.com/flatpickr/dist/l10n/es.js"></script>
     <script>
+        const JORNAL_ID = (<?= json_encode($jornal_id) ?>);
         const resource = (<?= json_encode($resource) ?>);
         const infoPage = () => {
             return {title: "Kardex <?= $resource->name ?>"}

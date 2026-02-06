@@ -228,14 +228,16 @@
             </a>
           </li>
           <li>
+            <?php  if(session()->get('user')->role_id == 1): ?>
             <div class="dropdown-divider"></div>
           </li>
           <li>
             <a class="dropdown-item" href="pages-profile-user.html">
               <i class="ri-user-3-line ri-22px me-3"></i><span class="align-middle">My Profile</span>
+              <?php endif ?>
             </a>
           </li>
-          <?php  if(session()->get('user')->role_id == 1 || session()->get('user')->role_id == 2): ?>
+          <?php  if(session()->get('user')->role_id == 1): ?>
               <li><a class="dropdown-item" href="<?= base_url(["config/configurations"]) ?>"><i class="ri-settings-4-line ri-22px me-3"></i>
               <span class="align-middle">Configuración</span></a></li>
           <?php endif ?>

@@ -26,17 +26,49 @@ $(() => {
     // var $this_activity = $('#resource_id');
     // $this_activity.select2();
 
-    movement.details.map(r => {
-        r.movement_detail_id = r.id;
-        r.isDelete = false;
-        r.productNew = false;
-        const resource = resources.find(re => re.id == r.resource_id);
-        resource.value = r.value;
-        delete resource.presentation;
-        r.item = (resources_selected.length + 1);
-        let combined = $.extend({}, r, resource);
-        resources_selected.push(combined);
-    })
+    if (movement.details && Array.isArray(movement.details)) {
+        movement.details.forEach(r => {
+
+            r.movement_detail_id = r.id;
+            r.isDelete = false;
+            r.productNew = false;
+            r.item = (resources_selected.length + 1);
+
+            const resource = resources.find(re => Number(re.id) === Number(r.resource_id));
+            // si no existe en resources, NO rompas: log y salta
+            if (!resource) {
+            console.warn('Recurso no encontrado en catálogo resources:', {
+                resource_id: r.resource_id,
+                detail: r,
+                resources_count: resources.length
+            });
+            return;
+            }
+
+            // copia para no mutar el catálogo
+            const resourceCopy = { ...resource };
+
+            //asegura que siempre haya value (para DataTables)
+            // si el detalle no trae value, usa presentation_value o 0
+            resourceCopy.value = (r.value !== undefined && r.value !== null)
+            ? r.value
+            : (r.presentation_value ?? 0);
+
+            // si tu tabla requiere presentation, NO la borres
+            // delete resourceCopy.presentation;
+
+            const combined = $.extend({}, r, resourceCopy);
+            resources_selected.push(combined);
+        });
+    }
+
+
+    resources_selected.forEach(r => {
+        r.value = (r.value ?? r.presentation_value ?? 0);
+    });
+
+
+
 
     loadTable();
 });
@@ -58,16 +90,18 @@ function loadTable(){
                     </div>
                 `;
             }},
-            {title: 'Valor Unitario', data: 'value', render: (v, _, p) => {
-                return movement.type.id == 2 && p.resource_type_id != 1 ?`
-                    ${formatPrice(p.presentation.presentation_value)} por ${p.measurement_unit.code} 
-                `
-                :`
-                    <div class="input-group input-group-merge">
-                        <div class="form-floating form-floating-outline">
-                            <input type="text" class="form-control" min="1" onkeyup="updateFormattedValue(this)" value="${separador_miles(movement.type.id == 2 && p.resource_type_id != 1 ? p.presentation_value : v)}" onchange="handleChange(this.value, ${p.id}, ${p.presentation.id}, 'value')">
-                        </div>
+            {title: 'Valor Unitario', data: 'value', defaultContent: 0, render: (v, _, row) => {
+                const unit = row.value ?? row.presentation_value ?? 0;
+                return `
+                <div class="input-group input-group-merge">
+                    <div class="form-floating form-floating-outline">
+                    <input type="text"
+                        class="form-control"
+                        onkeyup="updateFormattedValue(this)"
+                        value="${separador_miles(unit)}"
+                        onchange="handleChange(this.value, ${row.resource_id}, ${row.presentation.id}, 'value')">
                     </div>
+                </div>
                 `;
             }},
             {title: 'Lote', data: 'lot_id', render: (v, _, p) => {
@@ -89,14 +123,12 @@ function loadTable(){
                 </div>
                 `;
             }},
-            {
-                title: 'Total', data: 'value', render: (n, _, __) => {
-                    if(movement.type.id == 1)
-                        return formatPrice(n * __.quantity)
-                    else if(movement.type.id == 2){
-                        const quantity = parseFloat(__.presentation.presentation) * __.quantity;
-                        return formatPrice(parseFloat(__.presentation.presentation_value && __.resource_type_id != 1 ? __.presentation.presentation_value : __.value) * quantity)
-                    }
+            { title:'Total', data:'value', defaultContent: 0, render:(n, _, row) => {
+                    const pres = parseFloat(row.presentation?.presentation || 1);
+                    const qty  = parseFloat(row.quantity || 0);
+                    const unit = parseFloat(row.value ?? row.presentation_value ?? 0);
+
+                    return formatPrice(unit * qty);
                 }
             },
 
@@ -137,11 +169,14 @@ function loadTable(){
             $('#resource_id').removeClass('is-invalid');
             $('.btn-send-bill').prop('disabled', resources_selected.filter(r => !r.isDelete).length == 0 ? true : false);
             var value_total = resources_selected.filter(r => !r.isDelete).reduce((a, b) => {
-                if(movement.type.id == 1)
-                    return a + (parseInt(b.quantity) * parseFloat(b.value));
-                else if(movement.type.id == 2){
-                    return a + ((parseInt(b.quantity) * parseFloat(b.presentation.presentation)) * parseFloat(movement.type.id == 2 && b.resource_type_id != 1 ? b.presentation.presentation_value : b.value));
-                }
+                if(movement.type.id == 1 || movement.type.id == 3){
+                    return a + (parseFloat(String(b.quantity).replace(',', '.')) * parseFloat(b.value));
+                }else if (movement.type.id == 2) {
+                return a + (
+                    (parseFloat(String(b.quantity).replace(',', '.')) * parseFloat(b.presentation.presentation)) *
+                    parseFloat(b.resource_type_id != 1 ? b.presentation.presentation_value : b.value)
+                );}
+                return a; 
             }, 0);
 
             $('#td_compra').html(formatPrice(parseFloat(value_total)));
@@ -163,9 +198,15 @@ function loadTable(){
                 $('.btn-pay').removeClass('hide');
             }
 
-            if(movement.movement_type_id == 2 && ['2', '3'].includes(movement.state_id)){
-                $('.btn-send-bill').addClass('hide');
+            const isActivity = String(movement.movement_type_id) === '2';
+            const stateId = String(movement.state_id);
+
+            if (isActivity && (stateId === '2' || stateId === '3')) {
+            $('.btn-send-bill').addClass('hide');
+            } else {
+            $('.btn-send-bill').removeClass('hide'); // ✅ clave
             }
+
 
             
             setTimeout(() => {
@@ -219,7 +260,7 @@ function loadTable(){
                     Swal.fire({
                         title: `¿Seguro de ejecutar actividad?`,
                         text: `Si se ejecuta la actividad no podra modificarla a futuro`,
-                        confirmButtonText: 'Editar',
+                        confirmButtonText: 'Ejecutar',
                         cancelButtonText: 'Cancelar',
                         customClass: {
                             confirmButton: 'btn btn-primary waves-effect',
@@ -250,7 +291,7 @@ function loadTable(){
             {
                 text: '<i class="ri-arrow-go-back-line ri-16px me-sm-2"></i> <span class="d-none d-sm-inline-block">Regresar</span>',
                 className: `btn btn-secondary waves-effect waves-light mx-2 mt-2`,
-                action: () => window.location.href = base_url(['dashboard/movements', movement.type.id == 1 ? 'bills' : 'activities' ])
+                action: () => window.location.href = base_url(['dashboard/movements', movement.type.id == 1 || movement.type.id == 3 ? 'bills' : 'activities' ])
             }
         ].filter(Boolean)
     })
@@ -295,7 +336,7 @@ function changeResource(id_resource){
                 resource = {
                     ...resource,
                     quantity: 1,
-                    value: (parseFloat(resource.presentation.presentation) * parseFloat(resource.presentation.presentation_value)),
+                    value: parseFloat(resource.presentation.presentation_value),
                     note: null,
                     lot_id: null,
                     item: (resources_selected.length + 1),
@@ -408,12 +449,13 @@ async function productEdit(id, presentation){
             product.presentations.push(presentation);
         }
         product.presentation = presentation;
-        product.value = (parseFloat(product.presentation.presentation) * parseFloat(product.presentation.presentation_value));
+        product.value = parseFloat(product.presentation.presentation_value);
         reloadTable();
     }
 }
 
 async function sendBill(){
+    try{
     if(resources_selected.length == 0){
         $('#resource_id').addClass('is-invalid');
         return alert('Campos obligatorios', 'Por favor ingrese como minimo un producto.', 'warning', 5000)
@@ -462,4 +504,8 @@ async function sendBill(){
     console.log([movement, data])
 
     const response = await fetchHelper.post(url, movement, {}, 500);
+    }catch(e){
+        console.error(e)
+        alert(e.message || 'Error guardando');
+    }
 }

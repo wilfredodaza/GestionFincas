@@ -58,6 +58,7 @@ class Movement extends Model
 
     public function filter($data){
         $wheres = [];
+        $roleId = (int) session('user')->role_id;
         if(isset($data->tipo_de_movimiento) && !empty($data->tipo_de_movimiento)){
             $wheres["{$this->table}.movement_type_id"] = $data->tipo_de_movimiento;
         }
@@ -81,8 +82,8 @@ class Movement extends Model
                 $wheres["{$this->table}.provider_id"] = $data->proveedor;
         }
 
-        if(isset($data->pagado) && !empty($data->pagado)){
-            $this->like("{$this->table}.seller", "%{$data->seller}%");
+        if (isset($data->seller) && $data->seller !== '') {
+            $this->like("{$this->table}.seller", $data->seller);
         }
 
         if(isset($data->referencia) && !empty($data->referencia)){
